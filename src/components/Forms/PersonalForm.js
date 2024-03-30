@@ -16,8 +16,10 @@ import { Badge } from "../ui/badge";
 import { paises } from "@/utils/paises";
 import { AlertComponent } from "../ui/AlertComponent";
 import { useAlert } from "@/hooks/useAlert";
+import { useRouter } from "next/navigation";
 
 export const PersonalForm = ({ user }) => {
+  const { push } = useRouter();
   const [selectedGenders, setSelectedGenders] = useState([]);
   const { alertProps, showAlert } = useAlert();
   const { register, handleSubmit, setValue, watch, control } = useForm({
@@ -32,6 +34,10 @@ export const PersonalForm = ({ user }) => {
       genders: [],
     },
   });
+
+  const redirectUri = encodeURIComponent("https://yasound.site/oauth");
+
+  const authorizationUrl = `https://auth.mercadopago.com/authorization?client_id=4632397606638218&response_type=code&platform_id=mp&state=12312312&redirect_uri=${redirectUri}`;
 
   useEffect(() => {
     user && setValue("profilePicture", user.profilePicture);
@@ -162,8 +168,19 @@ export const PersonalForm = ({ user }) => {
     user && user.phone && setValue("country", user.country);
   }, [user]);
   return (
-    <div className="w-12/12 flex justify-center">
+    <div className="w-12/12 flex justify-center flex-col items-center">
       <AlertComponent {...alertProps} />
+      {user && (
+        <div className="w-6/12 my-2 flex justify-start">
+        <div className="w-full flex justify-start">
+          <Button onClick={() => push(authorizationUrl)}>
+            {user.tokens.access_token
+              ? "Renovar MercadoPago"
+              : "Conectar MercadoPago"}
+          </Button>
+        </div>
+        </div>
+      )}
       <form className="w-6/12 " onSubmit={handleSubmit(onSubmit)}>
         <div className="my-2">
           <input

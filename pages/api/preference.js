@@ -1,14 +1,7 @@
-const mercadopago = require('mercadopago');
-
-
-// Configura el SDK con tu Access Token
-mercadopago.configure({
-  access_token:'APP_USR-4632397606638218-032920-1e901f9cd0ea669a5265c02aeb4193fc-196620874'
-});
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    // Aquí recoges los datos de tu formulario, por ejemplo
+  if (req.method === "POST") {
+
     const { title, quantity, price } = req.body;
 
     const preference = {
@@ -19,7 +12,7 @@ export default async function handler(req, res) {
           unit_price: Number(price),
         },
       ],
-      // Configura otros parámetros de la preferencia según necesites
+      marketplace_fee: 10,
     };
 
     try {
@@ -27,10 +20,12 @@ export default async function handler(req, res) {
       res.status(200).json({ id: response.body.id });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "No se pudo crear la preferencia de pago" });
+      res
+        .status(500)
+        .json({ message: "No se pudo crear la preferencia de pago" });
     }
   } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end('Método no permitido');
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).end("Método no permitido");
   }
 }

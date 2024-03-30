@@ -29,10 +29,6 @@ import { CheckoutComponent } from "@/components/ChckoutComponent";
 
 export default function Home() {
 
-  const clientId = `4632397606638218`;
-  const redirectUri = encodeURIComponent("https://yasound.site/oauth");
-
-  const authorizationUrl = `https://auth.mercadopago.com/authorization?client_id=${clientId}&response_type=code&platform_id=mp&state=12312312&redirect_uri=${redirectUri}`;
 
   useEffect(() => {
     gsap.to(".logoblack", {
@@ -337,12 +333,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        <div className="h-screen flex justify-center items-center">
-          {/* <a href={authorizationUrl}>Autorizar</a> */}
-          <CheckoutComponent preferenceId={'APP_USR-4632397606638218-032920-1e901f9cd0ea669a5265c02aeb4193fc-196620874'} />
-        </div>
       </div>
     </>
-  )
+  );
 }

@@ -32,6 +32,7 @@ import {
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { ScrollArea } from "../ui/scroll-area";
+import { CheckoutComponent } from "../ChckoutComponent";
 
 export const BeatCard = ({
   name,
@@ -99,7 +100,7 @@ export const BeatCard = ({
     <PayPalScriptProvider
       options={{
         "client-id":
-          "AeZmbZxGWwKzs-t5WxLotNJWCwi5EZZWv9QURH_1btfmx1_rbixx0ffVsa4AKJAYKJXxotMbTOqpIRXH",
+          "ARfYvZugPUBZcQ2OiJ3DpT51zvYvn0BzyabZWlJNjLy-QdmkzUBFqSc8LvfwCTgp-eb82fSkxz5z6FXX",
       }}
     >
       <Card
@@ -110,128 +111,58 @@ export const BeatCard = ({
           backgroundPosition: "center",
         }}
       >
-          <audio
-            ref={audioRef}
-            src={audioUrl}
-            onEnded={() => setIsPlaying(false)}
-          />
+        <audio
+          ref={audioRef}
+          src={audioUrl}
+          onEnded={() => setIsPlaying(false)}
+        />
 
-          <CardHeader>
-            <p className="font-geist font-bold text-white text-3xl">{name}</p>
-            <p className="mt-2 font-geist text-white font-mono">{owner}</p>
-            <p className="mt-2 font-geist text-white font-mono">{fileType}</p>
-            <p className="mt-2 font-geist text-white font-mono">
-              Desde {formatCurrency(price)}
-            </p>
-          </CardHeader>
-          <CardContent>{isPlaying ? <PauseIcon /> : <PlayIcon />}</CardContent>
-          <CardFooter>
-            <Dialog>
-              <DialogTrigger className="text-white">
-                <Button className="hover:animate-tilt">Comprar</Button>
-              </DialogTrigger>
-              <DialogContent className="">
-                <Table>
-                  <TableCaption>Lista de tus productos</TableCaption>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="text-center">Nombre</TableHead>
-                      <TableHead className="text-center">Precio</TableHead>
-                      <TableHead className="text-center">Método</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {licenses &&
-                      licenses.map((e) => (
-                        <TableRow key={e._id}>
-                          <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
-                            {e.title}
-                          </TableCell>
-                          <TableCell className="  text-center font-geist tracking-tighter font-semibold text-xl">
-                            {formatCurrency(e.price)}
-                          </TableCell>
-                          <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
-                            <Dialog>
-                              <DialogTrigger>
-                                <span className="bg-violet-500 px-2 py-1 rounded-md text-white">
-                                  Comprar
-                                </span>
-                              </DialogTrigger>
-                              <DialogContent className="">
-                                <Card className="m-3">
-                                  <CardHeader>Método de pago</CardHeader>
-                                  <CardContent className="grid gap-6">
-                                    {/* <RadioGroup
-                                  defaultValue="card"
-                                  className="grid grid-cols-3 gap-4"
-                                  >
-                                  <div>
-                                  <RadioGroupItem
-                                  value="card"
-                                  id="card"
-                                  className="peer sr-only"
-                                  />
-                                  <Label
-                                  htmlFor="card"
-                                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                                  >
-                                  <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  className="mb-3 h-6 w-6"
-                                  >
-                                  <rect
-                                  width="20"
-                                  height="14"
-                                  x="2"
-                                  y="5"
-                                  rx="2"
-                                  />
-                                  <path d="M2 10h20" />
-                                  </svg>
-                                  Card
-                                  </Label>
-                                  </div>
-                                  <div>
-                                  <RadioGroupItem
-                                  value="paypal"
-                                  id="paypal"
-                                  className="peer sr-only"
-                                  />
-                                  <Label
-                                  htmlFor="paypal"
-                                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                                  
-                                    >
-                                      <Icons.paypal className="mb-3 h-6 w-6" />
-                                      Paypal
-                                    </Label>
-                                  </div>
-                                  <div>
-                                    <RadioGroupItem
-                                      value="apple"
-                                      id="apple"
-                                      className="peer sr-only"
-                                    />
-                                    <Label
-                                      htmlFor="apple"
-                                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                                    >
-                                      <img
-                                        src="/meli.svg"
-                                        alt=""
-                                        className=" h-9 w-9  "
-                                      />
-                                      MercadoPago
-                                    </Label>
-                                  </div>
-                                </RadioGroup> */}
-                                <ScrollArea className="h-[40vh]">
+        <CardHeader>
+          <p className="font-geist font-bold text-white text-3xl">{name}</p>
+          <p className="mt-2 font-geist text-white font-mono">{owner}</p>
+          <p className="mt-2 font-geist text-white font-mono">{fileType}</p>
+          <p className="mt-2 font-geist text-white font-mono">
+            Desde {formatCurrency(price)}
+          </p>
+        </CardHeader>
+        <CardContent>{isPlaying ? <PauseIcon /> : <PlayIcon />}</CardContent>
+        <CardFooter>
+          <Dialog>
+            <DialogTrigger className="text-white">
+              <Button className="hover:animate-tilt">Comprar</Button>
+            </DialogTrigger>
+            <DialogContent className="">
+              <Table>
+                <TableCaption>Lista de tus productos</TableCaption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-center">Nombre</TableHead>
+                    <TableHead className="text-center">Precio</TableHead>
+                    <TableHead className="text-center">Método</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {licenses &&
+                    licenses.map((e) => (
+                      <TableRow key={e._id}>
+                        <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
+                          {e.title}
+                        </TableCell>
+                        <TableCell className="  text-center font-geist tracking-tighter font-semibold text-xl">
+                          {formatCurrency(e.price)}
+                        </TableCell>
+                        <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
+                          <Dialog>
+                            <DialogTrigger>
+                              <span className="bg-violet-500 px-2 py-1 rounded-md text-white">
+                                Comprar
+                              </span>
+                            </DialogTrigger>
+                            <DialogContent className="">
+                              <Card className="m-3">
+                                <CardHeader>Método de pago</CardHeader>
+                                <CardContent className="grid gap-6">
+                                  <ScrollArea className="h-[40vh]">
                                     <PayPalButtons
                                       createOrder={(data, actions) => {
                                         return actions.order.create({
@@ -257,8 +188,9 @@ export const BeatCard = ({
                                           });
                                       }}
                                     />
-                                    </ScrollArea>
-                                    {/* <div className="grid gap-2">
+                                    <CheckoutComponent product={e} />
+                                  </ScrollArea>
+                                  {/* <div className="grid gap-2">
                                     <Label htmlFor="name">Name</Label>
                                     <Input id="name" placeholder="First Last" />
                                   </div>
@@ -339,20 +271,20 @@ export const BeatCard = ({
                                       <Input id="cvc" placeholder="CVC" />
                                     </div>
                                   </div> */}
-                                  </CardContent>
-                                  <CardFooter>
-                                    <Button className="w-full">Continue</Button>
-                                  </CardFooter>
-                                </Card>
-                              </DialogContent>
-                            </Dialog>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                  </TableBody>
-                </Table>
+                                </CardContent>
+                                <CardFooter>
+                                  <Button className="w-full">Continue</Button>
+                                </CardFooter>
+                              </Card>
+                            </DialogContent>
+                          </Dialog>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
 
-                {/* <div className="flex justify-around w-full  rounded-xl my-3 border-black">
+              {/* <div className="flex justify-around w-full  rounded-xl my-3 border-black">
               <div className="grid grid-cols-4 w-[100%]">
                 <div className="flex justify-center items-center">
                   {licenses &&
@@ -386,10 +318,9 @@ export const BeatCard = ({
                 </div>
               </div>
             </div> */}
-              </DialogContent>
-            </Dialog>
-          </CardFooter>
-
+            </DialogContent>
+          </Dialog>
+        </CardFooter>
       </Card>
     </PayPalScriptProvider>
   );
