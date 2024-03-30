@@ -22,14 +22,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { useProducts } from "@/hooks/useProducts";
 
 import { useUsers } from "@/hooks/useUsers";
+import axios from "axios";
 import { useParams, usePathname } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 const Page = () => {
   const params = useParams();
   const { user } = useUsers(params.username);
-  const { products } = useProducts();
+  const [productos, setProductos] = useState([]);
+  const getBeats = async () => {
+    const data = await axios.get("/api/products");
+    data && setProductos(data.data.data.filter((e) => e.owner == user.username));
+  };
+
+  useEffect(() => {
+    user && getBeats();
+  }, [user]);
 
   return (
     <div className="  min-h-screen  ">
@@ -58,7 +67,9 @@ const Page = () => {
                     </div>
                     <div className="flex">
                       {user.genders.map((e) => (
-                        <Badge key={e} className="w-fit mx-2">{e}</Badge>
+                        <Badge key={e} className="w-fit mx-2">
+                          {e}
+                        </Badge>
                       ))}
                     </div>
                   </CardHeader>
@@ -100,7 +111,10 @@ const Page = () => {
                           <Carousel className="w-4/12 ">
                             <CarouselContent className="">
                               {user.videos.map((e) => (
-                                <CarouselItem key={e} className="w-fit flex justify-center rounded-full ">
+                                <CarouselItem
+                                  key={e}
+                                  className="w-fit flex justify-center rounded-full "
+                                >
                                   <ReactPlayer sty url={e} controls={true} />
                                 </CarouselItem>
                               ))}
@@ -113,9 +127,12 @@ const Page = () => {
                     </div>
 
                     <div className=" mt-2 grid grid-cols-2 ml-10 ">
-                      {products &&
-                        products.map((e,index) => (
-                          <div key={index} className="flex w-full justify-center">
+                      {productos &&
+                        productos.map((e, index) => (
+                          <div
+                            key={index}
+                            className="flex w-full justify-center"
+                          >
                             <BeatCard
                               name={e.title}
                               price={e.licenses[0].price}
