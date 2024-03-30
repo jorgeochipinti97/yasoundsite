@@ -1,113 +1,348 @@
-import Image from 'next/image'
+"use client";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import gsap, { Power1 } from "gsap";
+import { useEffect } from "react";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ReproductorCard } from "@/components/Cards/ReproductorCard";
+import { MarqueeCards } from "@/components/Cards/MarqueeCards";
+import { AlertComponent } from "@/components/ui/AlertComponent";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { CheckoutComponent } from "@/components/ChckoutComponent";
 
 export default function Home() {
+
+  const clientId = `4632397606638218`;
+  const redirectUri = encodeURIComponent("https://yasound.site/oauth");
+
+  const authorizationUrl = `https://auth.mercadopago.com/authorization?client_id=${clientId}&response_type=code&platform_id=mp&state=12312312&redirect_uri=${redirectUri}`;
+
+  useEffect(() => {
+    gsap.to(".logoblack", {
+      opacity: 0,
+      delay: 0.5,
+      ease: Power1.easeIn,
+    });
+    gsap.to(".logoblack", {
+      display: "none",
+      delay: 0.7,
+      ease: Power1.easeIn,
+    });
+    gsap.to(".displayvideo", {
+      display: "grid",
+      delay: 1,
+    });
+    gsap.to(".displayvideo", {
+      opacity: 1,
+      delay: 1.5,
+    });
+  }, []);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
+    <>
+      <div
+        className="min-h-screen flex justify-center
+       items-center flex-col w-screen bg-white"
+        style={{ opacity: 1 }}
+      >
+        <p
+          style={{ opacity: 0, display: "none" }}
+          className="font-semibold    font-sans  text-center  capitalize text-7xl  displayvideo  degradado-texto"
+        >
+          Yasound
         </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+        <p
+          className="mb-10 font-bold font-geist displayvideo"
+          style={{ opacity: 0, display: "none" }}
+        >
+          La comunidad latina de artistas.
+        </p>
+        <img src="/logoblack.svg" className="w-[40%] logoblack" />
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 md:mt-10 indexz displayvideo"
+          style={{ opacity: 0, display: "none" }}
+        >
+          <div className="flex justify-center mt-10 md:mt-0 items-center">
+            <div className="div-3d shadow-violet-950 shadow-2xl rounded-xl  w-11/12 md:w-12/12 ">
+              <video
+                src="/yasoundv.mp4"
+                className="w-12/12 rounded-xl"
+                controls
+                autoPlay
+                playsInline
+                loop
+                muted
+              />
+            </div>
+          </div>
+          <div className="flex items-center flex-col md:mt-0 mt-10 justify-center ">
+            <Card className="w-12/12 border-violet-500">
+              <CardHeader>
+                <CardTitle>
+                  {" "}
+                  Únete, colabora, promociona y gestiona tu carrera
+                </CardTitle>
+                <CardDescription>
+                  <span className="font-semibold"> La comunidad líder</span> de
+                  habla hispana para la compra y venta de beats e
+                  instrumentales.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-center">
+                {" "}
+                ¡Transforma tu creatividad en oportunidades!
+              </CardContent>
+              <CardFooter className="flex justify-center">
+                <Button className="hover:animate-tilt">
+                  <svg
+                    width={30}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#000"
+                    className=" "
+                    data-name="Line Color"
+                    viewBox="0 0 24 24"
+                  >
+                    <g>
+                      <path
+                        fill="none"
+                        stroke="#f5f5f7"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M17.76 10.63L9 21l2.14-8H7.05a1 1 0 01-1-1.36l3.23-8a1.05 1.05 0 011-.64h4.34a1 1 0 011 1.36L13.7 9H17a1 1 0 01.76 1.63z"
+                      ></path>
+                    </g>
+                  </svg>
+                  Empezar
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
         </div>
       </div>
+      <div className="min-h-screen w-screen mb-10">
+        <p
+          className="text-center   text-5xl md:text-7xl mt-10   mb-0 md:mb-10 font-bold text-black"
+          style={{
+            // mixBlendMode: "saturation",
+            opacity: 0.4,
+            letterSpacing: -4,
+          }}
+        >
+          Beats & Tracks
+        </p>
+        <div className="overflow-hidden whitespace-nowrap flex">
+          <div className=" ">
+            <MarqueeCards
+              cards={[
+                {
+                  img: "/chica.png",
+                  title: "Track 1 TRAPICHEO",
+                  price: "300",
+                  gender: "Trap",
+                  autor: "Federico Medina",
+                },
+              ]}
+            />
+          </div>
+        </div>
+        <div
+          className="flex items-center py-10 justify-around mt-10 rounded-t-xl"
+          style={{
+            backgroundImage:
+              "linear-gradient(to bottom, transparent 30%, rgba(255,255,255,0.2)),linear-gradient(to bottom,rgba(0, 0, 0, 0.9),rgba(239, 33, 170, .2)), url('./party.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="flex  flex-col  w-fit  p-5 justify-start rounded-md">
+            <div className="mx-5">
+              <p className=" font-bold text-5xl tracking-tighter  text-white ">
+                Comunidad Yasound
+              </p>
+            </div>
+            <div className="mx-10 mt-5">
+              <ul>
+                <li className="font-semibold text-white my-2 flex">
+                  <svg
+                    className="mr-2"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="#f5f5f7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17 5L8 15l-5-4"
+                    ></path>
+                  </svg>
+                  Conexiones Musicales
+                </li>
+                <li className="font-semibold text-white my-2 flex">
+                  <svg
+                    className="mr-2 "
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="#f5f5f7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17 5L8 15l-5-4"
+                    ></path>
+                  </svg>
+                  Descubre Talentos Únicos
+                </li>
+                <li className="font-semibold text-white my-2 flex">
+                  <svg
+                    className="mr-2 "
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="#f5f5f7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17 5L8 15l-5-4"
+                    ></path>
+                  </svg>
+                  Promoción de tu Música
+                </li>
+                <li className="font-semibold text-white my-2 flex">
+                  <svg
+                    className="mr-2 "
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="#f5f5f7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17 5L8 15l-5-4"
+                    ></path>
+                  </svg>
+                  Asesoramiento y Recursos
+                </li>
+                <li className="font-semibold text-white my-2 flex">
+                  <svg
+                    className="mr-2 "
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="#f5f5f7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17 5L8 15l-5-4"
+                    ></path>
+                  </svg>
+                  Perfil Avanzado
+                </li>
+                <li className="font-semibold text-white my-2 flex">
+                  <svg
+                    className="mr-2 "
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="#f5f5f7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17 5L8 15l-5-4"
+                    ></path>
+                  </svg>
+                  Soporte VIP
+                </li>
+              </ul>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+              <Button variant="outline" className="mt-5 hover:animate-tilt">
+                ¡Únete!
+              </Button>
+            </div>
+          </div>
+          <div className="flex  flex-col  w-fit  justify-start p-5 rounded-md">
+            <div className="mx-5">
+              <p className=" font-bold text-5xl tracking-tighter text-white ">
+                Contactanos{" "}
+              </p>
+            </div>
+            <div className="mx-10 mt-5">
+              <div className="mb-2">
+                <Label className="text-white font-bold ">Nombre</Label>
+                <Input />
+              </div>
+              <div className="mb-2">
+                <Label className="text-white font-bold ">Email</Label>
+                <Input />
+              </div>
+              <div className="mb-2">
+                <Label className="text-white font-bold ">Celular</Label>
+                <Input />
+              </div>
+              <div className="mb-2">
+                <Label className="text-white font-bold ">Mensaje</Label>
+                <Textarea />
+              </div>
+              <Button variant="outline" className="mt-5 hover:animate-tilt">
+                <svg
+                  width={20}
+                  className="mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#000"
+                    fillRule="evenodd"
+                    d="M1.265 4.426C1.043 2.872 2.617 1.68 4.053 2.314l17.781 7.857c1.589.702 1.589 2.956 0 3.658l-17.78 7.857c-1.437.635-3.011-.558-2.789-2.112l.726-5.082a1.2 1.2 0 01.897-.995L8.877 12l-5.99-1.497a1.2 1.2 0 01-.896-.995l-.726-5.082zM21.025 12L3.246 4.143l.65 4.55 8.96 2.24c1.11.278 1.11 1.856 0 2.134l-8.96 2.24-.65 4.55L21.025 12z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+                Enviar
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="h-screen flex justify-center items-center">
+          {/* <a href={authorizationUrl}>Autorizar</a> */}
+          <CheckoutComponent preferenceId={'APP_USR-4632397606638218-032920-1e901f9cd0ea669a5265c02aeb4193fc-196620874'} />
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
   )
 }
