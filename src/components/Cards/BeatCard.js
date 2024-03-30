@@ -42,6 +42,7 @@ export const BeatCard = ({
   fileType,
   licenses,
   image,
+  user
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
@@ -188,7 +189,7 @@ export const BeatCard = ({
                                           });
                                       }}
                                     />
-                                    <CheckoutComponent product={e} />
+                                    <CheckoutComponent user={user} product={e} />
                                   </ScrollArea>
                                   {/* <div className="grid gap-2">
                                     <Label htmlFor="name">Name</Label>

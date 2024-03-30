@@ -5,8 +5,7 @@ import { useUsers } from "@/hooks/useUsers";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 
-export const CheckoutComponent = ({ product }) => {
-  const { user } = useUsers();
+export const CheckoutComponent = ({ product,user }) => {
   const { push } = useRouter();
   const [isPremium, setIspremiun] = useState(false);
   useEffect(() => {

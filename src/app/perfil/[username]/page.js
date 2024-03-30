@@ -134,6 +134,7 @@ const Page = () => {
                             className="flex w-full justify-center"
                           >
                             <BeatCard
+                            user={user}
                               name={e.title}
                               price={e.licenses[0].price}
                               owner={e.owner}
