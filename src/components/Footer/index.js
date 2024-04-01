@@ -3,12 +3,13 @@
 import React from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { usePathname } from "next/navigation";
 
 export const FooterComponent = () => {
-  // const pathname = usePathname()
+  const pathname = usePathname();
   return (
     <footer
-      // style={{ display: pathname.includes("perfil") ? "none" : "auto" }}
+      style={{ display: pathname.includes("perfil") ? "none" : "auto" }}
       className="bg-slate-800   justify-center pt-10 px-4 md:px-6 flex flex-col items-center text-center"
     >
       <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl/none text-white">
@@ -29,7 +30,7 @@ export const FooterComponent = () => {
             type="submit"
             variant="outline"
           >
-Enviar
+            Enviar
           </Button>
         </form>
       </div>
@@ -60,10 +61,14 @@ Enviar
           alt=""
         />
       </div>
-<div className="flex">
-  <a href="#" className="mx-2 text-white font-bold mt-5">Politicas de privacidad.</a>
-  <a href="#" className="mx-2 text-white font-bold mt-5">Términos y condiciones.</a>
-</div>
+      <div className="flex">
+        <a href="#" className="mx-2 text-white font-bold mt-5">
+          Politicas de privacidad.
+        </a>
+        <a href="#" className="mx-2 text-white font-bold mt-5">
+          Términos y condiciones.
+        </a>
+      </div>
       {/* <div className="icons flex">
         <a href="#" className="icon instagram rounded-full mx-1">
           <svg

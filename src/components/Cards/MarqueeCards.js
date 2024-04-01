@@ -1,14 +1,24 @@
 import React from "react";
-import { ReproductorCard } from "./ReproductorCard";
-import Marquee from "react-fast-marquee";
 
-export const MarqueeCards = ({ cards }) => {
+import Marquee from "react-fast-marquee";
+import { BeatCard } from "./BeatCard";
+
+export const MarqueeCards = ({ beats }) => {
   return (
     <div className="w-screen">
-      <Marquee autoFill>
-        {cards.map((beat, index) => (
-          <div className="" key={index}>
-            <ReproductorCard beat={beat} />
+      <Marquee autoFill pauseOnHover>
+        {beats.map((e, index) => (
+          <div key={index} className="flex w-full justify-center">
+            <BeatCard
+              user={e.owner}
+              name={e.title}
+              price={e.licenses[0].price}
+              owner={e.owner}
+              audioUrl={e.file.url}
+              fileType={e.file.fileType}
+              licenses={e.licenses}
+              image={e.image}
+            />
           </div>
         ))}
       </Marquee>

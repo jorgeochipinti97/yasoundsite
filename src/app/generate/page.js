@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
@@ -33,9 +34,23 @@ const Page = () => {
   };
 
   return (
-    <div className="bg-black">
+    <div
+      className="bg-black"
+      style={{
+        backgroundImage:
+          "linear-gradient(129deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,.5) 34%), url('/backia.jpeg')",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="flex items-center justify-center flex-col min-h-screen">
-        <section className="border-2 p-10 rounded-xl bg-white shadow">
+        <section className="border-2 p-10 rounded-xl bg-white shadow w-[40vw]">
+          <p className="font-geist font-bold text-4xl text-center tracking-tighter">
+            <span className="bg-violet-600 text-white px-3 rounded-xl">IA</span>{" "}
+            Yasound
+          </p>
+          <Separator className='mt-5'/>
           <div className="mt-5">
             <div className="flex justify-center w-full">
               <Label className="font-bold text-xl mb-2">
@@ -43,13 +58,15 @@ const Page = () => {
                 ¿Qué melodía tenés en tu mente?{" "}
               </Label>
             </div>
-            <Textarea
-              onChange={(e) => setPromt(e.target.value)}
-              value={promt_}
-              className="mt-2 w-[50vh]"
-            />
+            <div className="flex justify-center">
+              <Textarea
+                onChange={(e) => setPromt(e.target.value)}
+                value={promt_}
+                className="mt-2 w-10/12"
+              />
+            </div>
           </div>
-          <div className="mt-5">
+          <div className="mt-5 flex justify-center">
             <Button
               disabled={isGenerating}
               onClick={handleGenerateMusic}
@@ -70,10 +87,21 @@ const Page = () => {
               Generar{" "}
             </Button>
           </div>
-          {isGenerating && <p className="text-center mt-5">Aguarde un momento por favor</p>}
+          {isGenerating && (
+            <div className="mt-2">
+              <div className="flex  w-full items-center justify-center">
+                <span class="loader"></span>
+
+                <p className="mt-5 font-light tracking-tighter ">
+                  {" "}
+                  El proceso puede demorar varios segundos.
+                </p>
+              </div>
+            </div>
+          )}
           <div className="my-5 flex justify-center">
             {musicUrl && (
-              <audio controls src={musicUrl} >
+              <audio controls src={musicUrl} className="mt-5">
                 Tu navegador no soporta el elemento <code>audio</code>.
               </audio>
             )}

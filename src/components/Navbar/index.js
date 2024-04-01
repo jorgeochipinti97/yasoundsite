@@ -77,7 +77,7 @@ export const Navbar = () => {
   return (
     <nav
       style={{ backdropFilter: "blur(4px) ", zIndex: 1000 }}
-      className="   h-[7vh]  flex items-center  w-screen   pt-5 absolute indexz inset-0"
+      className="   h-[7vh]   flex items-center  w-screen   pt-5 absolute indexz inset-0"
     >
       <section className="flex rounded-full">
         <img src="/logo.png" alt="" style={{ height: "70px" }} />
@@ -85,7 +85,7 @@ export const Navbar = () => {
 
       <section
         style={{ display: "flex", gap: "0.75rem", margin: "0.75rem 0" }}
-        className=""
+        className="ml-10"
       >
         {tabsComponents}
       </section>

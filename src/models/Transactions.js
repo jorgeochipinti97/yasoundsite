@@ -2,10 +2,13 @@ import mongoose, { Schema } from "mongoose";
 
 const transactionSchema = new Schema(
   {
-    buyer: { type: String, required: true },
-    seller: { type: String, required: true },
-    product: { type: String, required: true },
-    amount: { type: Number, required: true },
+    buyer: { type: String },
+    seller: { type: String },
+    buyerEmail: { type: String },
+    buyerPhone: { type: String },
+    buyerCountry: { type: String },
+    product: { type: String },
+    amount: { type: Number },
   },
   { timestamps: true }
 );

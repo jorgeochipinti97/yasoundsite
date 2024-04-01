@@ -9,27 +9,46 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import gsap, { Power1 } from "gsap";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { ReproductorCard } from "@/components/Cards/ReproductorCard";
 import { MarqueeCards } from "@/components/Cards/MarqueeCards";
-import { AlertComponent } from "@/components/ui/AlertComponent";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { CheckoutComponent } from "@/components/ChckoutComponent";
+import Marquee from "react-fast-marquee";
+import axios from "axios";
+import { formatCurrency } from "@/utils/utils";
 
 export default function Home() {
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Asegura que la animación se dispare solo una vez
+    threshold: 0.1, // Define qué porcentaje del elemento debe estar visible para considerarse en vista
+  });
 
+  const [beats_, setBeats_] = useState([]);
 
+  const getBeats = async () => {
+    const data = await axios.get("/api/products");
+    data && setBeats_(data.data.data);
+  };
+
+  useEffect(() => {
+    getBeats();
+  }, []);
+
+  useEffect(() => {
+    if (inView) {
+      // Si el contenedor está en vista, dispara las animaciones
+      gsap.to(".span-1", { opacity: 1, delay: 0.5, ease: Power1.easeIn });
+      gsap.to(".span-2", { opacity: 1, delay: 1.0, ease: Power1.easeIn });
+      gsap.to(".span-3", { opacity: 1, delay: 1.5, ease: Power1.easeIn });
+      gsap.to(".span-4", { opacity: 1, delay: 2.0, ease: Power1.easeIn });
+      gsap.to(".span-5", { opacity: 1, delay: 2.5, ease: Power1.easeIn });
+      gsap.to(".span-6", { opacity: 1, delay: 3.0, ease: Power1.easeIn });
+      // Repite para los demás elementos
+    }
+  }, [inView]);
   useEffect(() => {
     gsap.to(".logoblack", {
       opacity: 0,
@@ -59,12 +78,12 @@ export default function Home() {
       >
         <p
           style={{ opacity: 0, display: "none" }}
-          className="font-semibold    font-sans  text-center  capitalize text-7xl  displayvideo  degradado-texto"
+          className="font-semibold    font-sans  text-center  capitalize text-9xl   displayvideo  degradado-texto"
         >
           Yasound
         </p>
         <p
-          className="mb-10 font-bold font-geist displayvideo"
+          className="  tracking-tighter  font-geist displayvideo"
           style={{ opacity: 0, display: "none" }}
         >
           La comunidad latina de artistas.
@@ -88,16 +107,25 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center flex-col md:mt-0 mt-10 justify-center ">
-            <Card className="w-12/12 border-violet-500">
+            <Card className="w-10/12 border-violet-500">
               <CardHeader>
-                <CardTitle>
-                  {" "}
-                  Únete, colabora, promociona y gestiona tu carrera
+                <CardTitle className="text-center mb-2 flex flex-col items-center justify-center">
+                  <svg
+                    width={80}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="#c026d3"
+                  >
+                    <path fill="none" d="M0 0H24V24H0z"></path>
+                    <path d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58A2.01 2.01 0 000 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85A6.95 6.95 0 0020 14c-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"></path>
+                  </svg>
+                  La comunidad líder para la compra y venta de beats e
+                  instrumentales en Latinoamerica.
                 </CardTitle>
-                <CardDescription>
-                  <span className="font-semibold"> La comunidad líder</span> de
-                  habla hispana para la compra y venta de beats e
-                  instrumentales.
+                <CardDescription className="text-center ">
+                  <span className="">
+                    Únete, colabora, promociona y gestiona tu carrera
+                  </span>
                 </CardDescription>
               </CardHeader>
               <CardContent className="text-center">
@@ -132,32 +160,361 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="min-h-screen w-screen mb-10">
+      <div className="min-h-screen w-screen flex items-center flex-col justify-center mb-10 relative">
+        <p className="text-5xl font-semibold  tracking-tighter mt-32 mb-5">
+          Creá, generá y revolucioná
+        </p>
+        <span
+          style={{ opacity: 0 }}
+          className=" span-1 p-2 bg-yellow-300 rounded-xl h-fit tracking-tighter absolute left-20 top-20 text-2xl border-2 border-yellow-500 font-semibold font-geist"
+        >
+          Creatividad con IA
+        </span>
+        <span
+          style={{ opacity: 0 }}
+          className=" span-2 p-2 rounded-xl h-fit tracking-tighter bg-lime-200 absolute right-20 top-28 text-2xl border-2 border-lime-500 font-semibold font-geist"
+        >
+          Asistencia digital
+        </span>
+        <span
+          style={{ opacity: 0 }}
+          className=" span-3 p-2 rounded-xl h-fit tracking-tighter absolute left-7 top-96 text-2xl border-2 border-cyan-500 bg-cyan-300 font-semibold font-geist"
+        >
+          Explora melodías únicas
+        </span>
+        <span
+          style={{ opacity: 0 }}
+          className=" span-4 p-2 rounded-xl h-fit tracking-tighter absolute right-20  text-2xl border-2 border-purple-500 bg-purple-300  font-semibold font-geist"
+        >
+          Innovación Musical
+        </span>
+        <span
+          style={{ opacity: 0 }}
+          className=" span-5 p-2 rounded-xl h-fit tracking-tighter absolute  right-20 bottom-28 text-2xl border-2 border-pink-500 bg-pink-300 font-semibold font-geist"
+        >
+          Evolucion
+        </span>
+
+        <span
+          style={{ opacity: 0 }}
+          className=" span-6 p-2 rounded-xl h-fit tracking-tighter absolute left-20 bottom-36 text-2xl border-2 border-emerald-500 bg-emerald-300 font-semibold font-geist"
+        >
+          Sonidos exclusivos
+        </span>
+        <div className="flex justify-center  mt-5" ref={ref}>
+          <video
+            src="/ia.mp4"
+            className="w-8/12 rounded-xl shadow-xl shadow-black"
+            autoPlay
+            loop
+            muted
+          />
+        </div>
+      </div>
+      <div className="min-h-screen w-screen ">
         <p
-          className="text-center   text-5xl md:text-7xl mt-10   mb-0 md:mb-10 font-bold text-black"
+          className="text-center tracking-tighter   text-5xl md:text-7xl mt-32   mb-0 md:mb-10 font-bold text-black"
           style={{
-            // mixBlendMode: "saturation",
             opacity: 0.4,
-            letterSpacing: -4,
+
           }}
         >
           Beats & Tracks
         </p>
         <div className="overflow-hidden whitespace-nowrap flex">
-          <div className=" ">
-            <MarqueeCards
-              cards={[
-                {
-                  img: "/chica.png",
-                  title: "Track 1 TRAPICHEO",
-                  price: "300",
-                  gender: "Trap",
-                  autor: "Federico Medina",
-                },
-              ]}
-            />
+          {beats_ && (
+            <div className=" ">
+              <MarqueeCards beats={beats_} />
+            </div>
+          )}
+        </div>
+
+        <div className=" w-screen">
+          <p className="text-center font-bold text-7xl mt-10 font-geist tracking-tighter">Membresias</p>
+          <div className="flex justify-around mt-10">
+            <div class=" bg-gray-50 border border-black p-8 rounded-xl">
+              <p className="font-bold  text-black text-center  tracking-tighter text-3xl">
+                Usuario Free
+              </p>
+              <div className="flex flex-col items-start">
+                <div className="flex text-black mt-5 font-geist tracking-tighter	">
+                  <svg
+                    width={25}
+                    className="mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          stroke="#000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 12l4.95 4.95L19.557 6.343"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  Comisión completa
+                </div>
+                <div className="flex text-black mt-2 font-geist tracking-tighter	">
+                  <svg
+                    width={25}
+                    className="mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          stroke="#000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 12l4.95 4.95L19.557 6.343"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  Límite de carga
+                </div>
+              </div>
+              <div className="flex flex-col items-start">
+                <div className="flex text-black mt-2 font-geist tracking-tighter	">
+                  <svg
+                    width={25}
+                    className="mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          stroke="#000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 12l4.95 4.95L19.557 6.343"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  Soporte regular
+                </div>
+              </div>
+              <div className="flex flex-col items-start">
+                <div className="flex text-black mt-2 font-geist tracking-tighter	">
+                  <svg
+                    width={25}
+                    className="mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          stroke="#000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 12l4.95 4.95L19.557 6.343"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  Perfil Estandar
+                </div>
+              </div>
+              <div className="flex flex-col items-start">
+                <div className="flex text-black mt-2 font-geist tracking-tighter	">
+                  <svg
+                    width={25}
+                    className="mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          stroke="#000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 12l4.95 4.95L19.557 6.343"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  Restricción de datos personales
+                </div>
+              </div>
+              <div className="mt-5 flex justify-center ">
+                <span className="text-black font-mono  tracking-tighter text-4xl">
+                  {formatCurrency(0)}/Gratis
+                </span>
+              </div>
+              <div className="flex justify-center mt-5">
+                <Button className="hover:animate-tilt">Registrarse</Button>
+              </div>
+            </div>
+            <div class="card bg-black/80  rounded-xl p-4">
+              <div className="flex justify-center">
+                <svg
+                  className=""
+                  width={30}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="#f3e8ff"
+                  stroke="#f3e8ff"
+                  viewBox="0 0 32 32"
+                >
+                  <path d="M28.553 4.694a1.998 1.998 0 00-1.165 3.622l-3.16 4.962a2.125 2.125 0 01-.992 4.004 2.124 2.124 0 01-.313-4.227l-2.168-5.088a2.158 2.158 0 00-.491-4.257 2.157 2.157 0 00-.76 4.176l-2.777 4.737a2.237 2.237 0 11-1.482.056L12.49 7.894a2.158 2.158 0 00-.74-4.184 2.157 2.157 0 00-.543 4.245l-2.204 5.112a2.124 2.124 0 11-1.328.186L4.505 8.31a1.999 1.999 0 10-1.035.377l2.826 15.312c-1.712.045-1.717 2.507.048 2.507h.415l.004.02h18.364l.004-.02h.475c1.718 0 1.749-2.508 0-2.508h-.013l2.826-15.311a1.998 1.998 0 10.137-3.993z"></path>
+                </svg>
+              </div>
+              <p className="font-bold  text-white text-center  tracking-tighter text-3xl">
+                Usuario Premium
+              </p>
+              <div className="flex flex-col items-start">
+                <div className="flex text-white mt-5 font-geist tracking-tighter	">
+                  <svg
+                    width={25}
+                    className="mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          stroke="#f3e8ff"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 12l4.95 4.95L19.557 6.343"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  Tokens para utilizar la IA
+                </div>
+                <div className="flex text-white mt-2 font-geist tracking-tighter	">
+                  <svg
+                    width={25}
+                    className="mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          stroke="#f3e8ff"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 12l4.95 4.95L19.557 6.343"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  Comisión bonificada
+                </div>
+              </div>
+              <div className="flex flex-col items-start">
+                <div className="flex text-white mt-2 font-geist tracking-tighter	">
+                  <svg
+                    width={25}
+                    className="mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          stroke="#f3e8ff"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 12l4.95 4.95L19.557 6.343"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  Descuentos en Servicios Adicionales
+                </div>
+              </div>
+              <div className="flex flex-col items-start">
+                <div className="flex text-white mt-2 font-geist tracking-tighter	">
+                  <svg
+                    width={25}
+                    className="mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          stroke="#f3e8ff"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 12l4.95 4.95L19.557 6.343"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  Perfil Avanzado
+                </div>
+              </div>
+              <div className="flex flex-col items-start">
+                <div className="flex text-white mt-2 font-geist tracking-tighter	">
+                  <svg
+                    width={25}
+                    className="mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <g>
+                      <g>
+                        <path
+                          stroke="#f3e8ff"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 12l4.95 4.95L19.557 6.343"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  Acceso total a la comunidad para interactuar y colaborar.{" "}
+                </div>
+              </div>
+              <div className="mt-5 flex justify-center ">
+                <span className="text-white font-mono  tracking-tighter text-6xl">
+                  {formatCurrency(10)}
+                  <span className="font-thin">/</span>
+                  <span className="text-white tracking-tighter font-thin font-geist text-4xl">
+                    Mensual
+                  </span>
+                </span>
+              </div>
+              <div className="flex justify-center mt-5">
+                <Button variant="outline" className="hover:animate-tilt">
+                  Ser parte
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
+
         <div
           className="flex items-center py-10 justify-around mt-10 rounded-t-xl"
           style={{
@@ -332,6 +689,22 @@ export default function Home() {
               </Button>
             </div>
           </div>
+        </div>
+        <div>
+          <p className="text-center text-3xl font-bold mt-3  text-gray-600 tracking-tighter font-geist">
+            Confian en nosotros
+          </p>
+          <Marquee autoFill direction="right">
+            <div className="flex justify-center mx-2">
+              <img src="/lider2.jpeg" />
+            </div>
+            <div className="flex justify-center mx-2">
+              <img src="/ementors.jpeg" />
+            </div>
+            <div className="flex justify-center mx-2">
+              <img src="/jhon.png" />
+            </div>
+          </Marquee>
         </div>
       </div>
     </>
