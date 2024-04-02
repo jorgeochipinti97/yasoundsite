@@ -134,7 +134,7 @@ export const ProductForm = ({ product }) => {
   return (
     <div className="w-full flex justify-center items ">
       <AlertComponent {...alertProps} />
-      <div className="w-6/12">
+      <div className="w-10/12 md:w-6/12">
         <form onSubmit={handleSubmit(onSubmit)}>
           <ScrollArea className="h-[60vh]">
             <div>

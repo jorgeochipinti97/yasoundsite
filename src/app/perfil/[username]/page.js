@@ -42,15 +42,11 @@ const Page = () => {
   }, [user]);
 
   return (
-    <div className="  min-h-screen h-[200vh]  ">
+    <div className="  min-h-screen   ">
       {user && (
         <WavyBackground colors={user.colors}>
           <div className="grid grid-cols-1 md:grid-cols-2  mt-28">
-            <div
-
-
-            >
-
+            <div>
               <div className="flex justify-center">
                 <img
                   src={user.profilePicture}
@@ -66,7 +62,7 @@ const Page = () => {
                       </p>
                       <div className="mx-2">-</div>
                       <p className="capitalize font-geist font-bold tracking-tighter ">
-                        {user.role} 
+                        {user.role}
                       </p>
                     </div>
                     <div className="flex">
@@ -108,31 +104,32 @@ const Page = () => {
             <div className=" ">
               <div className="flex-1 flex justify-start   flex-col">
                 <div className="flex justyfy-center ">
-                  <div className="w-12/12   h-fit grid  grid-cols-1 md:grid-cols-1">
-                    <div className="flex justify-center items-center  w-full  ">
-                      {user.videos.lengh > 0 && (
-                        <div className="">
-                          <div className="flex justify-center items-center h-full p-2">
-                            <Carousel className="w-5/12 ">
-                              <CarouselContent className="">
-                                {user.videos.map((e) => (
-                                  <CarouselItem
-                                    key={e}
-                                    className="w-fit flex justify-center rounded-full "
-                                  >
-                                    <ReactPlayer sty url={e} controls={true} />
-                                  </CarouselItem>
-                                ))}
-                              </CarouselContent>
-                              <CarouselPrevious />
-                              <CarouselNext />
-                            </Carousel>
-                          </div>
-                        </div>
+                  <div className="w-full ">
+                    <div className="flex justify-center">
+                      {user.videos.length > 0 && (
+                        <Carousel className="w-9/12 md:w-10/12 mt-5 ">
+                          <CarouselContent className="">
+                            {user.videos.map((e) => (
+                              <CarouselItem
+                                key={e}
+                                className=" flex justify-center items-center"
+                              >
+                                <ReactPlayer
+                                  url={e}
+                                  controls={true}
+                                  style={{
+                                    maxWidth: "80vw",
+                                  }}
+                                />
+                              </CarouselItem>
+                            ))}
+                          </CarouselContent>
+                          <CarouselPrevious />
+                          <CarouselNext />
+                        </Carousel>
                       )}
                     </div>
-
-                    <div className=" mt-2 grid grid-cols-1 md:grid-cols-2 ml-10  ">
+                    <div className=" mt-2 grid grid-cols-1 md:grid-cols-2   ">
                       {productos &&
                         productos.map((e, index) => (
                           <div

@@ -30,7 +30,7 @@ const Page = () => {
   return (
     
     <div className="w-full flex justify-center items-start pt-28 min-h-screen bg-black">
-      <div className="bg-[#f5f5f7] flex flex-col shadow py-10 h-[80vh] mb-28 items-center  w-8/12 rounded-xl justify-start ">
+      <div className="bg-[#f5f5f7] flex flex-col shadow py-10 h-[80vh] mb-28 items-center w-11/12 md:w-8/12 rounded-xl justify-start ">
         <Tabs defaultValue="music" className="w-full">
           <TabsList className="flex justify-center">
             <TabsTrigger value="music">Tu música</TabsTrigger>

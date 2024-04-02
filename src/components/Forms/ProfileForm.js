@@ -224,7 +224,7 @@ export const ProfileForm = () => {
     <div className="w-12/12 flex justify-center">
       <AlertComponent {...alertProps} />
 
-      <form className="w-6/12 mx-5 " onSubmit={handleSubmit(onSubmit)}>
+      <form className="w-10/12 md:w-6/12 mx-5 " onSubmit={handleSubmit(onSubmit)}>
         <ScrollArea className="h-[60vh] w-full rounded-md  px-1-">
           <div className="mx-5">
             <div className="my-5">

@@ -37,7 +37,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 export default function Home() {
+  const { push } = useRouter();
+
   const { ref, inView } = useInView({
     triggerOnce: true, // Asegura que la animación se dispare solo una vez
     threshold: 0.1, // Define qué porcentaje del elemento debe estar visible para considerarse en vista
@@ -94,7 +97,6 @@ export default function Home() {
             <Link href={"/login"}>
               <Button variant="" className="tracking-tighter font-geist">
                 <svg
-
                   width={20}
                   xmlns="http://www.w3.org/2000/svg"
                   fill="#f5f5f7"
