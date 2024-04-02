@@ -355,7 +355,7 @@ export default function Home() {
             Membresias
           </p>
           <div className="flex justify-around items-center md:flex-row flex-col mt-10">
-            <div class=" bg-gray-50 border md:mt-0 mt-10 w-5/12 w-11/12 border-black p-8 rounded-xl">
+            <div class=" bg-gray-50 border md:mt-0 mt-10 md:w-5/12 w-11/12 border-black p-8 rounded-xl">
               <p className="font-bold  text-black text-center  tracking-tighter text-3xl">
                 Usuario Free
               </p>
@@ -486,7 +486,7 @@ export default function Home() {
                 <Button className="hover:animate-tilt">Registrarse</Button>
               </div>
             </div>
-            <div class="card bg-black/80  md:mt-0 mt-10 w-5/12 w-11/12  rounded-xl p-4">
+            <div class="card bg-black/80  md:mt-0 mt-10 md:w-5/12 w-11/12  rounded-xl p-4">
               <div className="flex justify-center">
                 <svg
                   className=""
