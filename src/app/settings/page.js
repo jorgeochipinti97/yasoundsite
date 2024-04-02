@@ -20,7 +20,7 @@ const Page = () => {
 
   return (
     <div className="w-full flex justify-center items-center h-screen bg-black">
-      <div className="bg-[#f5f5f7] flex flex-col shadow py-10 h-[80vh]  items-center  w-8/12 rounded-xl justify-center ">
+      <div className="bg-[#f5f5f7] flex flex-col border-[6px] border-fuchsia-700  py-10 h-[80vh]  items-center  w-8/12 rounded-xl justify-center ">
 
         <Tabs defaultValue="info" className="w-full h-full ">
           <TabsList className="flex justify-center">

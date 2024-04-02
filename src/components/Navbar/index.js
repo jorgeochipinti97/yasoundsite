@@ -102,10 +102,10 @@ export const Navbar = () => {
                     <img
                       src={`${user.profilePicture}?${new Date().getTime()}`}
                       alt="Profile"
-                      className="shadowLow h-10 w-10 rounded-full border-2 border-violet-500"
+                      className="hidden md:block shadowLow h-10 w-10 rounded-full border-2 border-violet-500"
                     />
                   ) : (
-                    <div className="h-10 w-10 rounded-full border-2 border-violet-500  cursor-pointer shadowLow bg-black flex items-center justify-center text-white">
+                    <div className="h-10 w-10 rounded-full border-6 border-violet-500  cursor-pointer shadowLow bg-black flex items-center justify-center text-white">
                       {user.username[0].toUpperCase()}
                     </div>
                   )}

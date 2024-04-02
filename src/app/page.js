@@ -19,13 +19,28 @@ import { Textarea } from "@/components/ui/textarea";
 import Marquee from "react-fast-marquee";
 import axios from "axios";
 import { formatCurrency } from "@/utils/utils";
-
+import { useUsers } from "@/hooks/useUsers";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 export default function Home() {
   const { ref, inView } = useInView({
     triggerOnce: true, // Asegura que la animación se dispare solo una vez
     threshold: 0.1, // Define qué porcentaje del elemento debe estar visible para considerarse en vista
   });
-
+  const { user } = useUsers();
   const [beats_, setBeats_] = useState([]);
 
   const getBeats = async () => {
@@ -71,6 +86,85 @@ export default function Home() {
   }, []);
   return (
     <>
+      {user && (
+        <div className="md:hidden fixed bottom-16 left-2">
+          <DropdownMenu className="">
+            <DropdownMenuTrigger>
+              <div>
+                {" "}
+                <div>
+                  {user.profilePicture.length >= 5 ? (
+                    <img
+                      src={`${user.profilePicture}?${new Date().getTime()}`}
+                      alt="Profile"
+                      className="block  md:hidden shadowLow h-10 w-10 rounded-full border-2 border-violet-500"
+                    />
+                  ) : (
+                    <div className="h-10 w-10 rounded-full border-6 border-violet-500  cursor-pointer shadowLow bg-black flex items-center justify-center text-white">
+                      {user.username[0].toUpperCase()}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 mr-2">
+              <DropdownMenuLabel>
+                {" "}
+                <Badge
+                  variant={"outline"}
+                  className={"border-violet-500 text-violet-500"}
+                >
+                  {" "}
+                  PLAN FREE
+                </Badge>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem onClick={() => push("/music")}>
+                  Tu música
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => push(`/perfil/${user.username}`)}
+                >
+                  Perfil
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => push("/settings")}>
+                  Configuración
+                </DropdownMenuItem>
+                <DropdownMenuItem className="font-bold font-geist text-xs bg-gray-200">
+                  Yasound IA{" "}
+                  <Badge className="ml-5 bg-gray-600">
+                    {" "}
+                    {/* <svg
+                    width={15}
+                    className="mr-1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    >
+                    <g fill="#f5f5f7">
+                    <path d="M7.453 2.713c.375-.95 1.72-.95 2.094 0l1.162 2.944c.114.29.344.52.634.634l2.944 1.162c.95.375.95 1.72 0 2.094l-2.944 1.162c-.29.114-.52.344-.634.634l-1.162 2.944c-.375.95-1.72.95-2.094 0L6.29 11.343a1.126 1.126 0 00-.634-.634L2.713 9.547c-.95-.375-.95-1.72 0-2.094L5.657 6.29c.29-.114.52-.344.634-.634l1.162-2.944zM16.924 13.392a.619.619 0 011.152 0l.9 2.283c.063.16.19.286.349.349l2.283.9a.619.619 0 010 1.152l-2.283.9a.619.619 0 00-.349.349l-.9 2.283a.619.619 0 01-1.152 0l-.9-2.283a.619.619 0 00-.349-.349l-2.283-.9a.619.619 0 010-1.152l2.283-.9a.619.619 0 00.349-.349l.9-2.283z"></path>
+                    </g>
+                  </svg>{" "} */}
+                    Próximamente
+                  </Badge>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => push("/")}>
+                  Billing
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              {/* <DropdownMenuSeparator />
+            <DropdownMenuItem>Invitar Usuarios</DropdownMenuItem>
+            
+          <DropdownMenuSeparator /> */}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => signOut()}>
+                Salir
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      )}
       <div
         className="min-h-screen flex justify-center
        items-center flex-col w-screen bg-white"
@@ -78,7 +172,7 @@ export default function Home() {
       >
         <p
           style={{ opacity: 0, display: "none" }}
-          className="font-semibold    font-sans  text-center  capitalize text-9xl   displayvideo  degradado-texto"
+          className="font-semibold    font-sans  text-center  capitalize text-7xl md:mt-0 mt-20 md:text-9xl   displayvideo  degradado-texto"
         >
           Yasound
         </p>
@@ -160,63 +254,90 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="min-h-screen w-screen flex items-center flex-col justify-center mb-10 relative">
-        <p className="text-5xl font-semibold  tracking-tighter mt-32 mb-5">
+      <div className=" border-2min-h-screen w-screen flex items-start md:items-center flex-col justify-start md:mb-10 relative">
+        <p className="text-5xl font-semibold text-center tracking-tighter mt-10 md:mt-0 md:mb-5">
           Creá, generá y revolucioná
         </p>
         <span
           style={{ opacity: 0 }}
-          className=" span-1 p-2 bg-yellow-300 rounded-xl h-fit tracking-tighter absolute left-20 top-20 text-2xl border-2 border-yellow-500 font-semibold font-geist"
+          className="hidden md:flex span-1 p-2 bg-yellow-300 rounded-xl h-fit tracking-tighter absolute left-20 top-20 text-2xl border-2 border-yellow-500 font-semibold font-geist"
         >
           Creatividad con IA
         </span>
         <span
           style={{ opacity: 0 }}
-          className=" span-2 p-2 rounded-xl h-fit tracking-tighter bg-lime-200 absolute right-20 top-28 text-2xl border-2 border-lime-500 font-semibold font-geist"
+          className="hidden md:flex span-2 p-2 rounded-xl h-fit tracking-tighter bg-lime-200 absolute right-20 top-96  text-2xl border-2 border-lime-500 font-semibold font-geist"
         >
           Asistencia digital
         </span>
         <span
           style={{ opacity: 0 }}
-          className=" span-3 p-2 rounded-xl h-fit tracking-tighter absolute left-7 top-96 text-2xl border-2 border-cyan-500 bg-cyan-300 font-semibold font-geist"
+          className=" hidden md:flex span-3 p-2 rounded-xl h-fit tracking-tighter absolute left-7 top-96 text-2xl border-2 border-cyan-500 bg-cyan-300 font-semibold font-geist"
         >
           Explora melodías únicas
         </span>
         <span
           style={{ opacity: 0 }}
-          className=" span-4 p-2 rounded-xl h-fit tracking-tighter absolute right-20  text-2xl border-2 border-purple-500 bg-purple-300  font-semibold font-geist"
+          className=" hidden md:flex span-4 p-2 rounded-xl h-fit tracking-tighter absolute right-20  top-20  text-2xl border-2 border-purple-500 bg-purple-300  font-semibold font-geist"
         >
           Innovación Musical
         </span>
         <span
           style={{ opacity: 0 }}
-          className=" span-5 p-2 rounded-xl h-fit tracking-tighter absolute  right-20 bottom-28 text-2xl border-2 border-pink-500 bg-pink-300 font-semibold font-geist"
+          className=" hidden md:flex span-5 p-2 rounded-xl h-fit tracking-tighter absolute  right-20 bottom-28 text-2xl border-2 border-pink-500 bg-pink-300 font-semibold font-geist"
         >
           Evolucion
         </span>
 
         <span
           style={{ opacity: 0 }}
-          className=" span-6 p-2 rounded-xl h-fit tracking-tighter absolute left-20 bottom-36 text-2xl border-2 border-emerald-500 bg-emerald-300 font-semibold font-geist"
+          className=" hidden md:flex span-6 p-2 rounded-xl h-fit tracking-tighter absolute left-20 bottom-36 text-2xl border-2 border-emerald-500 bg-emerald-300 font-semibold font-geist"
         >
           Sonidos exclusivos
         </span>
-        <div className="flex justify-center  mt-5" ref={ref}>
+        <div className="flex justify-center mt-5  " ref={ref}>
           <video
             src="/ia.mp4"
-            className="w-8/12 rounded-xl shadow-xl shadow-black"
+            className="w-11/12 md:w-8/12 rounded-xl shadow-xl shadow-black"
             autoPlay
             loop
             muted
           />
         </div>
       </div>
+      <div className="flex mt-10 flex-col items-center md:mt-0 ">
+        <p className="font-geist mb-2 font-bold text-4xl  tracking-tighter ">
+          {" "}
+          Resultado
+        </p>
+
+        <audio src="/track.wav" controls />
+      </div>
+      <div className="flex justify-around mt-5 md:hidden flex-wrap">
+        <Badge className=" bg-yellow-300  m-1 text-black hover:bg-yellow-500  rounded-xl h-fit tracking-tighter  text-2xl border-2 border-yellow-500 font-semibold font-geist">
+          Creatividad con IA
+        </Badge>
+        <Badge className=" rounded-xl h-fit m-1 text-black hover:bg-lime-500   tracking-tighter bg-lime-200   text-2xl border-2 border-lime-500 font-semibold font-geist">
+          Asistencia digital
+        </Badge>
+        <Badge className=" rounded-xl h-fit m-1 text-black hover:bg-cyan-500   tracking-tighter   text-2xl border-2 border-cyan-500 bg-cyan-300 font-semibold font-geist">
+          Explora melodías únicas
+        </Badge>
+        <Badge className=" rounded-xl h-fit m-1 text-black hover:bg-purple-500   tracking-tighter   text-2xl border-2 border-purple-500 bg-purple-300  font-semibold font-geist">
+          Innovación Musical
+        </Badge>
+        <Badge className=" rounded-xl h-fit m-1 text-black hover:bg-pink-500   tracking-tighter  text-2xl border-2 border-pink-500 bg-pink-300 font-semibold font-geist">
+          Evolucion
+        </Badge>
+        <Badge className=" rounded-xl h-fit m-1 text-black hover:bg-emerald-500   tracking-tighter  text-2xl border-2 border-emerald-500 bg-emerald-300 font-semibold font-geist">
+          Sonidos exclusivos
+        </Badge>
+      </div>
       <div className="min-h-screen w-screen ">
         <p
-          className="text-center tracking-tighter   text-5xl md:text-7xl mt-32   mb-0 md:mb-10 font-bold text-black"
+          className="text-center tracking-tighter   text-5xl md:text-7xl mt-10  md:mt-32   mb-5 md:mb-10 font-bold text-black"
           style={{
             opacity: 0.4,
-
           }}
         >
           Beats & Tracks
@@ -230,9 +351,11 @@ export default function Home() {
         </div>
 
         <div className=" w-screen">
-          <p className="text-center font-bold text-7xl mt-10 font-geist tracking-tighter">Membresias</p>
-          <div className="flex justify-around mt-10">
-            <div class=" bg-gray-50 border border-black p-8 rounded-xl">
+          <p className="text-center font-bold text-7xl mt-10 font-geist tracking-tighter">
+            Membresias
+          </p>
+          <div className="flex justify-around items-center md:flex-row flex-col mt-10">
+            <div class=" bg-gray-50 border md:mt-0 mt-10 w-11/12 border-black p-8 rounded-xl">
               <p className="font-bold  text-black text-center  tracking-tighter text-3xl">
                 Usuario Free
               </p>
@@ -363,7 +486,7 @@ export default function Home() {
                 <Button className="hover:animate-tilt">Registrarse</Button>
               </div>
             </div>
-            <div class="card bg-black/80  rounded-xl p-4">
+            <div class="card bg-black/80  md:mt-0 mt-10 w-11/12  rounded-xl p-4">
               <div className="flex justify-center">
                 <svg
                   className=""
@@ -516,7 +639,7 @@ export default function Home() {
         </div>
 
         <div
-          className="flex items-center py-10 justify-around mt-10 rounded-t-xl"
+          className="flex items-center md:flex-row py-10 flex-col justify-around mt-10 rounded-t-xl"
           style={{
             backgroundImage:
               "linear-gradient(to bottom, transparent 30%, rgba(255,255,255,0.2)),linear-gradient(to bottom,rgba(0, 0, 0, 0.9),rgba(239, 33, 170, .2)), url('./party.jpg')",
@@ -524,9 +647,9 @@ export default function Home() {
             backgroundPosition: "center",
           }}
         >
-          <div className="flex  flex-col  w-fit  p-5 justify-start rounded-md">
+          <div className="flex  flex-col  w-fit  p-5 items-center md:items-start justify-start rounded-md">
             <div className="mx-5">
-              <p className=" font-bold text-5xl tracking-tighter  text-white ">
+              <p className=" font-bold text-5xl md:text-start text-center tracking-tighter  text-white ">
                 Comunidad Yasound
               </p>
             </div>

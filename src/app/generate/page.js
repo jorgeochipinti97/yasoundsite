@@ -45,7 +45,7 @@ const Page = () => {
       }}
     >
       <div className="flex items-center justify-center flex-col min-h-screen">
-        <section className="border-2 p-10 rounded-xl bg-white shadow w-[40vw]">
+        <section className="border-violet-600 p-10 rounded-xl bg-white border-[6px]  w-[40vw]">
           <p className="font-geist font-bold text-4xl text-center tracking-tighter">
             <span className="bg-violet-600 text-white px-3 rounded-xl">IA</span>{" "}
             Yasound

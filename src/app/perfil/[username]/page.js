@@ -33,7 +33,8 @@ const Page = () => {
   const [productos, setProductos] = useState([]);
   const getBeats = async () => {
     const data = await axios.get("/api/products");
-    data && setProductos(data.data.data.filter((e) => e.owner == user.username));
+    data &&
+      setProductos(data.data.data.filter((e) => e.owner == user.username));
   };
 
   useEffect(() => {
@@ -41,16 +42,19 @@ const Page = () => {
   }, [user]);
 
   return (
-    <div className="  min-h-screen  ">
+    <div className="  min-h-screen h-[200vh]  ">
       {user && (
         <WavyBackground colors={user.colors}>
-          <div className="flex mt-28">
-            <div className="w-[40%] "></div>
-            <div className="w-[40%] fixed">
+          <div className="grid grid-cols-1 md:grid-cols-2  mt-28">
+            <div
+
+
+            >
+
               <div className="flex justify-center">
                 <img
                   src={user.profilePicture}
-                  className="rounded-full border border-fuchsia-500 w-[300px] ml-10 shadowLow"
+                  className="rounded-full border-[6px] border-fuchsia-800 w-[200px] md:w-[300px] md:ml-10 "
                 />
               </div>
               <div className="flex justify-center mt-5 ">
@@ -62,7 +66,7 @@ const Page = () => {
                       </p>
                       <div className="mx-2">-</div>
                       <p className="capitalize font-geist font-bold tracking-tighter ">
-                        {user.role} 🇦🇷
+                        {user.role} 
                       </p>
                     </div>
                     <div className="flex">
@@ -101,40 +105,42 @@ const Page = () => {
                 {user.links && <UserLinks links={user.links} />}
               </div>
             </div>
-            <div className="flex-1 ">
+            <div className=" ">
               <div className="flex-1 flex justify-start   flex-col">
                 <div className="flex justyfy-center ">
-                  <div className="w-10/12   h-fit grid  grid-cols-1 md:grid-cols-1">
+                  <div className="w-12/12   h-fit grid  grid-cols-1 md:grid-cols-1">
                     <div className="flex justify-center items-center  w-full  ">
-                      <div className="">
-                        <div className="flex justify-center items-center h-full p-2">
-                          <Carousel className="w-4/12 ">
-                            <CarouselContent className="">
-                              {user.videos.map((e) => (
-                                <CarouselItem
-                                  key={e}
-                                  className="w-fit flex justify-center rounded-full "
-                                >
-                                  <ReactPlayer sty url={e} controls={true} />
-                                </CarouselItem>
-                              ))}
-                            </CarouselContent>
-                            <CarouselPrevious />
-                            <CarouselNext />
-                          </Carousel>
+                      {user.videos.lengh > 0 && (
+                        <div className="">
+                          <div className="flex justify-center items-center h-full p-2">
+                            <Carousel className="w-5/12 ">
+                              <CarouselContent className="">
+                                {user.videos.map((e) => (
+                                  <CarouselItem
+                                    key={e}
+                                    className="w-fit flex justify-center rounded-full "
+                                  >
+                                    <ReactPlayer sty url={e} controls={true} />
+                                  </CarouselItem>
+                                ))}
+                              </CarouselContent>
+                              <CarouselPrevious />
+                              <CarouselNext />
+                            </Carousel>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
 
-                    <div className=" mt-2 grid grid-cols-2 ml-10 ">
+                    <div className=" mt-2 grid grid-cols-1 md:grid-cols-2 ml-10  ">
                       {productos &&
                         productos.map((e, index) => (
                           <div
                             key={index}
-                            className="flex w-full justify-center"
+                            className="flex w-full  mt-5 justify-center"
                           >
                             <BeatCard
-                            user={user}
+                              user={user}
                               name={e.title}
                               price={e.licenses[0].price}
                               owner={e.owner}

@@ -1,7 +1,7 @@
 export const UserLinks = ({ links }) => {
   const Icons = {
     Instagram: (
-      <div className="w-fit rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
+      <div className="w-fit my-1 rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
         <svg width={30} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
           <g>
             <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
@@ -16,7 +16,7 @@ export const UserLinks = ({ links }) => {
       </div>
     ),
     YouTube: (
-      <div className="w-fit rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
+      <div className="w-fit my-1 rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
         <svg width={30} xmlns="http://www.w3.org/2000/svg" viewBox="0 -3 20 20">
           <g>
             <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
@@ -31,7 +31,7 @@ export const UserLinks = ({ links }) => {
       </div>
     ),
     Facebook: (
-      <div className="w-fit rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
+      <div className="w-fit my-1 rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
         <svg
           width={30}
           xmlns="http://www.w3.org/2000/svg"
@@ -48,19 +48,19 @@ export const UserLinks = ({ links }) => {
       </div>
     ),
     TikTok: (
-      <div className="w-fit rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
+      <div className="w-fit my-1 rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
         <svg width={30} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
           <path d="M16.656 1.029c1.637-.025 3.262-.012 4.886-.025a7.762 7.762 0 002.189 5.213l-.002-.002A8.77 8.77 0 0029 8.45l.028.002v5.036a13.327 13.327 0 01-5.331-1.247l.082.034a15.385 15.385 0 01-2.077-1.196l.052.034c-.012 3.649.012 7.298-.025 10.934a9.513 9.513 0 01-1.707 4.954l.02-.031c-1.652 2.366-4.328 3.919-7.371 4.011h-.014a9.071 9.071 0 01-5.139-1.31l.04.023C5.05 28.185 3.32 25.603 3 22.6l-.004-.041a23.163 23.163 0 01-.012-1.862c.49-4.779 4.494-8.476 9.361-8.476.547 0 1.083.047 1.604.136l-.056-.008c.025 1.849-.05 3.699-.05 5.548a4.29 4.29 0 00-5.465 2.619l-.009.03c-.133.427-.21.918-.21 1.426 0 .206.013.41.037.61l-.002-.024a4.26 4.26 0 004.382 3.586h-.009a4.198 4.198 0 003.451-1.994l.01-.018c.267-.372.45-.822.511-1.311l.001-.014c.125-2.237.075-4.461.087-6.698.012-5.036-.012-10.06.025-15.083z"></path>
         </svg>
       </div>
     ),
     X: (
-      <div className="w-fit rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
+      <div className="w-fit my-1 rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
         <img src="/x.png" width={30} />
       </div>
     ),
     Web: (
-      <div className="w-fit rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
+      <div className="w-fit my-1 rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
         <svg
           width={30}
           xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +86,7 @@ export const UserLinks = ({ links }) => {
       </div>
     ),
     Spotify: (
-      <div className="w-fit rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
+      <div className="w-fit my-1 rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
         <svg width={30} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
           <g>
             <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
@@ -101,7 +101,7 @@ export const UserLinks = ({ links }) => {
       </div>
     ),
     AppleMusic: (
-      <div className="w-fit rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
+      <div className="w-fit my-1 rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
         <svg width={30} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M24 6.124l.001-.097c0-.743-.088-1.465-.253-2.156l.013.063A4.942 4.942 0 0021.598.903l-.02-.012a4.956 4.956 0 00-1.847-.723l-.03-.004a10.14 10.14 0 00-1.553-.15h-.011c-.04 0-.083-.01-.124-.013H5.988c-.152.01-.3.017-.455.026a6.96 6.96 0 00-2.242.415L3.34.427A5.033 5.033 0 00.487 3.175l-.012.033c-.17.409-.297.885-.36 1.38l-.003.028c-.051.343-.087.751-.1 1.165v.016c0 .032-.007.062-.01.093v12.224c.01.14.017.283.027.424.02.861.202 1.673.516 2.416l-.016-.043a5.01 5.01 0 003.199 2.792l.035.009c.377.111.817.192 1.271.227l.022.001c.555.053 1.11.06 1.667.06h11.028c.554 0 1.099-.037 1.633-.107l-.063.007a5.319 5.319 0 002.321-.823l-.021.013a5.078 5.078 0 001.867-2.176l.013-.032c.166-.383.295-.829.366-1.293l.004-.031a11.897 11.897 0 00.129-2.05V6.127zm-6.424 3.99v5.712l.001.083c0 .407-.09.794-.252 1.14l.007-.017a2.13 2.13 0 01-1.373 1.137l-.015.003a4.483 4.483 0 01-1.06.173h-.01c-.029.002-.062.002-.096.002a1.871 1.871 0 01-.815-3.556l.011-.005c.293-.14.635-.252.991-.32l.027-.004c.378-.082.758-.153 1.134-.24a.621.621 0 00.51-.513v-.003a.863.863 0 00.02-.189v-.005-5.443a.739.739 0 00-.027-.19l.001.005a.29.29 0 00-.301-.234h.001c-.178.013-.34.036-.499.07l.024-.004q-1.14.225-2.28.456l-3.7.748c-.016 0-.032.01-.048.013a.452.452 0 00-.39.492v-.002 7.931l.001.095c0 .408-.079.797-.224 1.152l.007-.021a2.138 2.138 0 01-1.436 1.235l-.015.003a4.307 4.307 0 01-1.067.172h-.008a1.84 1.84 0 01-1.919-1.533l-.001-.011a1.867 1.867 0 011.141-2.071l.013-.004a5.678 5.678 0 011.072-.305l.036-.005c.287-.06.575-.116.86-.177a.7.7 0 00.6-.693v-.022.001-.15-8.883-.007c0-.129.015-.254.044-.374l-.002.011a.696.696 0 01.542-.517l.004-.001c.255-.066.515-.112.774-.165.733-.15 1.466-.3 2.2-.444l2.27-.46c.67-.134 1.34-.27 2.01-.4.181-.042.407-.079.637-.104l.027-.002a.493.493 0 01.554.481c.008.067.012.144.012.222V10.11z"></path>
         </svg>
