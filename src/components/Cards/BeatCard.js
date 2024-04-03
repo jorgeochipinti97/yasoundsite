@@ -162,6 +162,14 @@ export const BeatCard = ({
         }}
       >
         {audioUrl}
+        <audio
+          preload="auto"
+          ref={audioRef}
+          src={audioUrl}
+          controls
+          onEnded={() => setIsPlaying(false)}
+        />
+
         <CardHeader>
           <p className="font-geist font-bold text-white text-xl">{name}</p>
           <a
