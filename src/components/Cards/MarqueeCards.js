@@ -8,7 +8,9 @@ export const MarqueeCards = ({ beats }) => {
     <div className="w-screen">
       <Marquee autoFill pauseOnHover>
         {beats.map((e, index) => (
+
           <div key={index} className="flex w-full justify-center">
+  
             <BeatCard
               user={e.owner}
               name={e.title}

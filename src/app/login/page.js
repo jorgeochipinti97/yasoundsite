@@ -45,8 +45,8 @@ const Page = () => {
     <div className="w-full flex justify-center items-center h-screen bg-black">
       {isLoad && (
         <>
-          <div style={{background:'rgba(255, 255, 255, 1)'}} className=" flex flex-col shadow h-fit py-10 mt-20 items-center border-2 w-6/12 rounded-xl justify-center ">
-            <img src="/logo.png" className="w-[15vw]" />{" "}
+          <div style={{background:'rgba(255, 255, 255, 1)'}} className=" flex flex-col shadow h-fit py-10 mt-20 items-center border-2 w-11/12 md:w-6/12 rounded-xl justify-center ">
+            <img src="/logo.png" className=" w-[15vw]" />{" "}
             <p className="text-4xl tracking-tighter font-bold mb-2">Inicio de sesión</p>
             <Separator className="w-6/12  mb-5" />
             <form

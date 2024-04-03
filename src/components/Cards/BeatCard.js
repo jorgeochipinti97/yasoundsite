@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
-import { Icons } from "@/utils/icons";
+
 import { Input } from "../ui/input";
 import {
   Select,
@@ -59,15 +59,29 @@ export const BeatCard = ({
 
   const togglePlayPause = () => {
     if (audioRef.current) {
-      if (isPlaying) {
+      const wasPlaying = isPlaying;
+      setIsPlaying(!wasPlaying); // Actualizamos el estado inmediatamente para mejorar la respuesta de la UI
+  
+      if (wasPlaying) {
         audioRef.current.pause();
       } else {
-        audioRef.current.play();
+        const playPromise = audioRef.current.play();
+  
+        // En navegadores que soportan promesas con play(), hay que manejar el caso de fallo
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            // La reproducción inició exitosamente
+          }).catch(error => {
+            alert("La reproducción de audio falló", error);
+            setIsPlaying(false); // Revertir el estado si la reproducción falla
+            // Aquí puedes manejar el error, por ejemplo, mostrando una interfaz de usuario
+            // para que el usuario inicie manualmente la reproducción
+          });
+        }
       }
-      setIsPlaying(!isPlaying);
     }
   };
-
+  
   useEffect(() => {
     isSubmit &&
       gsap.to(".formPurchase", {

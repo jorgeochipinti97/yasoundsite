@@ -105,7 +105,7 @@ export const Navbar = () => {
                       className="hidden md:block shadowLow h-10 w-10 rounded-full border-2 border-violet-500"
                     />
                   ) : (
-                    <div className="h-10 w-10 rounded-full border-6 border-violet-500  cursor-pointer shadowLow bg-black flex items-center justify-center text-white">
+                    <div className="hidden md:flex  h-10 w-10 rounded-full border-6 border-violet-500  cursor-pointer shadowLow bg-black  items-center justify-center text-white">
                       {user.username[0].toUpperCase()}
                     </div>
                   )}
