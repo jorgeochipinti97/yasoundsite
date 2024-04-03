@@ -162,6 +162,7 @@ export const BeatCard = ({
         <audio
           ref={audioRef}
           src={audioUrl}
+          controls
           onEnded={() => setIsPlaying(false)}
         />
 
