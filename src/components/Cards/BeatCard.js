@@ -161,14 +161,15 @@ export const BeatCard = ({
           backgroundPosition: "center",
         }}
       >
-        {audioUrl}
         <audio
+          controls
           preload="auto"
           ref={audioRef}
-          src={audioUrl}
-          controls
-          onEnded={() => setIsPlaying(false)}
-        />
+          onEnded={() => console.log("La reproducción ha finalizado.")}
+        >
+          <source src={audioUrl} type="audio/mpeg" />
+          Tu navegador no soporta el elemento de audio.
+        </audio>
 
         <CardHeader>
           <p className="font-geist font-bold text-white text-xl">{name}</p>
