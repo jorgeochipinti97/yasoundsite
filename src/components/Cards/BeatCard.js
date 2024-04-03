@@ -61,27 +61,29 @@ export const BeatCard = ({
     if (audioRef.current) {
       const wasPlaying = isPlaying;
       setIsPlaying(!wasPlaying); // Actualizamos el estado inmediatamente para mejorar la respuesta de la UI
-  
+
       if (wasPlaying) {
         audioRef.current.pause();
       } else {
         const playPromise = audioRef.current.play();
-  
+
         // En navegadores que soportan promesas con play(), hay que manejar el caso de fallo
         if (playPromise !== undefined) {
-          playPromise.then(() => {
-            // La reproducción inició exitosamente
-          }).catch(error => {
-            alert("La reproducción de audio falló", error);
-            setIsPlaying(false); // Revertir el estado si la reproducción falla
-            // Aquí puedes manejar el error, por ejemplo, mostrando una interfaz de usuario
-            // para que el usuario inicie manualmente la reproducción
-          });
+          playPromise
+            .then(() => {
+              // La reproducción inició exitosamente
+            })
+            .catch((error) => {
+              alert("La reproducción de audio falló", error);
+              setIsPlaying(false); // Revertir el estado si la reproducción falla
+              // Aquí puedes manejar el error, por ejemplo, mostrando una interfaz de usuario
+              // para que el usuario inicie manualmente la reproducción
+            });
         }
       }
     }
   };
-  
+
   useEffect(() => {
     isSubmit &&
       gsap.to(".formPurchase", {
@@ -159,13 +161,7 @@ export const BeatCard = ({
           backgroundPosition: "center",
         }}
       >
-        <audio
-          ref={audioRef}
-          src={audioUrl}
-          controls
-          onEnded={() => setIsPlaying(false)}
-        />
-
+        {audioUrl}
         <CardHeader>
           <p className="font-geist font-bold text-white text-xl">{name}</p>
           <a
