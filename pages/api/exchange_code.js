@@ -15,7 +15,7 @@ export default async function handler(req, res) {
             client_secret: process.env.MP_CLIENT_SECRET,
             grant_type: 'authorization_code',
             code: code,
-            redirect_uri: 'https://yasoundsite.vercel.app/oauth',
+            redirect_uri: 'https://yasound.site/oauth',
           }),
         });
   
