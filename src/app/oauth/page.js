@@ -38,13 +38,16 @@ const Page = () => {
 
     code && obtenerTokenOAuthMercadoPago();
   }, [code]);
+
   useEffect(() => {
-    tokenData &&
+    if (tokenData && user && user._id) {
       axios.put("/api/users", {
         _id: user._id,
         tokens: tokenData,
       });
-  }, [tokenData]);
+    }
+  }, [tokenData, user]);
+
   return (
     <div className="h-screen flex items-center justify-center">
       <p>{code} </p>
