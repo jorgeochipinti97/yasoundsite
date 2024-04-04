@@ -1,4 +1,4 @@
-import { useProducts } from "@/hooks/useProducts";
+
 import React, { useEffect } from "react";
 import {
   Table,
@@ -22,16 +22,12 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/utils/utils";
-
 import { Dialog, DialogContent, DialogTrigger } from "../../ui/dialog";
 
 import { ProductForm } from "@/components/Forms/ProductForm";
 
 export const TableMusic = () => {
 
-  useEffect(() => {
-    products && console.log(products);
-  }, [products]);
 
   return (
     <Table>
@@ -44,7 +40,7 @@ export const TableMusic = () => {
           <TableHead className="text-center">-</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
+      {/* <TableBody>
         {products &&
           products.map((e) => (
             <TableRow key={e._id}>
@@ -102,7 +98,7 @@ export const TableMusic = () => {
               </TableCell>
             </TableRow>
           ))}
-      </TableBody>
+      </TableBody> */}
     </Table>
   );
 };
