@@ -21,34 +21,33 @@ const Page = () => {
         const body = {
           client_id: "4632397606638218",
           client_secret: "SG8qXq3lhZMXYAdSbk6cpVGfF2xH9yCT",
-          code: code, 
+          code: code,
           grant_type: "authorization_code",
           redirect_uri: "https://yasound.site/oauth",
-          test_token: "false", 
+          test_token: "false",
         };
 
         const response = await axios.post("/api/tokendata", body);
+        setTokenData(response.data);
         console.log(response);
-        setTokenData(response.data); // Almacena los datos del token en el estado
       } catch (error) {
-        console.log(error)
+        console.log(error);
         setError(error.response ? error.response.data : error.message); // Almacena el mensaje de error en el estado
       }
     };
 
     code && obtenerTokenOAuthMercadoPago();
-  }, [code]); // El arreglo vacío asegura
+  }, [code]);
   useEffect(() => {
     tokenData &&
       axios.put("/api/users", {
-        ...user,
+        _id: user._id,
         tokens: tokenData,
       });
   }, [tokenData]);
   return (
     <div className="h-screen flex items-center justify-center">
       <p>{code} </p>
-
     </div>
   );
 };
