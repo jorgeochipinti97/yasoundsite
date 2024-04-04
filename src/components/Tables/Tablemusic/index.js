@@ -28,7 +28,7 @@ import { Dialog, DialogContent, DialogTrigger } from "../../ui/dialog";
 import { ProductForm } from "@/components/Forms/ProductForm";
 
 export const TableMusic = () => {
-  const { products } = useProducts();
+
   useEffect(() => {
     products && console.log(products);
   }, [products]);

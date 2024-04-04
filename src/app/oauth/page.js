@@ -23,7 +23,7 @@ const Page = () => {
           client_secret: "SG8qXq3lhZMXYAdSbk6cpVGfF2xH9yCT",
           code: code, // Este código lo obtienes en el proceso de autorización
           grant_type: "authorization_code",
-          redirect_uri: "https://yasound.site/oauth",
+          redirect_uri: "https://yasoundsite.vercel.app/oauth",
           //   refresh_token: 'TG-XXXXXXXX-241983636', // Opcional, solo para refrescar el token
           test_token: "false", // Cambiar según sea necesario
         };
@@ -32,6 +32,7 @@ const Page = () => {
         console.log(response);
         setTokenData(response.data); // Almacena los datos del token en el estado
       } catch (error) {
+        console.log(error)
         setError(error.response ? error.response.data : error.message); // Almacena el mensaje de error en el estado
       }
     };
@@ -48,6 +49,7 @@ const Page = () => {
   return (
     <div className="h-screen flex items-center justify-center">
       <p>{code} </p>
+
     </div>
   );
 };

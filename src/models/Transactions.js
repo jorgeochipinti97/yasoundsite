@@ -8,13 +8,17 @@ const transactionSchema = new Schema(
     buyerPhone: { type: String },
     buyerCountry: { type: String },
     product: { type: String },
+    transactionId: { type: String },
+    token: { type: String },
+    status: { type: String },
+    fileUrl:{ type: String },
     amount: { type: Number },
   },
   { timestamps: true }
 );
 
-const Transaction =
-  mongoose.models.Transaction ||
-  mongoose.model("Transaction", transactionSchema);
+const TransactionYasound =
+  mongoose.models.TransactionYasound ||
+  mongoose.model("TransactionYasound", transactionSchema);
 
-export default Transaction;
+export default TransactionYasound;

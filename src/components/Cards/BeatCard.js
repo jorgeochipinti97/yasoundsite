@@ -32,10 +32,11 @@ import {
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { ScrollArea } from "../ui/scroll-area";
-import { CheckoutComponent } from "../ChckoutComponent";
+import { CheckoutComponent } from "../CheckoutComponent";
 import { paises } from "@/utils/paises";
 import { useForm } from "react-hook-form";
 import gsap, { Power1 } from "gsap";
+import axios from "axios";
 
 export const BeatCard = ({
   name,
@@ -50,10 +51,21 @@ export const BeatCard = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
   const [isSubmit, setIsSubmit] = useState(false);
+  const [orderId, setOrderId] = useState("");
 
   const { register, handleSubmit, setValue } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const response = await axios.post("/api/orders", {
+      buyer: data.nombre,
+      seller: owner,
+      buyerEmail: data.email,
+      buyerPhone: data.phone,
+      buyerCountry: data.country,
+      status: "no paid",
+      fileUrl: audioUrl,
+      amount: price,
+    });
+    response && setOrderId(response.data._id);
     setIsSubmit(true);
   };
 
@@ -170,7 +182,6 @@ export const BeatCard = ({
           Tu navegador no soporta el elemento de audio.
         </audio>
 
-
         <CardHeader>
           <p className="font-geist font-bold text-white text-xl">{name}</p>
           <a
@@ -277,7 +288,7 @@ export const BeatCard = ({
                               >
                                 <div className="my-2">
                                   <Label className="text-black font-bold">
-                                    Nombre
+                                    Nombre Completo
                                   </Label>
                                   <Input {...register("nombre")} />
                                 </div>
@@ -345,22 +356,36 @@ export const BeatCard = ({
                                           ],
                                         });
                                       }}
-                                      onApprove={(data, actions) => {
-                                        // La lógica para manejar la aprobación del pago
-                                        return actions.order
-                                          .capture()
-                                          .then((details) => {
-                                            alert(
-                                              "Pago realizado exitosamente por " +
-                                                details.payer.name.given_name +
-                                                "!"
-                                            );
+                                      onApprove={async (data, actions) => {
+                                        try {
+                                          const details =
+                                            await actions.order.capture();
+                                          console.log(
+                                            "Pago aprobado y capturado con éxito:",
+                                            details
+                                          );
+
+                                          const paymentId = details.id;
+
+                                          await axios.put("/api/orders", {
+                                            _id: orderId,
+                                            transactionId: paymentId,
                                           });
+
+                                          push(`/success?orderID=${orderId}`);
+                                        } catch (error) {
+                                          console.error(
+                                            "Error al capturar el pago o al guardar los detalles:",
+                                            error
+                                          );
+                                          // Manejo de errores
+                                        }
                                       }}
                                     />
                                     <CheckoutComponent
                                       user={user}
                                       product={e}
+                                      _id={orderId}
                                     />
                                   </ScrollArea>
                                   {/* <div className="grid gap-2">

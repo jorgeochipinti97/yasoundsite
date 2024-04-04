@@ -16,6 +16,7 @@ const productSchema = new Schema(
         title: { type: String },
         description: { type: String },
         price: { type: Number, default: 0 },
+        priceArs: { type: Number, default: 0 },
       },
     ],
     owner: { type: String },

@@ -238,10 +238,15 @@ export const ProductForm = ({ product }) => {
                   <Input {...register(`licenses.${index}.title`)} />
                   <Label>Description</Label>
                   <Textarea {...register(`licenses.${index}.description`)} />
-                  <Label>Price</Label>
+                  <Label>Precio USD</Label>
                   <Input
                     type="number"
                     {...register(`licenses.${index}.price`)}
+                  />
+                  <Label>Precio ARS</Label>
+                  <Input
+                    type="number"
+                    {...register(`licenses.${index}.priceArs`)}
                   />
                   <Button
                     variant="destructive"
