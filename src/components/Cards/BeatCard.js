@@ -166,7 +166,7 @@ export const BeatCard = ({
       }}
     >
       <Card
-        className="h-[300px] border-none  mx-2 px-5 w-[300px] rounded-xl flex items-start flex-col justify-start"
+        className=" md:h-[300px] border-none  mx-2 px-5  md:w-[300px] rounded-xl flex items-start flex-col justify-start"
         style={{
           backgroundImage: `linear-gradient(129deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 34%), url('${image}')`,
           backgroundSize: "cover",
@@ -204,8 +204,9 @@ export const BeatCard = ({
           </a>
           <p className="mt-2 font-geist text-white font-mono">{fileType}</p>
           <p className="mt-2 font-geist text-white font-mono">
-            Desde {formatCurrency(price)}
+            USD {formatCurrency(price)}
           </p>
+          <p className="mt-2 font-geist text-white font-mono"></p>
         </CardHeader>
         <CardContent>{isPlaying ? <PauseIcon /> : <PlayIcon />}</CardContent>
         <CardFooter>
@@ -271,8 +272,9 @@ export const BeatCard = ({
                         <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
                           {e.title}
                         </TableCell>
-                        <TableCell className="  text-center font-geist tracking-tighter font-semibold text-xl">
-                          {formatCurrency(e.price)}
+                        <TableCell className="  text-center font-geist flex-col flex tracking-tighter font-semibold ">
+                          <span>{formatCurrency(e.price)} USD </span> 
+                          <span>{formatCurrency(e.priceArs)}ARS</span>
                         </TableCell>
                         <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
                           <Dialog>

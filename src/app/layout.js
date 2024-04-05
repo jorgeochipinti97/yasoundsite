@@ -6,6 +6,7 @@ import SessionProvider from "../components/providers";
 import { getServerSession } from "next-auth";
 import { Navbar } from "@/components/Navbar";
 import { FooterComponent } from "@/components/Footer";
+import GoogleTagManager from "@/components/GoogleTagManager";
 
 
 export const metadata = {
@@ -23,6 +24,7 @@ export default async function RootLayout({ children }) {
           <Navbar />
           {children}
           <FooterComponent/>
+          <GoogleTagManager/>
         </SessionProvider>
       </body>
     </html>

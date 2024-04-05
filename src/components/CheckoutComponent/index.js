@@ -28,12 +28,12 @@ export const CheckoutComponent = ({ product, user, _id }) => {
           {
             title: product.title,
             quantity: 1,
-            unit_price: product.price,
+            unit_price: product.priceArs,
           },
         ],
         marketplace_fee: isPremium
-          ? product.price * 0.03
-          : product.price * 0.15,
+          ? product.priceArs * 0.03
+          : product.priceArs * 0.15,
         back_urls: {
           success: `https://www.yasound.site/success?orderID=${_id}`,
           failure: "https://www.yasound.site/failure",
