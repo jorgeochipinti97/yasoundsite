@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 import { Navbar } from "@/components/Navbar";
 import { FooterComponent } from "@/components/Footer";
 import GoogleTagManager from "@/components/GoogleTagManager";
-
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: "Yasound",
@@ -18,15 +18,16 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-
       <body>
         <SessionProvider session={session}>
           <Navbar />
           {children}
-          <FooterComponent/>
-          <GoogleTagManager/>
+          <Analytics />
+
+          <FooterComponent />
+          <GoogleTagManager />
         </SessionProvider>
       </body>
     </html>
-)
+  );
 }

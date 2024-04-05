@@ -372,6 +372,7 @@ export const BeatCard = ({
                                           await axios.put("/api/orders", {
                                             _id: orderId,
                                             transactionId: paymentId,
+                                            status: 'approved',
                                           });
 
                                           push(`/success?orderID=${orderId}`);
