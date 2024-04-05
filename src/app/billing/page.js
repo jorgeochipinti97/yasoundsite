@@ -59,8 +59,8 @@ const Page = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {transactions.map((e) => (
-                <TableRow>
+              {transactions.map((e,index) => (
+                <TableRow key={index}>
                   <TableCell className="text-xs">{e.buyer}</TableCell>
                   <TableCell className='text-xs'>{e.product || ""}</TableCell>
                   <TableCell className='text-xs'>${e.amount}</TableCell>
