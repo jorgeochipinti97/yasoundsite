@@ -43,20 +43,22 @@ const getOrders = async (req, res) => {
 
 
 const updateOrder = async (req, res) => {
-  const { _id = "" } = req.body;
+  const { _id } = req.body; // Asegúrate de que esta línea obtiene un _id válido
+
+  if (!_id || _id.length !== 24) { // Verifica si _id es una cadena hex de 24 caracteres
+    return res.status(400).json({ message: "El _id proporcionado no es válido" });
+  }
 
   try {
     await connectDB();
     const order = await TransactionYasound.findById(_id);
     console.log(order);
     if (!order) {
-      return res
-        .status(400)
-        .json({ message: "No existe un producto con ese ID" });
+      return res.status(404).json({ message: "No existe un pedido con ese ID" });
     }
-    await TransactionYasound.findOneAndUpdate({ _id: _id }, req.body);
 
-    return res.status(200).json({ order });
+    const updatedOrder = await TransactionYasound.findByIdAndUpdate(_id, req.body, { new: true });
+    return res.status(200).json({ order: updatedOrder });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ message: "Revisar la consola del servidor" });

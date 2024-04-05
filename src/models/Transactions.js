@@ -3,6 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const transactionSchema = new Schema(
   {
     buyer: { type: String },
+    provider: { type: String },
     seller: { type: String },
     buyerEmail: { type: String },
     buyerPhone: { type: String },

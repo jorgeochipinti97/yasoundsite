@@ -37,6 +37,7 @@ import { paises } from "@/utils/paises";
 import { useForm } from "react-hook-form";
 import gsap, { Power1 } from "gsap";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export const BeatCard = ({
   name,
@@ -52,7 +53,7 @@ export const BeatCard = ({
   const audioRef = useRef(null);
   const [isSubmit, setIsSubmit] = useState(false);
   const [orderId, setOrderId] = useState("");
-
+  const { push } = useRouter();
   const { register, handleSubmit, setValue } = useForm();
   const onSubmit = async (data) => {
     const response = await axios.post("/api/orders", {
@@ -64,6 +65,7 @@ export const BeatCard = ({
       status: "no paid",
       fileUrl: audioUrl,
       amount: price,
+      product:name,
     });
     response && setOrderId(response.data._id);
     setIsSubmit(true);
@@ -162,7 +164,7 @@ export const BeatCard = ({
     <PayPalScriptProvider
       options={{
         "client-id":
-          "ARfYvZugPUBZcQ2OiJ3DpT51zvYvn0BzyabZWlJNjLy-QdmkzUBFqSc8LvfwCTgp-eb82fSkxz5z6FXX",
+          "AeZmbZxGWwKzs-t5WxLotNJWCwi5EZZWv9QURH_1btfmx1_rbixx0ffVsa4AKJAYKJXxotMbTOqpIRXH",
       }}
     >
       <Card
@@ -173,11 +175,7 @@ export const BeatCard = ({
           backgroundPosition: "center",
         }}
       >
-        <audio
-          preload="auto"
-          ref={audioRef}
-          onEnded={() => console.log("La reproducción ha finalizado.")}
-        >
+        <audio preload="auto" ref={audioRef}>
           <source src={audioUrl} type="audio/mpeg" />
           Tu navegador no soporta el elemento de audio.
         </audio>
@@ -273,7 +271,7 @@ export const BeatCard = ({
                           {e.title}
                         </TableCell>
                         <TableCell className="  text-center font-geist flex-col flex tracking-tighter font-semibold ">
-                          <span>{formatCurrency(e.price)} USD </span> 
+                          <span>{formatCurrency(e.price)} USD </span>
                           <span>{formatCurrency(e.priceArs)}ARS</span>
                         </TableCell>
                         <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
@@ -346,50 +344,58 @@ export const BeatCard = ({
                                 <CardHeader>Método de pago</CardHeader>
                                 <CardContent className="grid gap-6">
                                   <ScrollArea className="h-[40vh]">
-                                    <PayPalButtons
-                                      createOrder={(data, actions) => {
-                                        return actions.order.create({
-                                          purchase_units: [
-                                            {
-                                              amount: {
-                                                value: e.price,
-                                              },
-                                            },
-                                          ],
-                                        });
-                                      }}
-                                      onApprove={async (data, actions) => {
-                                        try {
-                                          const details =
-                                            await actions.order.capture();
-                                          console.log(
-                                            "Pago aprobado y capturado con éxito:",
-                                            details
-                                          );
+                                    {orderId && (
+                                      <div>
+                                        <PayPalButtons
+                                          createOrder={(data, actions) => {
+                                            return actions.order.create({
+                                              purchase_units: [
+                                                {
+                                                  amount: {
+                                                    value: e.price,
+                                                  },
+                                                },
+                                              ],
+                                            });
+                                          }}
+                                          onApprove={async (data, actions) => {
+                                            try {
+                                              const details =
+                                                await actions.order.capture();
 
-                                          const paymentId = details.id;
-
-                                          await axios.put("/api/orders", {
-                                            _id: orderId,
-                                            transactionId: paymentId,
-                                            status: 'approved',
-                                          });
-
-                                          push(`/success?orderID=${orderId}`);
-                                        } catch (error) {
-                                          console.error(
-                                            "Error al capturar el pago o al guardar los detalles:",
-                                            error
-                                          );
-                                          // Manejo de errores
-                                        }
-                                      }}
-                                    />
-                                    <CheckoutComponent
-                                      user={user}
-                                      product={e}
-                                      _id={orderId}
-                                    />
+                                              if (orderId) {
+                                                const response =
+                                                  await axios.put(
+                                                    "/api/orders",
+                                                    {
+                                                      _id: orderId,
+                                                      transactionId: details.id,
+                                                      status: "approved",
+                                                      provider: "paypal",
+                                                    }
+                                                  );
+                                                console.log(response);
+                                                response &&
+                                                  push(
+                                                    `/success?orderID=${orderId}`
+                                                  );
+                                              }
+                                            } catch (error) {
+                                              console.error(
+                                                "Error al capturar el pago o al guardar los detalles:",
+                                                orderId
+                                              );
+                                              // Manejo de errores
+                                            }
+                                          }}
+                                        />
+                                        <CheckoutComponent
+                                          user={user}
+                                          product={e}
+                                          _id={orderId}
+                                        />
+                                      </div>
+                                    )}
                                   </ScrollArea>
                                   {/* <div className="grid gap-2">
                                     <Label htmlFor="name">Name</Label>
