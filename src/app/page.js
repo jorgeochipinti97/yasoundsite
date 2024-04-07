@@ -82,7 +82,7 @@ export default function Home() {
           {
             title: "USUARIO PREMIUM",
             quantity: 1,
-            unit_price: 1,
+            unit_price: 10000,
           },
         ],
         back_urls: {
