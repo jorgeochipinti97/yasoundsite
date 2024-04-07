@@ -21,18 +21,16 @@ const Page = () => {
 
   useEffect(() => {
     const mpPaymentId = searchParams.get("payment_id");
-    
-    if (user) {
-      mpPaymentId && updateUser(user._id, mpPaymentId);
+
+    if (user && mpPaymentId) {
+      updateUser(user._id, mpPaymentId);
     }
-
-
-  }, [searchParams]);
+  }, [searchParams, user]);
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
-      <div>¡Muchas gracias por tu compra!</div>
-      <div>Ahora eres usuario premium </div>
+      <p className="mx-5 text-7xl font-geist font-bold tracking-tighter">¡Muchas gracias por tu compra!</p>
+      <p className="text-4xl font-geist my-5 tracking-tighter">Ahora eres usuario premium </p>
       <div>
         <Link href={"/"}>
           <Button>Volver al inicio</Button>

@@ -11,7 +11,6 @@ const userSchema = new Schema(
     phone: { type: String },
     country: { type: String },
     transactionId: { type: String },
-    premium: { type: String },
     videos: [{ type: String }],
     colors: [{ type: String }],
     genders: [{ type: String }],

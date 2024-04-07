@@ -752,54 +752,84 @@ export default function Home() {
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="">
-                      <Card className="m-3  purchaseSelect">
-                        <CardHeader>Método de pago</CardHeader>
-                        <CardContent className="grid gap-6">
-                          <ScrollArea className="h-[40vh]">
-                            <div>
-                              <PayPalButtons
-                                createOrder={(data, actions) => {
-                                  return actions.order.create({
-                                    purchase_units: [
-                                      {
-                                        amount: {
-                                          value: 10,
-                                        },
-                                      },
-                                    ],
-                                  });
-                                }}
-                                onApprove={async (data, actions) => {
-                                  try {
-                                    const details =
-                                      await actions.order.capture();
+                      {user ? (
+                        <>
+                          <Card className="m-3  purchaseSelect">
+                            <CardHeader>Método de pago</CardHeader>
+                            <CardContent className="grid gap-6">
+                              <ScrollArea className="h-[40vh]">
+                                <div>
+                                  <PayPalButtons
+                                    createOrder={(data, actions) => {
+                                      return actions.order.create({
+                                        purchase_units: [
+                                          {
+                                            amount: {
+                                              value: 10,
+                                            },
+                                          },
+                                        ],
+                                      });
+                                    }}
+                                    onApprove={async (data, actions) => {
+                                      try {
+                                        const details =
+                                          await actions.order.capture();
 
-                                    const transactionId = details.id;
-                                  } catch (error) {
-                                    console.error(
-                                      "Error al capturar el pago o al guardar los detalles:",
-                                      orderId
-                                    );
-                                    // Manejo de errores
-                                  }
-                                }}
-                              />
-                              <div className=" flex justify-center mt-10">
-                                <Button variant="outline" className="w-fit" onClick={getPremium}> 
-                                  <img
-                                    src="/merca.png"
-                                    className="w-1/12 mr-2"
+                                        const transactionId = details.id;
+                                        const response = await axios.put(
+                                          "/api/users",
+                                          {
+                                            _id: user._id,
+                                            transactionId: paymentId,
+                                            premium: true,
+                                          }
+                                        );
+                                      } catch (error) {
+                                        console.error(
+                                          "Error al capturar el pago o al guardar los detalles:",
+                                          orderId
+                                        );
+                                        // Manejo de errores
+                                      }
+                                    }}
                                   />
-                                  Pagar con MercadoPago
-                                </Button>
-                              </div>
-                            </div>
-                          </ScrollArea>
-                        </CardContent>
-                        <CardFooter>
-                          <Button className="w-full">Continue</Button>
-                        </CardFooter>
-                      </Card>
+                                  <div className=" flex justify-center mt-10">
+                                    <Button
+                                      variant="outline"
+                                      className="w-fit"
+                                      onClick={getPremium}
+                                    >
+                                      <img
+                                        src="/merca.png"
+                                        className="w-1/12 mr-2"
+                                      />
+                                      Pagar con MercadoPago
+                                    </Button>
+                                  </div>
+                                </div>
+                              </ScrollArea>
+                            </CardContent>
+                            <CardFooter>
+                              <Button className="w-full">Continue</Button>
+                            </CardFooter>
+                          </Card>
+                        </>
+                      ) : (
+                        <>
+                          <p className="font-geist text-xl text-center tracking-tighter">
+                            Debe tener un usuario para ser premium
+                          </p>
+                          <div className="flex justify-center flex-col items-center">
+                            <Link href={"/register"} className="my-2"> 
+                              <Button>Registrarse</Button>
+                            </Link>
+                            <Link href={"/login"} className="my-2">
+                              <Button>Iniciar sesión</Button>
+                            </Link>
+                          </div>
+                        </>
+                      )}
                     </DialogContent>
                   </Dialog>
                 </PayPalScriptProvider>
