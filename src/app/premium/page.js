@@ -21,11 +21,9 @@ const Page = () => {
 
   useEffect(() => {
     const mpPaymentId = searchParams.get("payment_id");
-
-    const orderId = searchParams.get("orderID");
-
+    
     if (user) {
-      mpPaymentId && updateUser(orderId, mpPaymentId);
+      mpPaymentId && updateUser(user._id, mpPaymentId);
     }
 
 
