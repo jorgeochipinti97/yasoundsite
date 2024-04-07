@@ -21,6 +21,7 @@ import Marquee from "react-fast-marquee";
 import axios from "axios";
 import { formatCurrency } from "@/utils/utils";
 import { useUsers } from "@/hooks/useUsers";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,6 +39,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { CheckoutComponent } from "@/components/CheckoutComponent";
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 export default function Home() {
   const { push } = useRouter();
 
@@ -69,6 +74,41 @@ export default function Home() {
       // Repite para los demás elementos
     }
   }, [inView]);
+
+  const getPremium = async () => {
+    try {
+      const preference = {
+        items: [
+          {
+            title: "USUARIO PREMIUM",
+            quantity: 1,
+            unit_price: 1,
+          },
+        ],
+        back_urls: {
+          success: `https://www.yasound.site/premium`,
+          failure: "https://www.yasound.site/",
+          pending: "https://www.yasound.site/",
+        },
+      };
+
+      const data = await axios.post(
+        "https://api.mercadopago.com/checkout/preferences",
+        preference,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer APP_USR-4632397606638218-032916-dc3ba4771030c1d50169159d35498d8c-743465031`,
+          },
+        }
+      );
+
+      data && push(data.data.init_point);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     gsap.to(".logoblack", {
       opacity: 0,
@@ -511,7 +551,9 @@ export default function Home() {
                 </span>
               </div>
               <div className="flex justify-center mt-5">
-                <Button className="hover:animate-tilt">Registrarse</Button>
+                <Link href={"/login"}>
+                  <Button className="hover:animate-tilt">Registrarse</Button>
+                </Link>
               </div>
             </div>
             <div class="card bg-black/80  md:mt-0 mt-10 md:w-5/12 w-11/12  rounded-xl p-4">
@@ -658,9 +700,109 @@ export default function Home() {
                 </span>
               </div>
               <div className="flex justify-center mt-5">
-                <Button variant="outline" className="hover:animate-tilt">
-                  Ser parte
-                </Button>
+                <PayPalScriptProvider
+                  options={{
+                    "client-id":
+                      "AeZmbZxGWwKzs-t5WxLotNJWCwi5EZZWv9QURH_1btfmx1_rbixx0ffVsa4AKJAYKJXxotMbTOqpIRXH",
+                  }}
+                >
+                  <Dialog>
+                    <DialogTrigger asChild className="text-white">
+                      <Button className="hover:animate-tilt">
+                        <svg
+                          width={20}
+                          className="mr-2"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g
+                            id="SVGRepo_tracerCarrier"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></g>
+                          <g id="SVGRepo_iconCarrier">
+                            {" "}
+                            <path
+                              d="M2.38351 13.793C1.93748 10.6294 1.71447 9.04765 2.66232 8.02383C3.61017 7 5.29758 7 8.67239 7H15.3276C18.7024 7 20.3898 7 21.3377 8.02383C22.2855 9.04765 22.0625 10.6294 21.6165 13.793L21.1935 16.793C20.8437 19.2739 20.6689 20.5143 19.7717 21.2572C18.8745 22 17.5512 22 14.9046 22H9.09536C6.44881 22 5.12553 22 4.22834 21.2572C3.33115 20.5143 3.15626 19.2739 2.80648 16.793L2.38351 13.793Z"
+                              stroke="#ffffff"
+                              stroke-width="1.5"
+                            ></path>{" "}
+                            <path
+                              d="M12 17C12 17.8284 11.3284 18.5 10.5 18.5C9.67157 18.5 9 17.8284 9 17C9 16.1716 9.67157 15.5 10.5 15.5C11.3284 15.5 12 16.1716 12 17ZM12 17V10.5C12 12.1569 13.8954 13.5 15 13.5"
+                              stroke="#ffffff"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>{" "}
+                            <path
+                              d="M19.5617 7C19.7904 5.69523 18.7863 4.5 17.4617 4.5H6.53788C5.21323 4.5 4.20922 5.69523 4.43784 7"
+                              stroke="#ffffff"
+                              stroke-width="1.5"
+                            ></path>{" "}
+                            <path
+                              d="M17.4999 4.5C17.5283 4.24092 17.5425 4.11135 17.5427 4.00435C17.545 2.98072 16.7739 2.12064 15.7561 2.01142C15.6497 2 15.5194 2 15.2588 2H8.74099C8.48035 2 8.35002 2 8.24362 2.01142C7.22584 2.12064 6.45481 2.98072 6.45704 4.00434C6.45727 4.11135 6.47146 4.2409 6.49983 4.5"
+                              stroke="#ffffff"
+                              stroke-width="1.5"
+                            ></path>{" "}
+                          </g>
+                        </svg>
+                        Comprar
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="">
+                      <Card className="m-3  purchaseSelect">
+                        <CardHeader>Método de pago</CardHeader>
+                        <CardContent className="grid gap-6">
+                          <ScrollArea className="h-[40vh]">
+                            <div>
+                              <PayPalButtons
+                                createOrder={(data, actions) => {
+                                  return actions.order.create({
+                                    purchase_units: [
+                                      {
+                                        amount: {
+                                          value: 10,
+                                        },
+                                      },
+                                    ],
+                                  });
+                                }}
+                                onApprove={async (data, actions) => {
+                                  try {
+                                    const details =
+                                      await actions.order.capture();
+
+                                    const transactionId = details.id;
+                                  } catch (error) {
+                                    console.error(
+                                      "Error al capturar el pago o al guardar los detalles:",
+                                      orderId
+                                    );
+                                    // Manejo de errores
+                                  }
+                                }}
+                              />
+                              <div className=" flex justify-center mt-10">
+                                <Button variant="outline" className="w-fit" onClick={getPremium}> 
+                                  <img
+                                    src="/merca.png"
+                                    className="w-1/12 mr-2"
+                                  />
+                                  Pagar con MercadoPago
+                                </Button>
+                              </div>
+                            </div>
+                          </ScrollArea>
+                        </CardContent>
+                        <CardFooter>
+                          <Button className="w-full">Continue</Button>
+                        </CardFooter>
+                      </Card>
+                    </DialogContent>
+                  </Dialog>
+                </PayPalScriptProvider>
               </div>
             </div>
           </div>

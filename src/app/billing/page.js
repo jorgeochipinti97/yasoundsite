@@ -17,6 +17,8 @@ import {
 const Page = () => {
   const { user } = useUsers();
   const [transactions, setTransactiosn] = useState([]);
+  const [totalArs, setTotalArs] = useState([]);
+  const [totalUsd, setTotalUsd] = useState([]);
 
   const getOrders = async () => {
     const data = await axios.get("/api/orders");
@@ -26,6 +28,25 @@ const Page = () => {
         (e) => e.seller == user.username && e.status == "approved"
       )
     );
+
+
+    const totalUSD = transactions.reduce((total, transaction) => {
+        if (transaction.provider === 'paypal') {
+          return total + transaction.amount;
+        }
+        return total;
+      }, 0);
+      
+      const totalARS = transactions.reduce((total, transaction) => {
+        if (transaction.provider === 'mercadopago') {
+          return total + transaction.amount;
+        }
+        return total;
+      }, 0);
+
+      setTotalArs(totalARS)
+      setTotalUsd(totalUSD)
+
   };
   useEffect(() => {
     user && getOrders();
@@ -36,12 +57,12 @@ const Page = () => {
         <div className="flex justify-center">
           <div className="flex flex-col items-center mx-5">
             <p className="font-bold text-2xl">USD </p>
-            <p className="font-bold text-2xl">$100 </p>
+            <p className="font-bold text-2xl">${totalUsd} </p>
           </div>
           <div className="flex flex-col items-center mx-5">
             <p className="font-bold text-2xl">ARS</p>
 
-            <p className="font-bold text-2xl">$100</p>
+            <p className="font-bold text-2xl">${totalArs}</p>
           </div>
         </div>
       </section>
@@ -55,7 +76,7 @@ const Page = () => {
                 <TableHead className="text-xs">Comprador</TableHead>
                 <TableHead className='text-xs'>Producto</TableHead>
                 <TableHead className='text-xs'>Precio</TableHead>
-                <TableHead className="text-xs">-</TableHead>
+                <TableHead className="text-xs"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

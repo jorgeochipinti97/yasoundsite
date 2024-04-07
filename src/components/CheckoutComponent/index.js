@@ -36,8 +36,8 @@ export const CheckoutComponent = ({ product, user, _id }) => {
           : product.priceArs * 0.15,
         back_urls: {
           success: `https://www.yasound.site/success?orderID=${_id}`,
-          failure: "https://www.yasound.site/failure",
-          pending: "https://www.yasound.site/pending",
+          failure: "https://www.yasound.site/",
+          pending: "https://www.yasound.site/",
         },
       };
 

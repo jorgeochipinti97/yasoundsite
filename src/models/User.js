@@ -10,6 +10,7 @@ const userSchema = new Schema(
     bio: { type: String },
     phone: { type: String },
     country: { type: String },
+    transactionId: { type: String },
     premium: { type: String },
     videos: [{ type: String }],
     colors: [{ type: String }],
