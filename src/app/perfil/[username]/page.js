@@ -49,7 +49,7 @@ const Page = () => {
             <div>
               <div className="flex justify-center">
                 <img
-                  src={user.profilePicture}
+                  src={`${user.profilePicture}?${new Date().getTime()}`}
                   className="rounded-full border-[6px] border-fuchsia-800 w-[200px] md:w-[300px] md:ml-10 "
                 />
               </div>

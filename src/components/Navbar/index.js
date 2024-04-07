@@ -155,7 +155,7 @@ export const Navbar = () => {
                   Próximamente
                 </Badge>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => push("/")}>
+              <DropdownMenuItem onClick={() => push("/billing")}>
                 Billing
               </DropdownMenuItem>
             </DropdownMenuGroup>

@@ -68,7 +68,7 @@ const Page = () => {
       </section>
 
       <section className="flex justify-center">
-        <div className="bg-white w-12/12 md:w-6/12 border-2 mt-10 rounded-xl">
+        <div className="bg-white w-11/12 md:w-6/12 border-2 mt-10 rounded-xl">
           <Table className="">
          
             <TableHeader>

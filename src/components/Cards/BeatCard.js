@@ -164,7 +164,7 @@ export const BeatCard = ({
     <PayPalScriptProvider
       options={{
         "client-id":
-          "AeZmbZxGWwKzs-t5WxLotNJWCwi5EZZWv9QURH_1btfmx1_rbixx0ffVsa4AKJAYKJXxotMbTOqpIRXH",
+          "ARfYvZugPUBZcQ2OiJ3DpT51zvYvn0BzyabZWlJNjLy-QdmkzUBFqSc8LvfwCTgp-eb82fSkxz5z6FXX",
       }}
     >
       <Card
