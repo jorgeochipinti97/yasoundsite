@@ -781,14 +781,14 @@ export default function Home() {
                                           "/api/users",
                                           {
                                             _id: user._id,
-                                            transactionId: paymentId,
+                                            transactionId: transactionId,
                                             premium: true,
                                           }
-                                        );
+                                          );
+                                          response && push(`/premium?payment_id=${transactionId}`)
                                       } catch (error) {
                                         console.error(
                                           "Error al capturar el pago o al guardar los detalles:",
-                                          orderId
                                         );
                                         // Manejo de errores
                                       }
