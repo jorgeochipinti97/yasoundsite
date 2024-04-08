@@ -140,6 +140,7 @@ const Page = () => {
                               user={user}
                               name={e.title}
                               price={e.licenses[0].price}
+                              priceArs={e.licenses[0].priceArs}
                               owner={e.owner}
                               audioUrl={e.file.url}
                               fileType={e.file.fileType}

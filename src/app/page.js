@@ -43,6 +43,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CheckoutComponent } from "@/components/CheckoutComponent";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { SliderCoverflow } from "@/components/Slidercoverflow";
 export default function Home() {
   const { push } = useRouter();
 
@@ -50,7 +51,7 @@ export default function Home() {
     triggerOnce: true, // Asegura que la animación se dispare solo una vez
     threshold: 0.1, // Define qué porcentaje del elemento debe estar visible para considerarse en vista
   });
-  const { user } = useUsers();
+  const { user, users } = useUsers();
   const [beats_, setBeats_] = useState([]);
 
   const getBeats = async () => {
@@ -295,6 +296,7 @@ export default function Home() {
                 ¡Transforma tu creatividad en oportunidades!
               </CardContent>
               <CardFooter className="flex justify-center">
+                <Link href={'/register'}>
                 <Button className="hover:animate-tilt">
                   <svg
                     width={30}
@@ -317,6 +319,7 @@ export default function Home() {
                   </svg>
                   Empezar
                 </Button>
+                </Link>
               </CardFooter>
             </Card>
           </div>
@@ -410,13 +413,12 @@ export default function Home() {
         >
           Beats & Tracks
         </p>
-        <div className="overflow-hidden whitespace-nowrap flex">
-          {beats_ && (
-            <div className=" ">
-              <MarqueeCards beats={beats_} />
-            </div>
-          )}
-        </div>
+
+        {beats_ && (
+          <div className=" ">
+            <SliderCoverflow beats={beats_} />
+          </div>
+        )}
 
         <div className=" w-screen">
           <p className="text-center font-bold text-7xl mt-10 font-geist tracking-tighter">
@@ -784,11 +786,14 @@ export default function Home() {
                                             transactionId: transactionId,
                                             premium: true,
                                           }
+                                        );
+                                        response &&
+                                          push(
+                                            `/premium?payment_id=${transactionId}`
                                           );
-                                          response && push(`/premium?payment_id=${transactionId}`)
                                       } catch (error) {
                                         console.error(
-                                          "Error al capturar el pago o al guardar los detalles:",
+                                          "Error al capturar el pago o al guardar los detalles:"
                                         );
                                         // Manejo de errores
                                       }
@@ -821,7 +826,7 @@ export default function Home() {
                             Debe tener un usuario para ser premium
                           </p>
                           <div className="flex justify-center flex-col items-center">
-                            <Link href={"/register"} className="my-2"> 
+                            <Link href={"/register"} className="my-2">
                               <Button>Registrarse</Button>
                             </Link>
                             <Link href={"/login"} className="my-2">
@@ -837,7 +842,42 @@ export default function Home() {
             </div>
           </div>
         </div>
-
+        <div className="my-5">
+          <Marquee direction="right">
+            {users &&
+              users.map((e) => (
+                <div
+                  style={{
+                    backgroundImage:
+                      e.profilePicture.length > 3
+                        ? `url(${e.profilePicture})`
+                        : "rgba(0,0,0,1)",
+                  }}
+                  className="h-[300px] w-[300px] rounded-xl bg-violet-100 mx-2  flex flex-col items-center"
+                >
+                  <p className="font-geist font-bold text-black tracking-tighter text-center mt-10 text-4xl">
+                    {e.username}
+                  </p>
+                  <div className="flex justify-center mt-5">
+                    <div>
+                      {e.genders.map((e) => (
+                        <Badge key={e} className="w-fit mx-2">
+                          {e}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex justify-center mt-5">
+                    <Link href={`/perfil/${e.username}`}>
+                      <Button className="hover:animate-tilt">
+                        Visitar perfil
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+          </Marquee>
+        </div>
         <div
           className="flex items-center md:flex-row py-10 flex-col justify-around mt-10 rounded-t-xl"
           style={{
@@ -964,10 +1004,104 @@ export default function Home() {
                   Soporte VIP
                 </li>
               </ul>
-
-              <Button variant="outline" className="mt-5 hover:animate-tilt">
+              <PayPalScriptProvider
+                  options={{
+                    "client-id":
+                      "ARfYvZugPUBZcQ2OiJ3DpT51zvYvn0BzyabZWlJNjLy-QdmkzUBFqSc8LvfwCTgp-eb82fSkxz5z6FXX",
+                  }}
+                >
+                  <Dialog>
+                    <DialogTrigger asChild className="">
+                    <Button variant="outline" className="mt-5 hover:animate-tilt">
                 ¡Únete!
               </Button>
+                    </DialogTrigger>
+                    <DialogContent className="">
+                      {user ? (
+                        <>
+                          <Card className="m-3  purchaseSelect">
+                            <CardHeader>Método de pago</CardHeader>
+                            <CardContent className="grid gap-6">
+                              <ScrollArea className="h-[40vh]">
+                                <div>
+                                  <PayPalButtons
+                                    createOrder={(data, actions) => {
+                                      return actions.order.create({
+                                        purchase_units: [
+                                          {
+                                            amount: {
+                                              value: 10,
+                                            },
+                                          },
+                                        ],
+                                      });
+                                    }}
+                                    onApprove={async (data, actions) => {
+                                      try {
+                                        const details =
+                                          await actions.order.capture();
+
+                                        const transactionId = details.id;
+                                        const response = await axios.put(
+                                          "/api/users",
+                                          {
+                                            _id: user._id,
+                                            transactionId: transactionId,
+                                            premium: true,
+                                          }
+                                        );
+                                        response &&
+                                          push(
+                                            `/premium?payment_id=${transactionId}`
+                                          );
+                                      } catch (error) {
+                                        console.error(
+                                          "Error al capturar el pago o al guardar los detalles:"
+                                        );
+                                        // Manejo de errores
+                                      }
+                                    }}
+                                  />
+                                  <div className=" flex justify-center mt-10">
+                                    <Button
+                                      variant="outline"
+                                      className="w-fit"
+                                      onClick={getPremium}
+                                    >
+                                      <img
+                                        src="/merca.png"
+                                        className="w-1/12 mr-2"
+                                      />
+                                      Pagar con MercadoPago
+                                    </Button>
+                                  </div>
+                                </div>
+                              </ScrollArea>
+                            </CardContent>
+                            <CardFooter>
+                              <Button className="w-full">Continue</Button>
+                            </CardFooter>
+                          </Card>
+                        </>
+                      ) : (
+                        <>
+                          <p className="font-geist text-xl text-center tracking-tighter">
+                            Debe tener un usuario para ser premium
+                          </p>
+                          <div className="flex justify-center flex-col items-center">
+                            <Link href={"/register"} className="my-2">
+                              <Button>Registrarse</Button>
+                            </Link>
+                            <Link href={"/login"} className="my-2">
+                              <Button>Iniciar sesión</Button>
+                            </Link>
+                          </div>
+                        </>
+                      )}
+                    </DialogContent>
+                  </Dialog>
+                </PayPalScriptProvider>
+        
             </div>
           </div>
           <div className="flex  flex-col  w-fit  justify-start p-5 rounded-md">

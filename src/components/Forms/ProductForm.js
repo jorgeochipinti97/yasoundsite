@@ -68,7 +68,6 @@ export const ProductForm = ({ product }) => {
   });
 
   const onSubmit = async (data) => {
-
     try {
       if (!selectedFile && !product) {
         alert("Por favor, selecciona un archivo primero.");
@@ -109,8 +108,8 @@ export const ProductForm = ({ product }) => {
 
           showAlert(
             "Éxito", // Título del alerta
-            // `Producto ${product?._id ? "actualizado" : "creado"} con éxito.`, // Mensaje del alerta
-            "success" // Tipo de alerta, por ejemplo: success, error, info, etc. Ajusta según tu implementación de showAlert
+            `Producto ${product?._id ? "actualizado" : "creado"} con éxito.`, // Mensaje del alerta
+            // "success" // Tipo de alerta, por ejemplo: success, error, info, etc. Ajusta según tu implementación de showAlert
           );
         }
       }
@@ -124,8 +123,13 @@ export const ProductForm = ({ product }) => {
         };
 
         const response = await axios.put("/api/products", productData);
-      
-      console.log(response)
+
+        response &&
+          showAlert(
+            "Éxito", // Título del alerta
+            `Producto ${product?._id ? "actualizado" : "creado"} con éxito.`, // Mensaje del alerta
+            // "success" // Tipo de alerta, por ejemplo: success, error, info, etc. Ajusta según tu implementación de showAlert
+          );
       }
     } catch (er) {
       console.log(er);
@@ -142,9 +146,7 @@ export const ProductForm = ({ product }) => {
         licenses: product.licenses,
       });
     }
-
   }, [product, reset]);
-
   return (
     <div className="w-full flex justify-center items ">
       <AlertComponent {...alertProps} />

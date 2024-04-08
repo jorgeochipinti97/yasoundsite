@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export function useUsers(username) {
   const { data: session, status } = useSession();
   const [user, setUser] = useState(null); // Cambiado a null para un estado inicial más claro
+  const [users, setUsers] = useState(null); // Cambiado a null para un estado inicial más claro
   const [userByUsername, setUserByUsername] = useState(null); // Cambiado el nombre para evitar confusión
   const isLoading = status === "loading";
 
@@ -13,13 +14,15 @@ export function useUsers(username) {
       try {
         const { data } = await axios.get("/api/users");
         // Si hay sesión y no se está cargando, buscar por email del usuario de la sesión
+        setUsers(data.data);
         if (session && !isLoading && session.user?.email) {
-          const userByEmail = data.data.find(e => e.email === session.user.email);
+          const userByEmail = data.data.find(
+            (e) => e.email === session.user.email
+          );
           setUser(userByEmail);
         }
-        // Si se proporciona un username, buscar por ese username
         if (username) {
-          const userByUsername = data.data.find(e => e.username === username);
+          const userByUsername = data.data.find((e) => e.username === username);
           setUserByUsername(userByUsername);
         }
       } catch (err) {
@@ -34,5 +37,5 @@ export function useUsers(username) {
   // y hacer el hook más predecible en su uso.
   const resultUser = username ? userByUsername : user;
 
-  return { session, isLoading, user: resultUser };
+  return { session, isLoading, user: resultUser, users };
 }

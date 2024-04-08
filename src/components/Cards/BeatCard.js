@@ -48,6 +48,7 @@ export const BeatCard = ({
   licenses,
   image,
   user,
+  priceArs,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
@@ -65,7 +66,7 @@ export const BeatCard = ({
       status: "no paid",
       fileUrl: audioUrl,
       amount: price,
-      product:name,
+      product: name,
     });
     response && setOrderId(response.data._id);
     setIsSubmit(true);
@@ -161,18 +162,18 @@ export const BeatCard = ({
     </svg>
   );
   return (
-    <PayPalScriptProvider
-      options={{
-        "client-id":
-          "ARfYvZugPUBZcQ2OiJ3DpT51zvYvn0BzyabZWlJNjLy-QdmkzUBFqSc8LvfwCTgp-eb82fSkxz5z6FXX",
+    <Card
+      className=" md:h-[300px] border-none  mx-2 px-5 w-[300px]  md:w-[300px] rounded-xl flex items-start flex-col justify-start"
+      style={{
+        backgroundImage: `linear-gradient(129deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 34%), url('${image}')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
-      <Card
-        className=" md:h-[300px] border-none  mx-2 px-5  md:w-[300px] rounded-xl flex items-start flex-col justify-start"
-        style={{
-          backgroundImage: `linear-gradient(129deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 34%), url('${image}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+      <PayPalScriptProvider
+        options={{
+          "client-id":
+            "ARfYvZugPUBZcQ2OiJ3DpT51zvYvn0BzyabZWlJNjLy-QdmkzUBFqSc8LvfwCTgp-eb82fSkxz5z6FXX",
         }}
       >
         <audio preload="auto" ref={audioRef}>
@@ -204,6 +205,10 @@ export const BeatCard = ({
           <p className="mt-2 font-geist text-white font-mono">
             USD {formatCurrency(price)}
           </p>
+          <p className="mt-2 font-geist text-white font-mono">
+            ARS {formatCurrency(priceArs)}
+          </p>
+
           <p className="mt-2 font-geist text-white font-mono"></p>
         </CardHeader>
         <CardContent>{isPlaying ? <PauseIcon /> : <PlayIcon />}</CardContent>
@@ -493,7 +498,7 @@ export const BeatCard = ({
             </DialogContent>
           </Dialog>
         </CardFooter>
-      </Card>
-    </PayPalScriptProvider>
+      </PayPalScriptProvider>
+    </Card>
   );
 };

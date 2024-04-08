@@ -58,8 +58,6 @@ export const ProfileForm = () => {
   const [youtubeVideos, setYoutubeVideos] = useState([]);
 
   const handleImageUpload = async (event) => {
-
-
     try {
       const response = await axios.post("/api/s3", formData);
 
@@ -113,8 +111,8 @@ export const ProfileForm = () => {
       setValue("links", user.links);
       setValue("images", user.images);
       setImages(user.images);
-      setValue("colors", user.colors);
-      setColors(user.colors);
+      user.colors.lenght > 3 && setValue("colors", user.colors);
+      user.colors.lenght > 3 && setColors(user.colors);
       user.links.forEach((linkObj) => {
         setValue(`${linkObj.name.toLowerCase()}Link`, linkObj.link);
       });
@@ -223,45 +221,54 @@ export const ProfileForm = () => {
   return (
     <div className="w-12/12 flex justify-center">
       <AlertComponent {...alertProps} />
-
-      <form className="w-10/12 md:w-6/12 mx-5 " onSubmit={handleSubmit(onSubmit)}>
-        <ScrollArea className="h-[60vh] w-full rounded-md  px-1-">
-          <div className="mx-5">
-            <div className="my-5">
-              <label className="tracking-tighter text-md font-semibold ">
-                Personaliza tus ondas
-              </label>
-              <div className="flex mt-2">
-                <input
-                  type="color"
-                  id="colorPicker"
-                  style={{ display: "none" }}
-                  onChange={handleColorChange}
-                />
-                {colors.map((color, index) => (
-                  <div
-                    key={index}
-                    onClick={() => {
-                      setSelectedColorIndex(index);
-                      document.getElementById("colorPicker").click();
-                    }}
-                    className="color-choice border border-black mx-1 h-[15px] w-[15px] rounded-full "
-                    style={{ backgroundColor: color }}
-                  ></div>
-                ))}
+      {user && (
+        <form
+          className="w-10/12 md:w-6/12 mx-5 "
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <ScrollArea className="h-[60vh] w-full rounded-md  px-1-">
+            <div className="mx-5">
+              <div className="my-5 bg-gray-200 w-fit p-2 rounded-xl">
+                <label className="tracking-tighter text-md font-semibold ">
+                  Personaliza tus ondas
+                </label>
+                <div className="flex mt-2">
+                  <input
+                    type="color"
+                    id="colorPicker"
+                    style={{ display: "none" }}
+                    disabled={user.premium ? false : true}
+                    onChange={handleColorChange}
+                  />
+                  {colors.map((color, index) => (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        setSelectedColorIndex(index);
+                        document.getElementById("colorPicker").click();
+                      }}
+                      className="color-choice border border-black mx-1 h-[15px] w-[15px] rounded-full "
+                      style={{ backgroundColor: color }}
+                    ></div>
+                  ))}
+                </div>
+                {!user.premium && (
+                  <p className="font-geist mt-5 font-bold tracking-tighter">
+                    Este servicio es para usuarios premium
+                  </p>
+                )}
               </div>
-            </div>
-            <div className="my-2">
-              <label className="tracking-tighter text-md font-semibold ">
-                Tu biografía
-              </label>
-              <Textarea
-                className="mt-2"
-                {...register("bio")} // Registra el input con React Hook Form
-              />
-            </div>
-            <div className="my-2">
-              {/* <label className="tracking-tighter text-md font-semibold  ">
+              <div className="my-2">
+                <label className="tracking-tighter text-md font-semibold ">
+                  Tu biografía
+                </label>
+                <Textarea
+                  className="mt-2"
+                  {...register("bio")} // Registra el input con React Hook Form
+                />
+              </div>
+              <div className="my-2">
+                {/* <label className="tracking-tighter text-md font-semibold  ">
                 Muestra lo tuyo{" "}
               </label>
 
@@ -323,74 +330,75 @@ export const ProfileForm = () => {
                   <CarouselNext />
                 </Carousel>
               </div> */}
-              <div className="mt-5">
-                <label className="tracking-tighter text-md font-semibold">
-                  Agrega tus videos de YouTube
-                </label>
-                <Input
-                  className="mt-2"
-                  {...register("videosLink")}
-                  placeholder="Añade un enlace de video"
-                  // Registra el campo de entrada para nuevos enlaces de video
-                />
-                <Button
-                  type="button"
-                  onClick={addVideo} // Llama a addVideo sin necesidad de acceder directamente al DOM
-                  className="mt-2"
-                >
-                  Agregar
-                </Button>
-                <div>
-                  {youtubeVideos.map((videoUrl, index) => (
-                    <div key={index} className="mt-3">
-                      <iframe
-                        width="300"
-                        height="300"
-                        src={`https://www.youtube.com/embed/${
-                          videoUrl.split("v=")[1]
-                        }`}
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                      <Button
-                        type="button"
-                        className="mt-2"
-                        variant="destructive"
-                        onClick={() => removeVideo(index)}
-                      >
-                        Eliminar
-                      </Button>
-                    </div>
-                  ))}
+                <div className="mt-5">
+                  <label className="tracking-tighter text-md font-semibold">
+                    Agrega tus videos de YouTube
+                  </label>
+                  <Input
+                    className="mt-2"
+                    {...register("videosLink")}
+                    placeholder="Añade un enlace de video"
+                    // Registra el campo de entrada para nuevos enlaces de video
+                  />
+                  <Button
+                    type="button"
+                    onClick={addVideo} // Llama a addVideo sin necesidad de acceder directamente al DOM
+                    className="mt-2"
+                  >
+                    Agregar
+                  </Button>
+                  <div>
+                    {youtubeVideos.map((videoUrl, index) => (
+                      <div key={index} className="mt-3">
+                        <iframe
+                          width="300"
+                          height="300"
+                          src={`https://www.youtube.com/embed/${
+                            videoUrl.split("v=")[1]
+                          }`}
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                        <Button
+                          type="button"
+                          className="mt-2"
+                          variant="destructive"
+                          onClick={() => removeVideo(index)}
+                        >
+                          Eliminar
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <div className="mt-5">{renderLinkInputs}</div>
+                <div className="mt-5">{renderLinkInputs}</div>
+              </div>
             </div>
-          </div>
-          <div className="mt-5">
-            <Button>
-              <svg
-                width={20}
-                className="mr-2"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="#f5f5f7"
-                  fillRule="evenodd"
-                  d="M1.265 4.426C1.043 2.872 2.617 1.68 4.053 2.314l17.781 7.857c1.589.702 1.589 2.956 0 3.658l-17.78 7.857c-1.437.635-3.011-.558-2.789-2.112l.726-5.082a1.2 1.2 0 01.897-.995L8.877 12l-5.99-1.497a1.2 1.2 0 01-.896-.995l-.726-5.082zM21.025 12L3.246 4.143l.65 4.55 8.96 2.24c1.11.278 1.11 1.856 0 2.134l-8.96 2.24-.65 4.55L21.025 12z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              Enviar
-            </Button>
-          </div>
-        </ScrollArea>
-      </form>
+            <div className="mt-5">
+              <Button>
+                <svg
+                  width={20}
+                  className="mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#f5f5f7"
+                    fillRule="evenodd"
+                    d="M1.265 4.426C1.043 2.872 2.617 1.68 4.053 2.314l17.781 7.857c1.589.702 1.589 2.956 0 3.658l-17.78 7.857c-1.437.635-3.011-.558-2.789-2.112l.726-5.082a1.2 1.2 0 01.897-.995L8.877 12l-5.99-1.497a1.2 1.2 0 01-.896-.995l-.726-5.082zM21.025 12L3.246 4.143l.65 4.55 8.96 2.24c1.11.278 1.11 1.856 0 2.134l-8.96 2.24-.65 4.55L21.025 12z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+                Enviar
+              </Button>
+            </div>
+          </ScrollArea>
+        </form>
+      )}
     </div>
   );
 };

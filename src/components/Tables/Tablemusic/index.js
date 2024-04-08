@@ -27,10 +27,14 @@ import { ProductForm } from "@/components/Forms/ProductForm";
 import axios from "axios";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useUsers } from "@/hooks/useUsers";
+import { useAlert } from "@/hooks/useAlert";
+import { AlertComponent } from "@/components/ui/AlertComponent";
 
 export const TableMusic = () => {
   const { user } = useUsers();
   const [products, setProducts] = useState();
+  const { alertProps, showAlert } = useAlert();
+
   const getProducts = async () => {
     const response = await axios.get("/api/products");
     setProducts(response.data.data.filter((e) => user.username == e.owner));
@@ -43,7 +47,10 @@ export const TableMusic = () => {
     try {
       const response = await axios.delete(`/api/products?_id=${e._id}`);
       console.log(response);
-      // Aquí podrías hacer algo con la respuesta, como actualizar la UI para reflejar que el producto fue eliminado
+      showAlert(
+        "Éxito", // Título del alerta
+        `Producto eliminado con éxito.` // Mensaje del alerta
+      );
     } catch (error) {
       console.error(
         "Hubo un error al eliminar el producto:",
@@ -55,6 +62,8 @@ export const TableMusic = () => {
 
   return (
     <div className="flex justify-center">
+      <AlertComponent {...alertProps} />
+
       <div className="w-8/12">
         <ScrollArea className="h-[60vh]  ">
           <Table className="">
