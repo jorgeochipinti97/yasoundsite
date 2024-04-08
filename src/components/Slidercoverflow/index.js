@@ -14,9 +14,14 @@ export const SliderCoverflow = ({ beats }) => {
     <Swiper
       effect={"coverflow"}
       grabCursor={true}
-      slidesPerView={3}
+      slidesPerView={1}
       coverflowEffect={{
 
+      }}
+      breakpoints={{
+        640: {
+          slidesPerView: 3, // Muestra 1.2 slides en vistas móviles
+        },
       }}
       autoplay={{
         delay: 1500,
