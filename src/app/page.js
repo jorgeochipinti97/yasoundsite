@@ -845,8 +845,9 @@ export default function Home() {
         <div className="my-5">
           <Marquee direction="right">
             {users &&
-              users.map((e) => (
+              users.map((e,index) => (
                 <div
+                key={index}
                   style={{
                     backgroundImage:
                       e.profilePicture.length > 3
