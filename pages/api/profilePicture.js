@@ -12,8 +12,7 @@ const s3Client = new S3Client({
   region: "sa-east-1",
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY
-
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
 });
 
@@ -40,11 +39,11 @@ export default async function handler(req, res) {
 
         await uploadFileToS3(uint8Array, fileName);
 
-        return res.status(200).json({ success: true, fileName });
+        return res.status(200).json({ success: true });
       } catch (error) {
-        return res.status(500).json({ error: error });
+        console.log(error);
       }
-
+      break;
     default:
       console.warn(`Método no permitido: ${req.method}`);
       res

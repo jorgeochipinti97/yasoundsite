@@ -89,64 +89,100 @@ export const PersonalForm = ({ user }) => {
   const handleClick = () => {
     inputFileRef.current.click();
   };
-
   const handleChangeImages = async (event) => {
     try {
       const file = event.target.files[0];
-      if (file) {
-        if (!user.username) {
-          console.error("El username no está disponible.");
-          // Opción 1: Retornar para no continuar con la operación
-          return;
-          // Opción 2: Usar un valor predeterminado o manejar de otra manera
-        }
-        // Crear un FormData y agregar el archivo
-        const formData = new FormData();
-        formData.append("username", user.username);
-        formData.append("file", file);
-
-        const config = {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        };
-        const response = await axios.post(
-          "/api/profilePicture",
-          formData,
-          config
-        );
-
-        if (response.data && response.data.success && user.username) {
-          const encodedFileName = `${encodeURIComponent(
-            user.username
-          )}_profilePicture`;
-          const fileLink = `https://yasoundtestbucket.s3.sa-east-1.amazonaws.com/${encodedFileName}`;
-          setValue("profilePicture", fileLink);
-          showAlert(
-            "Imagen de perfil actualizada con éxito",
-            "¡Gracias por confiar en nosotros!",
-            <svg
-              width={25}
-              viewBox="0 0 15 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          );
-        } else {
-          console.error("No se puede establecer el valor de profilePicture.");
-        }
+      if (!file) {
+        alert("No file selected.");
+        return;
       }
-    } catch (err) {
-      console.error(err);
+
+      if (!user.username) {
+        alert("You need to be logged in to change your profile image.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("username", user.username);
+      formData.append("file", file);
+
+      // Assumiendo que `axios` está correctamente importado y configurado
+      const response = await axios.post("/api/profilePicture", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log(response);
+
+
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while uploading the profile picture.");
     }
   };
+
+  // const handleChangeImages = async (event) => {
+  //   try {
+  //     const file = event.target.files[0];
+
+  //     if (file) {
+  //       if (!user.username) {
+  //         console.error("El username no está disponible.");
+  //         return;
+  //       }
+
+  //       const formData = new FormData();
+  //       formData.append("username", user.username);
+  //       formData.append("file", file);
+  //       console.log(formData);
+  //       const config = {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       };
+
+  //       const response = await axios.post(
+  //         "/api/profilePicture",
+  //         formData,
+  //         config
+  //       );
+
+  //       console.log(response);
+  //       console.log(formData);
+
+  //       if (response.data && response.data.success && user.username) {
+  //         const encodedFileName = `${encodeURIComponent(
+  //           user.username
+  //         )}_profilePicture`;
+
+  //         const fileLink = `https://yasoundtestbucket.s3.sa-east-1.amazonaws.com/${encodedFileName}`;
+  //         setValue("profilePicture", fileLink);
+  //         showAlert(
+  //           "Imagen de perfil actualizada con éxito",
+  //           "¡Gracias por confiar en nosotros!",
+  //           <svg
+  //             width={25}
+  //             viewBox="0 0 15 15"
+  //             fill="none"
+  //             xmlns="http://www.w3.org/2000/svg"
+  //           >
+  //             <path
+  //               d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+  //               fill="currentColor"
+  //               fill-rule="evenodd"
+  //               clip-rule="evenodd"
+  //             ></path>
+  //           </svg>
+  //         );
+  //       } else {
+  //         console.error("No se puede establecer el valor de profilePicture.");
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
   const removeGender = (genderToRemove) => {
     // Filtrar el género que se quiere eliminar
     const newSelectedGenders = selectedGenders.filter(

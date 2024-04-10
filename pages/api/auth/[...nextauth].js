@@ -32,8 +32,7 @@ export default NextAuth({
 
         // Compara la contraseña proporcionada con la hash almacenada
         const matchPassword = await bcrypt.compare(password, userFound.password);
-        console.log(userFound.password)
-        console.log(password)
+
         if (!matchPassword) {
           throw new Error("Contraseña incorrecta");
         }

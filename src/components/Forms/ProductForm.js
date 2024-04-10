@@ -69,11 +69,12 @@ export const ProductForm = ({ product }) => {
 
   const onSubmit = async (data) => {
     try {
-      if (!selectedFile && !product) {
-        alert("Por favor, selecciona un archivo primero.");
-        return;
-      }
-      if (!product.file.url) {
+      if (!product || !product.file || !product.file.url) {
+        if (!selectedFile) {
+          alert("Por favor, selecciona un archivo primero.");
+          return;
+        }
+
         const formData = new FormData();
         const formDataImg = new FormData();
         formData.append("file", selectedFile);
@@ -85,7 +86,7 @@ export const ProductForm = ({ product }) => {
         const fileUrl = response.data.fileUrl;
         const responseImage = await axios.post("/api/s3", formDataImg);
         const imageUrl = responseImage.data.fileUrl;
-
+        console.log(response);
         if (fileUrl && imageUrl) {
           let productData = {
             ...data,
@@ -108,13 +109,11 @@ export const ProductForm = ({ product }) => {
 
           showAlert(
             "Éxito", // Título del alerta
-            `Producto ${product?._id ? "actualizado" : "creado"} con éxito.`, // Mensaje del alerta
+            `Producto ${product?._id ? "actualizado" : "creado"} con éxito.` // Mensaje del alerta
             // "success" // Tipo de alerta, por ejemplo: success, error, info, etc. Ajusta según tu implementación de showAlert
           );
         }
-      }
-
-      if (product.file.url) {
+      } else {
         let productData = {
           _id: product._id,
           description: data.description,
@@ -127,7 +126,7 @@ export const ProductForm = ({ product }) => {
         response &&
           showAlert(
             "Éxito", // Título del alerta
-            `Producto ${product?._id ? "actualizado" : "creado"} con éxito.`, // Mensaje del alerta
+            `Producto ${product?._id ? "actualizado" : "creado"} con éxito.` // Mensaje del alerta
             // "success" // Tipo de alerta, por ejemplo: success, error, info, etc. Ajusta según tu implementación de showAlert
           );
       }
