@@ -12,7 +12,8 @@ const s3Client = new S3Client({
   region: "sa-east-1",
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY
+
   },
 });
 
@@ -36,14 +37,15 @@ export default async function handler(req, res) {
         const arrayBuffer = await file.arrayBuffer();
         const uint8Array = new Uint8Array(arrayBuffer);
         const fileName = `${username}_profilePicture`;
-
+        
         await uploadFileToS3(uint8Array, fileName);
+        const fileUrl = `https://yasoundtestbucket.s3.sa-east-1.amazonaws.com/${fileName}`;
 
-        return res.status(200).json({ success: true });
+        return res.status(200).json({ success: true, fileUrl });
       } catch (error) {
-        console.log(error);
+        return res.status(500).json({ error: error });
       }
-      break;
+
     default:
       console.warn(`Método no permitido: ${req.method}`);
       res
