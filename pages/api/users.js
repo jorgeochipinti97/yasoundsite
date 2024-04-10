@@ -1,3 +1,4 @@
+import { hashPassword } from "@/lib/auth";
 import { connectDB } from "@/lib/database";
 import User from "@/models/User";
 
@@ -26,13 +27,20 @@ export default async function handler(req, res) {
       break;
     case "PUT":
       // Extraer el _id y los campos a actualizar del body de la solicitud
-      const { _id, ...updateData } = req.body;
+      const { _id, password, ...updateData } = req.body;
 
       if (!_id) {
         return res.status(400).json({
           success: false,
           error: "El _id es requerido para actualizar.",
         });
+      }
+
+      if (password) {
+        // Realizar el hash de la nueva contraseña
+        const hashedPassword = await hashPassword(password);
+        // Incluir la contraseña hasheada en los datos de actualización
+        updateData.password = hashedPassword;
       }
 
       try {

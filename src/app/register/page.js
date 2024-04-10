@@ -11,15 +11,9 @@ import { useUsers } from "@/hooks/useUsers";
 
 const Page = () => {
   const { push } = useRouter();
-  const { session, status } = useUsers();
+  const { session } = useUsers();
 
-  const [useForm, setUseForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    username: "",
-    password: "",
-  });
+
   useEffect(() => {
     session && push("/");
   }, [session]);
