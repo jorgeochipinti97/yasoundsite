@@ -132,27 +132,15 @@ export default function Home() {
   }, []);
   return (
     <>
-      <section className="md:hidden fixed bottom-16 right-2 z-50">
+      <section className="md:hidden fixed bottom-16  z-50 w-fit">
         {!user && (
-          <>
+          <div className="w-6/12 ">
             <Link href={"/login"}>
-              <Button variant="" className="tracking-tighter font-geist">
-                <svg
-                  width={20}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="#f5f5f7"
-                  version="1.1"
-                  viewBox="0 0 499.1 499.1"
-                  xmlSpace="preserve"
-                >
-                  <g>
-                    <path d="M0 249.6c0 9.5 7.7 17.2 17.2 17.2h327.6l-63.9 63.8c-6.7 6.7-6.7 17.6 0 24.3 3.3 3.3 7.7 5 12.1 5s8.8-1.7 12.1-5l93.1-93.1c6.7-6.7 6.7-17.6 0-24.3l-93.1-93.1c-6.7-6.7-17.6-6.7-24.3 0-6.7 6.7-6.7 17.6 0 24.3l63.8 63.8H17.2c-9.5 0-17.2 7.6-17.2 17.1z"></path>
-                    <path d="M396.4 494.2c56.7 0 102.7-46.1 102.7-102.8V107.7C499.1 51 453 4.9 396.4 4.9H112.7C56 4.9 10 51 10 107.7V166c0 9.5 7.7 17.1 17.1 17.1 9.5 0 17.2-7.7 17.2-17.1v-58.3c0-37.7 30.7-68.5 68.4-68.5h283.7c37.7 0 68.4 30.7 68.4 68.5v283.7c0 37.7-30.7 68.5-68.4 68.5H112.7c-37.7 0-68.4-30.7-68.4-68.5v-57.6c0-9.5-7.7-17.2-17.2-17.2S10 324.3 10 333.8v57.6c0 56.7 46.1 102.8 102.7 102.8h283.7z"></path>
-                  </g>
-                </svg>
-              </Button>
+              <div className="">
+                <img src="/entrar.png" />
+              </div>
             </Link>
-          </>
+          </div>
         )}
       </section>
       {user && (
@@ -296,29 +284,29 @@ export default function Home() {
                 ¡Transforma tu creatividad en oportunidades!
               </CardContent>
               <CardFooter className="flex justify-center">
-                <Link href={'/register'}>
-                <Button className="hover:animate-tilt">
-                  <svg
-                    width={30}
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="#000"
-                    className=" "
-                    data-name="Line Color"
-                    viewBox="0 0 24 24"
-                  >
-                    <g>
-                      <path
-                        fill="none"
-                        stroke="#f5f5f7"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M17.76 10.63L9 21l2.14-8H7.05a1 1 0 01-1-1.36l3.23-8a1.05 1.05 0 011-.64h4.34a1 1 0 011 1.36L13.7 9H17a1 1 0 01.76 1.63z"
-                      ></path>
-                    </g>
-                  </svg>
-                  Empezar
-                </Button>
+                <Link href={"/register"}>
+                  <Button className="hover:animate-tilt">
+                    <svg
+                      width={30}
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="#000"
+                      className=" "
+                      data-name="Line Color"
+                      viewBox="0 0 24 24"
+                    >
+                      <g>
+                        <path
+                          fill="none"
+                          stroke="#f5f5f7"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M17.76 10.63L9 21l2.14-8H7.05a1 1 0 01-1-1.36l3.23-8a1.05 1.05 0 011-.64h4.34a1 1 0 011 1.36L13.7 9H17a1 1 0 01.76 1.63z"
+                        ></path>
+                      </g>
+                    </svg>
+                    Empezar
+                  </Button>
                 </Link>
               </CardFooter>
             </Card>
@@ -845,9 +833,9 @@ export default function Home() {
         <div className="my-5">
           <Marquee direction="right">
             {users &&
-              users.map((e,index) => (
+              users.map((e, index) => (
                 <div
-                key={index}
+                  key={index}
                   style={{
                     backgroundImage:
                       e.profilePicture.length > 3
@@ -1006,103 +994,105 @@ export default function Home() {
                 </li>
               </ul>
               <PayPalScriptProvider
-                  options={{
-                    "client-id":
-                      "ARfYvZugPUBZcQ2OiJ3DpT51zvYvn0BzyabZWlJNjLy-QdmkzUBFqSc8LvfwCTgp-eb82fSkxz5z6FXX",
-                  }}
-                >
-                  <Dialog>
-                    <DialogTrigger asChild className="">
-                    <Button variant="outline" className="mt-5 hover:animate-tilt">
-                ¡Únete!
-              </Button>
-                    </DialogTrigger>
-                    <DialogContent className="">
-                      {user ? (
-                        <>
-                          <Card className="m-3  purchaseSelect">
-                            <CardHeader>Método de pago</CardHeader>
-                            <CardContent className="grid gap-6">
-                              <ScrollArea className="h-[40vh]">
-                                <div>
-                                  <PayPalButtons
-                                    createOrder={(data, actions) => {
-                                      return actions.order.create({
-                                        purchase_units: [
-                                          {
-                                            amount: {
-                                              value: 10,
-                                            },
+                options={{
+                  "client-id":
+                    "ARfYvZugPUBZcQ2OiJ3DpT51zvYvn0BzyabZWlJNjLy-QdmkzUBFqSc8LvfwCTgp-eb82fSkxz5z6FXX",
+                }}
+              >
+                <Dialog>
+                  <DialogTrigger asChild className="">
+                    <Button
+                      variant="outline"
+                      className="mt-5 hover:animate-tilt"
+                    >
+                      ¡Únete!
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="">
+                    {user ? (
+                      <>
+                        <Card className="m-3  purchaseSelect">
+                          <CardHeader>Método de pago</CardHeader>
+                          <CardContent className="grid gap-6">
+                            <ScrollArea className="h-[40vh]">
+                              <div>
+                                <PayPalButtons
+                                  createOrder={(data, actions) => {
+                                    return actions.order.create({
+                                      purchase_units: [
+                                        {
+                                          amount: {
+                                            value: 10,
                                           },
-                                        ],
-                                      });
-                                    }}
-                                    onApprove={async (data, actions) => {
-                                      try {
-                                        const details =
-                                          await actions.order.capture();
+                                        },
+                                      ],
+                                    });
+                                  }}
+                                  onApprove={async (data, actions) => {
+                                    try {
+                                      const details =
+                                        await actions.order.capture();
 
-                                        const transactionId = details.id;
-                                        const response = await axios.put(
-                                          "/api/users",
-                                          {
-                                            _id: user._id,
-                                            transactionId: transactionId,
-                                            premium: true,
-                                          }
+                                      const transactionId = details.id;
+                                      const response = await axios.put(
+                                        "/api/users",
+                                        {
+                                          _id: user._id,
+                                          transactionId: transactionId,
+                                          premium: true,
+                                        }
+                                      );
+                                      response &&
+                                        push(
+                                          `/premium?payment_id=${transactionId}`
                                         );
-                                        response &&
-                                          push(
-                                            `/premium?payment_id=${transactionId}`
-                                          );
-                                      } catch (error) {
-                                        console.error(
-                                          "Error al capturar el pago o al guardar los detalles:"
-                                        );
-                                        // Manejo de errores
-                                      }
-                                    }}
-                                  />
-                                  <div className=" flex justify-center mt-10">
-                                    <Button
-                                      variant="outline"
-                                      className="w-fit"
-                                      onClick={getPremium}
-                                    >
-                                      <img
-                                        src="/merca.png"
-                                        className="w-1/12 mr-2"
-                                      />
-                                      Pagar con MercadoPago
-                                    </Button>
-                                  </div>
+                                    } catch (error) {
+                                      console.error(
+                                        "Error al capturar el pago o al guardar los detalles:"
+                                      );
+                                      // Manejo de errores
+                                    }
+                                  }}
+                                />
+                                <div className=" flex justify-center mt-10">
+                                  <Button
+                                    variant="outline"
+                                    className="w-fit"
+                                    onClick={getPremium}
+                                  >
+                                    <img
+                                      src="/merca.png"
+                                      className="w-1/12 mr-2"
+                                    />
+                                    Pagar con MercadoPago
+                                  </Button>
                                 </div>
-                              </ScrollArea>
-                            </CardContent>
-                            <CardFooter>
-                              <Button className="w-full">Continue</Button>
-                            </CardFooter>
-                          </Card>
-                        </>
-                      ) : (
-                        <>
-                          <p className="font-geist text-xl text-center tracking-tighter">
-                            Debe tener un usuario para ser premium
-                          </p>
-                          <div className="flex justify-center flex-col items-center">
-                            <Link href={"/register"} className="my-2">
-                              <Button>Registrarse</Button>
-                            </Link>
-                            <Link href={"/login"} className="my-2">
-                              <Button>Iniciar sesión</Button>
-                            </Link>
-                          </div>
-                        </>
-                      )}
-                    </DialogContent>
-                  </Dialog>
-                </PayPalScriptProvider>
-        
+                              </div>
+                            </ScrollArea>
+                          </CardContent>
+                          <CardFooter>
+                            <Button className="w-full">Continue</Button>
+                          </CardFooter>
+                        </Card>
+                      </>
+                    ) : (
+                      <>
+                        <p className="font-geist text-xl text-center tracking-tighter">
+                          Debe tener un usuario para ser premium
+                        </p>
+                        <div className="flex justify-center flex-col items-center">
+                          <Link href={"/register"} className="my-2">
+                            <Button>Registrarse</Button>
+                          </Link>
+                          <Link href={"/login"} className="my-2">
+                            <Button>Iniciar sesión</Button>
+                          </Link>
+                        </div>
+                      </>
+                    )}
+                  </DialogContent>
+                </Dialog>
+              </PayPalScriptProvider>
             </div>
           </div>
           <div className="flex  flex-col  w-fit  justify-start p-5 rounded-md">
