@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { hashPassword } from "@/lib/auth";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -11,6 +11,8 @@ const Page = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+
+  const { push } = useRouter();
 
   const getUsers = async () => {
     const response = await axios.get("/api/users");
@@ -39,7 +41,7 @@ const Page = () => {
       _id: id,
       password: password,
     });
-    console.log(updateUser);
+    updateUser && push("/login");
   };
   return (
     <div
