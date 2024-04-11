@@ -58,7 +58,9 @@ const Page = () => {
 
   const onForgotPassword = async () => {
     // Supongo que `users` es un array accesible en este contexto.
-    const user = users.find((e) => e.email === email); // Cambiado de filter a find.
+    const user = users.find(
+      (e) => e.email.toLowerCase() === email.toLowerCase()
+    ); // Cambiado de filter a find.
 
     // find retorna `undefined` si no encuentra un elemento, así que se verifica correctamente.
     if (!user) {
