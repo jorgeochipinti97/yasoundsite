@@ -6,6 +6,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // sgMail.setApiKey(
 //   "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"
 // );
+console.log(process.env.SENDGRID_API_KEY)
 
 export default async function handler(req, res) {
   if (req.method === "POST") {

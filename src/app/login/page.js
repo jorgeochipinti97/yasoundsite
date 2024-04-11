@@ -57,24 +57,21 @@ const Page = () => {
   };
 
   const onForgotPassword = async () => {
-    // Supongo que `users` es un array accesible en este contexto.
+    
     const user = users.find(
       (e) => e.email.toLowerCase() === email.toLowerCase()
-    ); // Cambiado de filter a find.
+    )
 
-    // find retorna `undefined` si no encuentra un elemento, así que se verifica correctamente.
     if (!user) {
       alert("usuario no encontrado");
       return;
     }
 
-    // Supongo que `axios` ya está importado y configurado.
-    // `user` es el objeto encontrado, entonces usamos `user._id` para acceder al ID.
     const data = await axios.post("/api/regenerate", {
       email: email,
       _id: user._id,
     });
-    console.log(data)
+    console.log(data);
     alert("Revise su correo electrónico");
   };
   return (
