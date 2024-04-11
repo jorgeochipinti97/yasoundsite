@@ -74,6 +74,7 @@ const Page = () => {
       email: email,
       _id: user._id,
     });
+    console.log(data)
     alert("Revise su correo electrónico");
   };
   return (

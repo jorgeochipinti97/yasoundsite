@@ -3,7 +3,9 @@ const sgMail = require("@sendgrid/mail");
 
 // Configura la API Key de SendGrid
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-sgMail.setApiKey(process.env.MAILAPI);
+sgMail.setApiKey(
+  "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"
+);
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
