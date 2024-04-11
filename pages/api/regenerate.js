@@ -4,18 +4,18 @@ const sgMail = require("@sendgrid/mail");
 // Configura la API Key de SendGrid
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 sgMail.setApiKey(
-  "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"
+  "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"
 );
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
     const { email, _id } = req.body; // Asume que el correo del usuario viene en el cuerpo de la solicitud
 
-    // const resetPasswordUrl = `https://www.yasound.site/regenerate?id=${_id}`;
-    const resetPasswordUrl = `https://www.yasound.site/regenerate?id=65e98eebfb36a778c7fab822`;
+    const resetPasswordUrl = `https://www.yasound.site/regenerate?id=${_id}`;
+    // const resetPasswordUrl = `https://www.yasound.site/regenerate?id=65e98eebfb36a778c7fab822`;
 
     const msg = {
-      to: "jorgeochipinti97@gmail.com", // El correo del destinatario, obtenido de la solicitud
+      to: `${email}`, // El correo del destinatario, obtenido de la solicitud
       from: "contacto@yasound.site", // Cambia esto por tu correo verificado en SendGrid
       subject: "Recuperación de Contraseña",
       text: "Aquí puedes escribir instrucciones para restablecer la contraseña",

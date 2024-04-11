@@ -8,18 +8,33 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUsers } from "@/hooks/useUsers";
+import axios from "axios";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const Page = () => {
   const { push } = useRouter();
   const [isError, setIsError] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
-  const { session, status } = useUsers();
+  const [email, setEmail] = useState(false);
+
+  const { session, status, users } = useUsers();
   useEffect(() => {
     status != "loading" && setIsLoad(true);
   }, [status]);
 
   useEffect(() => {
-    session && push("/");
+    // session && push("/");
   }, [session]);
 
   const handleSubmit = async (event) => {
@@ -41,13 +56,36 @@ const Page = () => {
     }
   };
 
+  const onForgotPassword = async () => {
+    // Supongo que `users` es un array accesible en este contexto.
+    const user = users.find((e) => e.email === email); // Cambiado de filter a find.
+
+    // find retorna `undefined` si no encuentra un elemento, así que se verifica correctamente.
+    if (!user) {
+      alert("usuario no encontrado");
+      return;
+    }
+
+    // Supongo que `axios` ya está importado y configurado.
+    // `user` es el objeto encontrado, entonces usamos `user._id` para acceder al ID.
+    const data = await axios.post("/api/regenerate", {
+      email: email,
+      _id: user._id,
+    });
+    alert("Revise su correo electrónico");
+  };
   return (
     <div className="w-full flex justify-center items-center h-screen bg-black">
       {isLoad && (
         <>
-          <div style={{background:'rgba(255, 255, 255, 1)'}} className=" flex flex-col shadow h-fit py-10 mt-20 items-center border-2 w-11/12 md:w-6/12 rounded-xl justify-center ">
+          <div
+            style={{ background: "rgba(255, 255, 255, 1)" }}
+            className=" flex flex-col shadow h-fit py-10 mt-20 items-center border-2 w-11/12 md:w-6/12 rounded-xl justify-center "
+          >
             <img src="/logo.png" className=" w-[15vw]" />{" "}
-            <p className="text-4xl tracking-tighter font-bold mb-2">Inicio de sesión</p>
+            <p className="text-4xl tracking-tighter font-bold mb-2">
+              Inicio de sesión
+            </p>
             <Separator className="w-6/12  mb-5" />
             <form
               onSubmit={handleSubmit}
@@ -82,8 +120,37 @@ const Page = () => {
               ¿No estás registrado? ¡Unete a Yasound!
             </p>
             <Link href={"/register"}>
-              <Button className="my-2 hover:animate-tilt ">Registrarme</Button>
+              <Button className="my-2 hover:animate-tilt">Registrarme</Button>
             </Link>
+            <div className="mt-5">
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="outline">Olvide mi contraseña</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      ¿Olvidaste tu contraseña?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      No te preocupes, ingresa tu mail y te llegaran las
+                      instrucciones para restaurarla.
+                    </AlertDialogDescription>
+                    <Input
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="email"
+                      className="mt-5"
+                    />
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={onForgotPassword}>
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
           </div>
         </>
       )}

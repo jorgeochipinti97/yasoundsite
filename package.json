@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "@types/formidable": "^3.4.5",
+    "@types/react": "^18.2.75",
     "autoprefixer": "^10",
     "eslint": "^8",
     "eslint-config-next": "13.5.6",

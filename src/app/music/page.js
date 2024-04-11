@@ -39,7 +39,7 @@ const Page = () => {
           <TabsContent value="music">
             <TableMusic />
           </TabsContent>
-          <TabsContent value="producto">
+          <TabsContent value="producto" >
             <ProductForm/>
           </TabsContent>
         </Tabs>
