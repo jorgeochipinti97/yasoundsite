@@ -418,43 +418,45 @@ export default function Home() {
           Descubrí Productores
         </p>
 
-        <div className="my-5">
-          <Marquee direction="right">
-            {users &&
-              users.slice(0, 8).map((e, index) => (
-                <div
-                  key={index}
-                  style={{
-                    backgroundImage:
-                      e.profilePicture.length > 3
-                        ? `linear-gradient(129deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 34%), url(${e.profilePicture})`
-                        : "rgba(0,0,0,1)",
-                    backgroundSize: "cover",
-                  }}
-                  className="h-[300px] w-[300px] rounded-xl bg-violet-100 mx-2  flex flex-col items-center"
+        <div className="flex flex-wrap">
+          {users &&
+            users.slice(-6).map((e, index) => (
+              <div
+                key={index}
+                style={{
+                  backgroundImage:
+                    e.profilePicture.length > 3
+                      ? `linear-gradient(129deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 34%), url(${e.profilePicture})`
+                      : "rgba(0,0,0,1)",
+                  backgroundSize: "cover",
+                }}
+                className="h-[300px] w-[300px] rounded-xl bg-violet-100 mx-2  flex flex-col items-center"
+              >
+                <p
+                  className={`font-geist font-bold ${
+                    e.profilePicture ? "text-white" : "text-black"
+                  } tracking-tighter text-center mt-10 text-4xl`}
                 >
-                  <p className="font-geist font-bold text-black tracking-tighter text-center mt-10 text-4xl">
-                    {e.username}
-                  </p>
-                  <div className="flex justify-center mt-5">
-                    <div>
-                      {e.genders.map((e) => (
-                        <Badge key={e} className="w-fit mx-2">
-                          {e}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex justify-center mt-5">
-                    <Link href={`/perfil/${e.username}`}>
-                      <Button className="hover:animate-tilt">
-                        Visitar perfil
-                      </Button>
-                    </Link>
+                  {e.username}
+                </p>
+                <div className="flex justify-center mt-5">
+                  <div>
+                    {e.genders.map((e) => (
+                      <Badge key={e} className="w-fit mx-2">
+                        {e}
+                      </Badge>
+                    ))}
                   </div>
                 </div>
-              ))}
-          </Marquee>
+                <div className="flex justify-center mt-5">
+                  <Link href={`/perfil/${e.username}`}>
+                    <Button className="hover:animate-tilt">
+                      Visitar perfil
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            ))}
         </div>
 
         <div className=" w-screen">
@@ -462,7 +464,7 @@ export default function Home() {
             Membresias
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
-            <div className="flex justify-center"> 
+            <div className="flex justify-center">
               <div class=" bg-gray-50 border md:mt-0  md:w-10/12 w-11/12 border-black p-8 rounded-xl">
                 <p className="font-bold  text-black text-center  tracking-tighter text-3xl">
                   Usuario Free
@@ -598,8 +600,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-center">
-
-            <SliderFlip user={user} />
+              <SliderFlip user={user} />
             </div>
           </div>
         </div>

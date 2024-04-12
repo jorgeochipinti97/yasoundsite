@@ -4,7 +4,13 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useForm, useFieldArray } from "react-hook-form";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "../ui/textarea";
 import { Separator } from "../ui/separator";
 import axios from "axios";
@@ -13,27 +19,29 @@ import { ScrollArea } from "../ui/scroll-area";
 import { useAlert } from "@/hooks/useAlert";
 import { AlertComponent } from "../ui/AlertComponent";
 import gsap, { Power1 } from "gsap";
+import { generosList } from "@/utils/generos";
+import { Badge } from "../ui/badge";
 
 export const ProductForm = ({ product }) => {
   const [isLoading, setIsLoading] = useState();
-
+  const [selectedGenders, setSelectedGenders] = useState([]);
+  const [tags, setTags] = useState([]);
   const { alertProps, showAlert } = useAlert();
 
-  const { register, control, handleSubmit, reset } = useForm({
+  const { register, control, handleSubmit, reset, setValue } = useForm({
     defaultValues: {
       file: "",
       owner: "",
       description: "",
+      genders: [],
       title: "",
       licenses: [{ title: "", description: "", price: 0, priceArs: 0 }],
     },
   });
 
   const { user } = useUsers();
-
   const inputFileRef = useRef(null);
   const inputImgRef = useRef(null);
-
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedImg, setSelectedImg] = useState(null);
 
@@ -51,6 +59,25 @@ export const ProductForm = ({ product }) => {
     inputImgRef.current.click();
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === " ") {
+      // Detecta la tecla espacio
+      event.preventDefault(); // Previene la funcionalidad por defecto para no añadir un espacio real
+      let value = event.target.value.trim(); // Elimina espacios adicionales
+      if (value) {
+        setTags([...tags, value]); // Añade la nueva etiqueta al array de etiquetas
+        setValue("tags", [...tags, value]); // Actualiza el campo en React Hook Form
+        event.target.value = ""; // Limpia el campo de entrada
+      }
+    }
+  };
+
+  const removeTag = (index) => {
+    const newTags = tags.filter((tag, i) => i !== index);
+    setTags(newTags);
+    setValue("tags", newTags); // Actualiza el campo en React Hook Form
+  };
+
   const {
     fields: licenseFields,
     append: appendLicense,
@@ -59,6 +86,19 @@ export const ProductForm = ({ product }) => {
     control,
     name: "licenses",
   });
+
+  const handleSelectChange = (selectedValue) => {
+    let newSelection = [...selectedGenders];
+    if (newSelection.includes(selectedValue)) {
+      newSelection = newSelection.filter((value) => value !== selectedValue);
+    } else {
+      if (newSelection.length < 3) {
+        newSelection.push(selectedValue);
+      }
+    }
+    setSelectedGenders(newSelection);
+    setValue("genders", newSelection, { shouldValidate: true });
+  };
 
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -277,7 +317,55 @@ export const ProductForm = ({ product }) => {
                   )}
                 </div>
               </div>
-
+              <Separator className="my-5" />
+              <div>
+                <Input
+                  onKeyDown={handleKeyDown}
+                  placeholder="Escribe las etiquetas y presiona espacio..."
+                  {...register("tagInput")} // Registra el input para React Hook Form
+                />
+                <div className="mt-5">
+                  {tags.map((tag, index) => (
+                    <Badge key={index} variant={"outline"} className="mx-1">
+                      <span
+                        className="mr-2 text-black border rounded-full px-2 cursor-pointer bg-white"
+                        onClick={() => removeTag(index)}
+                        >
+                        x
+                      </span>
+                        {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              <Separator className="my-5" />
+              <div className="my-5">
+                <Select className="my-2" onValueChange={handleSelectChange}>
+                  <SelectTrigger className="w-[200px]">
+                    <SelectValue placeholder="Elige tus Géneros (3)" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {generosList.map((e) => (
+                      <SelectItem key={e} value={e}>
+                        {e}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                {selectedGenders.map((e, index) => (
+                  <Badge key={index} variant={"outline"} className="mx-1">
+                    <span
+                      onClick={() => removeGender(e)} // Llamada a la función para eliminar el género
+                      className="mr-2 text-black border rounded-full px-2 cursor-pointer bg-white"
+                    >
+                      x
+                    </span>{" "}
+                    {e}
+                  </Badge>
+                ))}
+              </div>
               <div className="flex flex-col mt-5">
                 <Separator />
                 <p className="text-xl mt-5 font-bold tracking-thiger font-geist">
@@ -346,7 +434,7 @@ export const ProductForm = ({ product }) => {
                         clipRule="evenodd"
                       ></path>
                     </svg>
-Guardar
+                    Guardar
                   </Button>
                 </div>
               </div>
