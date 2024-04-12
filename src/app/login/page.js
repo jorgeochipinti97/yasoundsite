@@ -74,7 +74,7 @@ const Page = () => {
     alert("Revise su correo electrónico");
   };
   return (
-    <div className="w-full flex justify-center items-center h-screen bg-black">
+    <div className="w-full flex justify-center items-center min-h-screen bg-black">
       {isLoad && (
         <>
           <div

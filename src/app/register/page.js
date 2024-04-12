@@ -65,8 +65,8 @@ const Page = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center h-screen bg-black">
-      <div className="bg-white flex flex-col shadow h-fit py-10 mt-28 items-center border-2 w-fit px-20 rounded-xl justify-center ">
+    <div className="w-full flex justify-center items-center  min-h-screen bg-black">
+      <div className="bg-white flex flex-col shadow h-fit py-20 mt-28 items-center border-2 w-fit px-20 rounded-xl justify-center ">
         <div className="w-full flex">
           <a href="/">
             <Button
