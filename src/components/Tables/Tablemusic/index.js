@@ -72,7 +72,7 @@ export const TableMusic = () => {
               <TableRow>
                 <TableHead className="text-center">Nombre</TableHead>
                 <TableHead className="text-center">Lincencias</TableHead>
-                <TableHead className="text-center">Ganancia</TableHead>
+
                 <TableHead className="text-center">-</TableHead>
               </TableRow>
             </TableHeader>
@@ -86,9 +86,7 @@ export const TableMusic = () => {
                     <TableCell className="  text-center font-geist tracking-tighter font-semibold text-md">
                       {e.licenses.length}
                     </TableCell>
-                    <TableCell className="  text-center font-geist tracking-tighter font-semibold text-md">
-                      {formatCurrency(125)}
-                    </TableCell>
+              
                     <TableCell className="text-center font-geist tracking-tighter flex flex-col ">
                       <div>
                         <Drawer>

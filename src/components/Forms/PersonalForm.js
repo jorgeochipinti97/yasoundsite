@@ -151,13 +151,13 @@ export const PersonalForm = ({ user }) => {
     user && user.phone && setValue("country", user.country);
   }, [user]);
   return (
-    <ScrollArea className="h-[80vh] flex justify-center flex-col items-center rounded-md  px-1-">
+    <ScrollArea className="h-[60vh] md:h-[80vh] flex justify-center flex-col items-center rounded-md  px-1-">
       <div className="flex flex-col justify-center items-center">
         <AlertComponent {...alertProps} />
         <div className="w-full flex justify-center">
-          <p className="font-bold tracking-tighter ">
+          {/* <p className="font-bold tracking-tighter ">
             Si deseas recibir cobros por MercadoPago, conectá tu cuenta.{" "}
-          </p>
+          </p> */}
         </div>
         {user && (
           <div className="w-6/12 my-2 flex justify-start  ">

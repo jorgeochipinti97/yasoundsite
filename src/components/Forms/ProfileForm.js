@@ -219,14 +219,14 @@ export const ProfileForm = () => {
   };
 
   return (
-    <div className="w-12/12 flex justify-center">
-      <AlertComponent {...alertProps} />
-      {user && (
-        <form
-          className="w-10/12 md:w-6/12 mx-5 "
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <ScrollArea className="h-[60vh] w-full rounded-md  px-1-">
+    <ScrollArea className=" h-[60vh] w-full rounded-md  px-1-">
+      <div className="w-12/12 flex justify-center">
+        <AlertComponent {...alertProps} />
+        {user && (
+          <form
+            className="w-10/12 md:w-6/12 mx-5 "
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="mx-5">
               <div className="my-5 bg-gray-200 w-fit p-2 rounded-xl">
                 <label className="tracking-tighter text-md font-semibold ">
@@ -263,74 +263,12 @@ export const ProfileForm = () => {
                   Tu biografía
                 </label>
                 <Textarea
-                maxLength="180"
+                  maxLength="180"
                   className="mt-2"
-                  {...register("bio")} 
+                  {...register("bio")}
                 />
               </div>
               <div className="my-2">
-                {/* <label className="tracking-tighter text-md font-semibold  ">
-                Muestra lo tuyo{" "}
-              </label>
-
-              <div>
-                <input
-                  type="file"
-                  ref={inputFileRef}
-                  onChange={handleImageUpload}
-                  style={{ display: "none" }}
-                  accept="image/*"
-                  multiple
-                />
-                <Button
-                  size="sm"
-                  variant="outlined"
-                  type="button"
-                  className="border border-black shadow-xs tracking-tighter shadow-gray-400"
-                  onClick={handleClickImage}
-                >
-                  <svg
-                    width={20}
-                    className="mr-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <g fill="#0F1729">
-                      <path d="M8.5 10a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
-                      <path
-                        fillRule="evenodd"
-                        d="M11.005 2h1.99c1.386 0 2.488 0 3.377.074.91.075 1.686.234 2.394.602a6 6 0 012.559 2.558c.367.709.526 1.484.601 2.394.074.89.074 1.991.074 3.377v1.99c0 .69 0 1.311-.01 1.87.015.103.013.208-.005.31-.01.437-.029.835-.059 1.197-.075.91-.233 1.686-.601 2.394a6 6 0 01-2.56 2.559c-.707.367-1.483.526-2.393.601-.89.074-1.992.074-3.377.074h-1.99c-1.385 0-2.488 0-3.377-.074-.91-.075-1.685-.233-2.394-.601a6 6 0 01-2.558-2.56c-.368-.707-.527-1.483-.602-2.393C2 15.482 2 14.38 2 12.995v-1.99c0-1.386 0-2.488.074-3.377.075-.91.234-1.685.602-2.394a6 6 0 012.558-2.558c.709-.368 1.484-.527 2.394-.602C8.518 2 9.62 2 11.005 2zM20 11.05v1.462l-1.387-1.447a2 2 0 00-2.895.008l-4.667 4.92-1.536-1.857a2 2 0 00-3.135.067l-2.19 2.89a6.877 6.877 0 01-.123-.887C4 15.41 4 14.39 4 12.95v-1.9c0-1.44 0-2.46.067-3.256.065-.784.188-1.263.383-1.638A4 4 0 016.156 4.45c.375-.195.854-.318 1.638-.383C8.59 4 9.609 4 11.05 4h1.9c1.44 0 2.46 0 3.256.067.785.065 1.263.188 1.638.383a4 4 0 011.706 1.706c.195.375.318.854.383 1.638C20 8.59 20 9.609 20 11.05zm-13.844 8.5a4.002 4.002 0 01-.861-.603l2.68-3.536 1.535 1.857a2 2 0 002.992.101l4.667-4.92 2.81 2.93c-.01.302-.025.576-.046.827-.065.785-.188 1.263-.383 1.638a4 4 0 01-1.706 1.706c-.375.195-.854.318-1.638.383C15.41 20 14.39 20 12.95 20h-1.9c-1.44 0-2.46 0-3.256-.067-.784-.065-1.263-.188-1.638-.383z"
-                        clipRule="evenodd"
-                      ></path>
-                    </g>
-                  </svg>
-                  Subir imagen
-                </Button>
-              </div>
-              <div className="flex justify-center">
-                <Carousel className="w-6/12 mt-5">
-                  <CarouselContent className="">
-                    {images &&
-                      images.map((e) => (
-                        <CarouselItem
-                          key={e}
-                          className="w-fit flex justify-center flex-col"
-                        >
-                          <img src={e} alt="image" />
-                          <Button
-                            type="button"
-                            onClick={() => handleDeleteImage(e)}
-                          >
-                            Eliminar
-                          </Button>
-                        </CarouselItem>
-                      ))}
-                  </CarouselContent>
-                  <CarouselPrevious />
-                  <CarouselNext />
-                </Carousel>
-              </div> */}
                 <div className="mt-5">
                   <label className="tracking-tighter text-md font-semibold">
                     Agrega tus videos de YouTube
@@ -358,7 +296,6 @@ export const ProfileForm = () => {
                             videoUrl.split("v=")[1]
                           }`}
                           title="YouTube video player"
-                          frameBorder="0"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                         ></iframe>
@@ -397,9 +334,9 @@ export const ProfileForm = () => {
                 Enviar
               </Button>
             </div>
-          </ScrollArea>
-        </form>
-      )}
-    </div>
+          </form>
+        )}
+      </div>
+    </ScrollArea>
   );
 };
