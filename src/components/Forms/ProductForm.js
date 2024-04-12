@@ -76,50 +76,51 @@ export const ProductForm = ({ product }) => {
         const formData = new FormData();
         formData.append("file", selectedFile);
         formData.append("username", user.username);
-
         const response = await axios.post("/api/s3", formData);
+        console.log(response.data.url);
 
-        const formDataImg = new FormData();
-        formDataImg.append("file", selectedImg);
-        formDataImg.append("username", user.username);
-        const fileUrl = response.data.fileUrl;
-        const responseImage = await axios.post("/api/s3", formDataImg);
-        const imageUrl = responseImage.data.fileUrl;
+        const result = await axios.put(response.data.url, selectedFile, {
+          headers: {
+            "Content-Type": selectedFile.type,
+          },
+        });
+        console.log(result);
+        // const formDataImg = new FormData();
+        // formDataImg.append("file", selectedImg);
+        // formDataImg.append("username", user.username);
+        // const fileUrl = response.data.fileUrl;
+        // const responseImage = await axios.post("/api/s3", formDataImg);
+        // const imageUrl = responseImage.data.fileUrl;
+        // if (fileUrl && imageUrl) {
+        //   let productData = {
+        //     ...data,
+        //     file: {
+        //       url: fileUrl,
+        //       fileType: getValues("fileType"),
+        //     },
+        //     image: imageUrl,
+        //     owner: user.username,
+        //   };
 
-        console.log(responseImage);
-        console.log(response);
-        if (fileUrl && imageUrl) {
-          let productData = {
-            ...data,
-            file: {
-              url: fileUrl,
-              fileType: getValues("fileType"),
-            },
-            image: imageUrl,
-            owner: user.username,
-          };
-
-          await axios.post("/api/products", productData);
-        }
-      } else {
-        let productData = {
-          _id: product._id,
-          description: data.description,
-          title: data.title,
-          licenses: data.licenses,
-        };
-
-        const response = await axios.put("/api/products", productData);
-        console.log(response);
-        response &&
-          showAlert(
-            "Éxito", // Título del alerta
-            `Producto ${product?._id ? "actualizado" : "creado"} con éxito.` // Mensaje del alerta
-            // "success" // Tipo de alerta, por ejemplo: success, error, info, etc. Ajusta según tu implementación de showAlert
-          );
+        //   await axios.post("/api/products", productData);
         // }
-
-        console.log("URL para acceder al archivo:", fileUrl);
+      } else {
+        // let productData = {
+        //   _id: product._id,
+        //   description: data.description,
+        //   title: data.title,
+        //   licenses: data.licenses,
+        // };
+        // const response = await axios.put("/api/products", productData);
+        // console.log(response);
+        // response &&
+        //   showAlert(
+        //     "Éxito", // Título del alerta
+        //     `Producto ${product?._id ? "actualizado" : "creado"} con éxito.` // Mensaje del alerta
+        //     // "success" // Tipo de alerta, por ejemplo: success, error, info, etc. Ajusta según tu implementación de showAlert
+        //   );
+        // }
+        // console.log("URL para acceder al archivo:", fileUrl);
       }
     } catch (er) {
       console.log(er);
