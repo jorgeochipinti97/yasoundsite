@@ -21,6 +21,15 @@ import Marquee from "react-fast-marquee";
 import axios from "axios";
 import { formatCurrency } from "@/utils/utils";
 import { useUsers } from "@/hooks/useUsers";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 import {
   DropdownMenu,
@@ -418,45 +427,58 @@ export default function Home() {
           Descubrí Productores
         </p>
 
-        <div className="flex flex-wrap">
-          {users &&
-            users.slice(-6).map((e, index) => (
-              <div
-                key={index}
-                style={{
-                  backgroundImage:
-                    e.profilePicture.length > 3
-                      ? `linear-gradient(129deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 34%), url(${e.profilePicture})`
-                      : "rgba(0,0,0,1)",
-                  backgroundSize: "cover",
-                }}
-                className="h-[300px] w-[300px] rounded-xl bg-violet-100 mx-2  flex flex-col items-center"
-              >
-                <p
-                  className={`font-geist font-bold ${
-                    e.profilePicture ? "text-white" : "text-black"
-                  } tracking-tighter text-center mt-10 text-4xl`}
-                >
-                  {e.username}
-                </p>
-                <div className="flex justify-center mt-5">
-                  <div>
-                    {e.genders.map((e) => (
-                      <Badge key={e} className="w-fit mx-2">
-                        {e}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex justify-center mt-5">
-                  <Link href={`/perfil/${e.username}`}>
-                    <Button className="hover:animate-tilt">
-                      Visitar perfil
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            ))}
+        <div className="w-screen flex justify-center">
+          <div className="w-12/12 md:w-6/12">
+            <Table className=" ">
+              <TableCaption>Una tabla de nuestros ultimos 6 usuarios registrados.</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className=""></TableHead>
+                  <TableHead>Usuario</TableHead>
+                  <TableHead className='text-center'>País</TableHead>
+                  <TableHead className="text-center hidden md:block">Generos</TableHead>
+                  <TableHead className="text-center">Acción</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {users &&
+                  users.slice(-6).map((e, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">
+                        {/* <img
+                          src={e.profilePicture}
+                          className="w-[50px] h-[50px]"
+                        /> */}
+
+                        <div>
+                          {e.profilePicture.length >= 5 ? (
+                            <img
+                              src={`${
+                                e.profilePicture
+                              }?${new Date().getTime()}`}
+                              alt="Profile"
+                              className="  h-10 w-10 rounded-full border-2 border-violet-500"
+                            />
+                          ) : (
+                            <div className=" flex  h-10 w-10 rounded-full border-6 border-violet-500  cursor-pointer  bg-black  items-center justify-center text-white">
+                              {e.username[0].toUpperCase()}
+                            </div>
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell className=' font-geist text-xs font-bold'>{e.username}</TableCell>
+                      <TableCell className=' font-geist text-xs font-bold'>{e.country}</TableCell>
+                      <TableCell className="text-right font-geist text-xs font-bold hidden md:block">
+                        {e.genders.map((g) => `${g}, `)}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button size='sm'> Ver perfil</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
 
         <div className=" w-screen">
