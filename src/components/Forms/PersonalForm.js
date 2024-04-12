@@ -105,8 +105,24 @@ export const PersonalForm = ({ user }) => {
       formData.append("username", user.username);
       formData.append("file", file);
       const response = await axios.post("/api/profilePicture", formData);
-      console.log(response.data.fileUrl);
-      console.log(response.data.fileUrl);
+      response &&
+        showAlert(
+          "Imagen de perfil actualizada con éxito",
+          "¡Gracias por confiar en nosotros!",
+          <svg
+            width={25}
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        );
       setValue("profilePicture", response.data.fileUrl);
     } catch (error) {
       console.error(error);
@@ -135,13 +151,21 @@ export const PersonalForm = ({ user }) => {
     user && user.phone && setValue("country", user.country);
   }, [user]);
   return (
-    <ScrollArea className="h-[60vh] flex justify-center flex-col items-center rounded-md  px-1-">
+    <ScrollArea className="h-[80vh] flex justify-center flex-col items-center rounded-md  px-1-">
       <div className="flex flex-col justify-center items-center">
         <AlertComponent {...alertProps} />
+        <div className="w-full flex justify-center">
+          <p className="font-bold tracking-tighter ">
+            Si deseas recibir cobros por MercadoPago, conectá tu cuenta.{" "}
+          </p>
+        </div>
         {user && (
           <div className="w-6/12 my-2 flex justify-start  ">
             <div className="w-full flex justify-start">
-              <Button onClick={() => push(authorizationUrl)}>
+              <Button
+                onClick={() => push(authorizationUrl)}
+                className="bg-sky-600 hover:bg-sky-700"
+              >
                 {user.tokens.access_token
                   ? "Renovar MercadoPago"
                   : "Conectar MercadoPago"}
@@ -159,12 +183,6 @@ export const PersonalForm = ({ user }) => {
               accept="image/*" // Asegura que solo se puedan seleccionar imágenes
             />
             <div className="flex items-center">
-              {getValues("profilePicture") && (
-                <img
-                  src={`${getValues("profilePicture")}?${new Date().getTime()}`}
-                  className="w-[100px] rounded-full"
-                />
-              )}
               <Button
                 onClick={handleClick}
                 variant="outlined"

@@ -263,8 +263,9 @@ export const ProfileForm = () => {
                   Tu biografía
                 </label>
                 <Textarea
+                maxLength="180"
                   className="mt-2"
-                  {...register("bio")} // Registra el input con React Hook Form
+                  {...register("bio")} 
                 />
               </div>
               <div className="my-2">

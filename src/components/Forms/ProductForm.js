@@ -346,7 +346,7 @@ export const ProductForm = ({ product }) => {
                         clipRule="evenodd"
                       ></path>
                     </svg>
-                    Enviar
+Guardar
                   </Button>
                 </div>
               </div>
