@@ -126,6 +126,7 @@ export const ProductForm = ({ product }) => {
             });
           createProduct &&
             showAlert("Éxito", "Producto  actualizado con éxito", <></>);
+          createProduct && reset();
         }
       } else {
         let productData = {
@@ -324,7 +325,7 @@ export const ProductForm = ({ product }) => {
                       })
                     }
                   >
-                    Agregar Licencia
+                    Agregar otra
                   </Button>
                 </div>
               </div>

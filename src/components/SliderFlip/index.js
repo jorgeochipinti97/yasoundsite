@@ -494,7 +494,7 @@ export const SliderFlip = ({ user }) => {
               {formatCurrency(45)}
               <span className="font-thin">/</span>
               <span className="text-white tracking-tighter font-thin font-geist text-4xl">
-                Mensual
+                Anual
               </span>
             </span>
           </div>

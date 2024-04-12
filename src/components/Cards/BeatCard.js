@@ -355,7 +355,7 @@ export const BeatCard = ({
                                   variant="outline"
                                   className="mt-5 hover:animate-tilt"
                                 >
-                                  Enviar
+                                  Guardar
                                 </Button>
                               </form>
                               <Card

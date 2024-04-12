@@ -11,11 +11,23 @@ import { useUsers } from "@/hooks/useUsers";
 
 const Page = () => {
   const { push } = useRouter();
-  const { session } = useUsers();
+  const { session, users } = useUsers();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     session && push("/");
   }, [session]);
+
+  function validateUsername(username) {
+    return /^[a-zA-Z0-9_-]+$/.test(username);
+  }
+
+  const isNewUser = (email, username, users) => {
+    const isEmailRepeat = users.some((user) => user.email === email);
+    const isUsernameRepeat = users.some((user) => user.username === username);
+
+    return !isEmailRepeat && !isUsernameRepeat;
+  };
 
   const handleSubmit = async (event) => {
     try {
@@ -27,15 +39,26 @@ const Page = () => {
       const phone = event.target.phone.value;
       const username = event.target.username.value;
 
-      const result = await axios.post("/api/auth/register", {
-        username: username,
-        email: email,
-        password: password,
+      if (!validateUsername(username)) {
+        setErrorMessage(
+          "El nombre de usuario solo puede contener letras, números, guiones y guiones bajos."
+        );
+        return;
+      }
+      if (isNewUser(email, username, users)) {
+        const result = await axios.post("/api/auth/register", {
+          username: username,
+          email: email,
+          password: password,
+          name: name,
+          phone: phone,
+        });
 
-        name: name,
-        phone: phone,
-      });
-      result && push("/login");
+        result && push("/login");
+      } else {
+        setErrorMessage("Email o usuario ya existente");
+      }
+
     } catch (err) {
       console.log(err);
     }
@@ -46,7 +69,10 @@ const Page = () => {
       <div className="bg-white flex flex-col shadow h-fit py-10 mt-28 items-center border-2 w-fit px-20 rounded-xl justify-center ">
         <div className="w-full flex">
           <a href="/">
-            <Button variant="outline" className=" bg-gray-900 p-5 hover:bg-gray-700">
+            <Button
+              variant="outline"
+              className=" bg-gray-900 p-5 hover:bg-gray-700"
+            >
               <svg
                 width={20}
                 xmlns="http://www.w3.org/2000/svg"
@@ -108,6 +134,9 @@ const Page = () => {
               required
             />
           </section>
+          {errorMessage && (
+            <p className="mt-5 font-geist tracking-tighter ">{errorMessage}</p>
+          )}
           <section className="flex justify-center mt-5  ">
             <Button type="submit" className="my-2 hover:animate-tilt ">
               Registrarme
