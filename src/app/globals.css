@@ -248,3 +248,7 @@
     transform: rotate(360deg);
   }
 } 
+
+.swiper-pagination-bullet{
+  background: #f5f5f7 !important;
+}
