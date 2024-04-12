@@ -420,7 +420,7 @@ export default function Home() {
         <div className="my-5">
           <Marquee direction="right">
             {users &&
-              users.map((e, index) => (
+              users.slice(0,8).map((e, index) => (
                 <div
                   key={index}
                   style={{

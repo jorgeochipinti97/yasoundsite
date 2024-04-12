@@ -13,11 +13,9 @@ const Page = () => {
   const { push } = useRouter();
   const { session } = useUsers();
 
-
   useEffect(() => {
     session && push("/");
   }, [session]);
-
 
   const handleSubmit = async (event) => {
     try {
@@ -46,6 +44,28 @@ const Page = () => {
   return (
     <div className="w-full flex justify-center items-center h-screen bg-black">
       <div className="bg-white flex flex-col shadow h-fit py-10 mt-28 items-center border-2 w-fit px-20 rounded-xl justify-center ">
+        <div className="w-full flex">
+          <a href="/">
+            <Button variant="outline" className=" bg-gray-900 p-5 hover:bg-gray-700">
+              <svg
+                width={20}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
+                <g
+                  fill="none"
+                  stroke="#f5f5f7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="48"
+                >
+                  <path d="M244 400L100 256 244 112"></path>
+                  <path d="M120 256L412 256"></path>
+                </g>
+              </svg>
+            </Button>
+          </a>
+        </div>
         <img src="/logo.png" className="w-[15vw]" />
         <p className="text-4xl tracking-tighter font-bold mb-2">Registro</p>
         <Separator className="w-6/12  mb-5" />

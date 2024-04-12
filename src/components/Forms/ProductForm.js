@@ -7,20 +7,16 @@ import { useForm, useFieldArray } from "react-hook-form";
 
 import { Textarea } from "../ui/textarea";
 import { Separator } from "../ui/separator";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import axios from "axios";
 import { useUsers } from "@/hooks/useUsers";
 import { ScrollArea } from "../ui/scroll-area";
 import { useAlert } from "@/hooks/useAlert";
 import { AlertComponent } from "../ui/AlertComponent";
+import gsap, { Power1 } from "gsap";
 
 export const ProductForm = ({ product }) => {
+  const [isLoading, setIsLoading] = useState();
+
   const { alertProps, showAlert } = useAlert();
 
   const { register, control, handleSubmit, reset } = useForm({
@@ -65,6 +61,13 @@ export const ProductForm = ({ product }) => {
   });
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
+    showAlert(
+      "Estamos procesando la carga del Beat",
+      "Por favor sea paciente",
+      <></>
+    );
+
     try {
       if (!product || !product.file || !product.file.url) {
         if (!selectedFile) {
@@ -86,14 +89,12 @@ export const ProductForm = ({ product }) => {
         console.log(fileName, selectedFile.type);
 
         const response = await axios.post("/api/getSigned", fileData);
-        console.log(response);
 
         const result = await axios.put(response.data.url, selectedFile, {
           headers: {
             "Content-Type": selectedFile.type,
           },
         });
-        console.log(result);
 
         const formDataImg = new FormData();
         formDataImg.append("file", selectedImg);
@@ -111,29 +112,36 @@ export const ProductForm = ({ product }) => {
             image: imageUrl,
             owner: user.username,
           };
-          await axios.post("/api/products", productData);
+          const createProduct = await axios.post("/api/products", productData);
+          createProduct && setIsLoading(true);
+          createProduct &&
+            gsap.to(".pantallacarga", {
+              opacity: 0,
+              ease: Power1.easeIn,
+            });
+          createProduct &&
+            gsap.to(".pantallacarga", {
+              display: "none",
+              delay: 1,
+            });
+          createProduct &&
+            showAlert("Éxito", "Producto  actualizado con éxito", <></>);
         }
       } else {
-        // let productData = {
-        //   _id: product._id,
-        //   description: data.description,
-        //   title: data.title,
-        //   licenses: data.licenses,
-        // };
-        // const response = await axios.put("/api/products", productData);
-        // console.log(response);
-        // response &&
-        //   showAlert(
-        //     "Éxito", // Título del alerta
-        //     `Producto ${product?._id ? "actualizado" : "creado"} con éxito.` // Mensaje del alerta
-        //     // "success" // Tipo de alerta, por ejemplo: success, error, info, etc. Ajusta según tu implementación de showAlert
-        //   );
-        // }
-        // console.log("URL para acceder al archivo:", fileUrl);
+        let productData = {
+          _id: product._id,
+          description: data.description,
+          title: data.title,
+          licenses: data.licenses,
+        };
+        const response = await axios.put("/api/products", productData);
+        console.log(response);
+        response &&
+          showAlert("Éxito", "Producto  actualizado con éxito", <></>);
       }
     } catch (er) {
       console.log(er);
-      showAlert("Error", "Hubo un problema al procesar tu solicitud.", "error");
+      showAlert("Error", "Hubo un problema al procesar tu solicitud.", "");
     }
   };
   useEffect(() => {
@@ -147,9 +155,37 @@ export const ProductForm = ({ product }) => {
       });
     }
   }, [product, reset]);
+
+  useEffect(() => {
+    isLoading &&
+      gsap.to(".pantallacarga", {
+        display: "block",
+      });
+    isLoading &&
+      gsap.to(".pantallacarga", {
+        display: "block",
+      });
+    isLoading &&
+      gsap.to(".pantallacarga", {
+        opacity: 1,
+        delay: 1,
+      });
+  }, [isLoading]);
+
   return (
     <div>
       <AlertComponent {...alertProps} />
+      <div
+        className="w-screen h-screen bg-white/30 absolute top-0 right-0 z-50 pantallacarga"
+        style={{ display: "none", opacity: 0 }}
+      >
+        <div className="  flex items-center flex-col justify-center h-full w-full">
+          <span class="loader z-50"></span>
+          <p className="font-geist font-bold tracking-tighter mt-10 text-4xl">
+            Por favor sea paciente
+          </p>
+        </div>
+      </div>
       <ScrollArea className="h-[60vh] ">
         <div className="w-full flex justify-center ">
           <div className="w-6/12">
@@ -294,7 +330,7 @@ export const ProductForm = ({ product }) => {
               </div>
               <div className="mt-10">
                 <div className="mt-5">
-                  <Button type="submit">
+                  <Button type="submit" disabled={isLoading}>
                     <svg
                       width={20}
                       className="mr-2"

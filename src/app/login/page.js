@@ -57,10 +57,9 @@ const Page = () => {
   };
 
   const onForgotPassword = async () => {
-    
     const user = users.find(
       (e) => e.email.toLowerCase() === email.toLowerCase()
-    )
+    );
 
     if (!user) {
       alert("usuario no encontrado");
@@ -82,6 +81,32 @@ const Page = () => {
             style={{ background: "rgba(255, 255, 255, 1)" }}
             className=" flex flex-col shadow h-fit py-10 mt-20 items-center border-2 w-11/12 md:w-6/12 rounded-xl justify-center "
           >
+            {" "}
+            <div className="w-full flex ">
+              <a href="/" className="ml-20">
+                <Button
+                  variant="outline"
+                  className=" bg-gray-900 p-5 hover:bg-gray-700"
+                >
+                  <svg
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                  >
+                    <g
+                      fill="none"
+                      stroke="#f5f5f7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="48"
+                    >
+                      <path d="M244 400L100 256 244 112"></path>
+                      <path d="M120 256L412 256"></path>
+                    </g>
+                  </svg>
+                </Button>
+              </a>
+            </div>
             <img src="/logo.png" className=" w-[15vw]" />{" "}
             <p className="text-4xl tracking-tighter font-bold mb-2">
               Inicio de sesión
