@@ -69,7 +69,7 @@ export const SliderFlip = ({ user }) => {
       className="mySwiper w-10/12 "
     >
       <SwiperSlide>
-        <div class="card bg-black/80  md:mt-0 mt-10 py-10  w-12/12  rounded-xl p-4">
+        <div class="shadowLow bg-black  md:mt-0 mt-10 py-10  w-12/12  rounded-xl p-4">
           <div className="flex justify-center">
             <svg
               className=""
@@ -355,7 +355,7 @@ export const SliderFlip = ({ user }) => {
       </SwiperSlide>
 
       <SwiperSlide>
-      <div class="card bg-black/80  md:mt-0 mt-10 py-10  w-12/12  rounded-xl p-4">
+      <div class="shadowLow bg-black  md:mt-0 mt-10 py-10  w-12/12  rounded-xl p-4">
           <div className="flex justify-center">
             <svg
               className=""
