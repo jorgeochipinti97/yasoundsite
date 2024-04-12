@@ -5,19 +5,17 @@ import {
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-
 export const config = {
   runtime: "edge", // Especifica que se utiliza en entornos como Vercel Edge Functions
 };
 
 // Inicializa el cliente S3 con configuración segura
 const s3Client = new S3Client({
-  region: process.env.AWS_S3_REGION,
+  region: "sa-east-1",
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
 
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY
   },
 });
 
@@ -31,6 +29,7 @@ export default async function handler(req, res) {
         const username = formData.get("username");
         const file = formData.get("file");
 
+        // Validación básica del archivo
         if (!file) {
           return new Response(JSON.stringify({ error: "File is required." }), {
             status: 400,
@@ -41,31 +40,17 @@ export default async function handler(req, res) {
         // Preparación del archivo para subida
         const arrayBuffer = await file.arrayBuffer();
         const uint8Array = new Uint8Array(arrayBuffer);
-        const originalName = file.name;
+        const fileName = `${username}-${Date.now()}`;
 
-        const extension = originalName.split(".").pop();
-
-        const fileName = `${username}-${Date.now()}.${extension}`;
-        const mimeType = file.type;
+        // Subida del archivo a S3
+        await uploadFileToS3(uint8Array, fileName);
 
         const fileUrl = `https://yasoundtestbucket.s3.sa-east-1.amazonaws.com/${fileName}`;
 
-        const command = new PutObjectCommand({
-          Bucket: "yasoundtestbucket",
-          Key: fileName,
-          Body: uint8Array,
-          ContentType: mimeType,
-        });
-
-        const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
-
-        
-        return new Response(JSON.stringify({ success: true, url,fileUrl }), {
+        return new Response(JSON.stringify({ success: true, fileUrl }), {
           status: 200,
           headers: { "Content-Type": "application/json" },
         });
-        // Subida del archivo a S3
-        // await uploadFileToS3(uint8Array, fileName, mimeType);
       } catch (error) {
         // Manejo de errores
         return new Response(JSON.stringify({ error: error.toString() }), {
@@ -132,12 +117,12 @@ async function deleteFileFromS3(fileName) {
   }
 }
 
-async function uploadFileToS3(fileBuffer, fileName, mimeType) {
+async function uploadFileToS3(fileBuffer, fileName) {
   const params = {
     Bucket: "yasoundtestbucket",
     Key: fileName,
     Body: fileBuffer,
-    ContentType: mimeType, // Ajusta según el tipo de archivo real
+    ContentType: "application/octet-stream", // Ajusta según el tipo de archivo real
   };
 
   try {

@@ -23,16 +23,15 @@ import { AlertComponent } from "../ui/AlertComponent";
 export const ProductForm = ({ product }) => {
   const { alertProps, showAlert } = useAlert();
 
-  const { register, control, handleSubmit, setValue, getValues, reset } =
-    useForm({
-      defaultValues: {
-        file: "",
-        owner: "",
-        description: "",
-        title: "",
-        licenses: [{ title: "", description: "", price: 0, priceArs: 0 }],
-      },
-    });
+  const { register, control, handleSubmit, reset } = useForm({
+    defaultValues: {
+      file: "",
+      owner: "",
+      description: "",
+      title: "",
+      licenses: [{ title: "", description: "", price: 0, priceArs: 0 }],
+    },
+  });
 
   const { user } = useUsers();
 
@@ -79,14 +78,14 @@ export const ProductForm = ({ product }) => {
 
         const fileName = `${user.username}-${Date.now()}.${extension}`;
 
-        const data = {
+        const fileData = {
           fileName: fileName,
           fileType: selectedFile.type,
         };
 
         console.log(fileName, selectedFile.type);
 
-        const response = await axios.post("/api/getSigned", data);
+        const response = await axios.post("/api/getSigned", fileData);
         console.log(response);
 
         const result = await axios.put(response.data.url, selectedFile, {
@@ -96,29 +95,24 @@ export const ProductForm = ({ product }) => {
         });
         console.log(result);
 
-        // const formData = new FormData();
-        // formData.append("file", selectedFile);
-        // formData.append("username", user.username);
+        const formDataImg = new FormData();
+        formDataImg.append("file", selectedImg);
+        formDataImg.append("username", user.username);
+        const responseImage = await axios.post("/api/s3", formDataImg);
+        const imageUrl = responseImage.data.fileUrl;
 
-        // const formDataImg = new FormData();
-        // formDataImg.append("file", selectedImg);
-        // formDataImg.append("username", user.username);
-        // const fileUrl = response.data.fileUrl;
-        // const responseImage = await axios.post("/api/s3", formDataImg);
-        // const imageUrl = responseImage.data.fileUrl;
-        // if (fileUrl && imageUrl) {
-        //   let productData = {
-        //     ...data,
-        //     file: {
-        //       url: fileUrl,
-        //       fileType: getValues("fileType"),
-        //     },
-        //     image: imageUrl,
-        //     owner: user.username,
-        //   };
-
-        //   await axios.post("/api/products", productData);
-        // }
+        if (result.status == 200 && imageUrl) {
+          let productData = {
+            ...data,
+            file: {
+              url: `https://yasoundtestbucket.s3.sa-east-1.amazonaws.com/${fileName}`,
+              fileType: selectedFile.type,
+            },
+            image: imageUrl,
+            owner: user.username,
+          };
+          await axios.post("/api/products", productData);
+        }
       } else {
         // let productData = {
         //   _id: product._id,
@@ -167,17 +161,6 @@ export const ProductForm = ({ product }) => {
               <div className="mt-5">
                 <Label>Descripción</Label>
                 <Input {...register("description")} />
-              </div>
-              <div className="mt-5">
-                <Select onValueChange={(e) => setValue("fileType", e)}>
-                  <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Elige el formato" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={"mp3"}>MP3</SelectItem>
-                    <SelectItem value={"wav"}>WAV</SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
               <div className="mt-5  flex flex-col">
                 <input
