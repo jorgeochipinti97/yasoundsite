@@ -59,13 +59,13 @@ export default async function handler(req, res) {
 
         const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
 
-        // Subida del archivo a S3
-        // await uploadFileToS3(uint8Array, fileName, mimeType);
-
+        
         return new Response(JSON.stringify({ success: true, url,fileUrl }), {
           status: 200,
           headers: { "Content-Type": "application/json" },
         });
+        // Subida del archivo a S3
+        // await uploadFileToS3(uint8Array, fileName, mimeType);
       } catch (error) {
         // Manejo de errores
         return new Response(JSON.stringify({ error: error.toString() }), {

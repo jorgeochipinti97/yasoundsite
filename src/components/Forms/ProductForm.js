@@ -73,11 +73,21 @@ export const ProductForm = ({ product }) => {
           return;
         }
 
-        const formData = new FormData();
-        formData.append("file", selectedFile);
-        formData.append("username", user.username);
-        const response = await axios.post("/api/s3", formData);
-        console.log(response.data.url);
+        const originalName = selectedFile.name;
+
+        const extension = originalName.split(".").pop();
+
+        const fileName = `${user.username}-${Date.now()}.${extension}`;
+
+        const data = {
+          fileName: fileName,
+          fileType: selectedFile.type,
+        };
+
+        console.log(fileName, selectedFile.type);
+
+        const response = await axios.post("/api/getSigned", data);
+        console.log(response);
 
         const result = await axios.put(response.data.url, selectedFile, {
           headers: {
@@ -85,6 +95,11 @@ export const ProductForm = ({ product }) => {
           },
         });
         console.log(result);
+
+        // const formData = new FormData();
+        // formData.append("file", selectedFile);
+        // formData.append("username", user.username);
+
         // const formDataImg = new FormData();
         // formDataImg.append("file", selectedImg);
         // formDataImg.append("username", user.username);
