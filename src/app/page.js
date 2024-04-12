@@ -448,7 +448,7 @@ export default function Home() {
                         {/* <img
                           src={e.profilePicture}
                           className="w-[50px] h-[50px]"
-                        /> */}
+                        /> */}  
 
                         <div>
                           {e.profilePicture.length >= 5 ? (
