@@ -35,11 +35,13 @@ export const Navbar = () => {
         variant="secondary"
         // className="p-2   text-black  text-xs font-extralight  md:text-xl font-sans rounded-full bg-white"
         onClick={
-          () => text == "Home" && push("/")
-          // (text == "Beats" && push("#")) ||
-          // (text == "Tu música" && push("/upload")) ||
-          // (text == "Comunidad" && push("/comunidad")) ||
-          // (text == "Conocenos" && push("/conocenos")) ||
+          () =>
+            (text == "Home" && push("/")) ||
+            // (text == "Beats" && push("#")) ||
+            // (text == "Tu música" && push("/upload")) ||
+            (text == "Comunidad" && push("/comunidad")) ||
+            (text == "Conocenos" && push("/conocenos"))
+
           // (text == "Modifica tu perfil" && push(`/create/${usuario.username}`))
         }
         key={text}

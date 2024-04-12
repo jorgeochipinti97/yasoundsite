@@ -15,7 +15,7 @@ const s3Client = new S3Client({
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
 
-    secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
 });
 
@@ -29,7 +29,6 @@ export default async function handler(req, res) {
         const username = formData.get("username");
         const file = formData.get("file");
 
-        // Validación básica del archivo
         if (!file) {
           return new Response(JSON.stringify({ error: "File is required." }), {
             status: 400,
@@ -40,10 +39,15 @@ export default async function handler(req, res) {
         // Preparación del archivo para subida
         const arrayBuffer = await file.arrayBuffer();
         const uint8Array = new Uint8Array(arrayBuffer);
-        const fileName = `${username}-${Date.now()}`;
+        const originalName = file.name;
+
+        const extension = originalName.split(".").pop();
+
+        const fileName = `${username}-${Date.now()}.${extension}`;
+        const mimeType = file.type;
 
         // Subida del archivo a S3
-        await uploadFileToS3(uint8Array, fileName);
+        await uploadFileToS3(uint8Array, fileName, mimeType);
 
         const fileUrl = `https://yasoundtestbucket.s3.sa-east-1.amazonaws.com/${fileName}`;
 
@@ -117,12 +121,12 @@ async function deleteFileFromS3(fileName) {
   }
 }
 
-async function uploadFileToS3(fileBuffer, fileName) {
+async function uploadFileToS3(fileBuffer, fileName, mimeType) {
   const params = {
     Bucket: "yasoundtestbucket",
     Key: fileName,
     Body: fileBuffer,
-    ContentType: "application/octet-stream", // Ajusta según el tipo de archivo real
+    ContentType: mimeType, // Ajusta según el tipo de archivo real
   };
 
   try {

@@ -5,9 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { EffectCoverflow, Pagination,Autoplay } from "swiper/modules";
+import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
 import { BeatCard } from "../Cards/BeatCard";
-
 
 export const SliderCoverflow = ({ beats }) => {
   return (
@@ -15,9 +14,7 @@ export const SliderCoverflow = ({ beats }) => {
       effect={"coverflow"}
       grabCursor={true}
       slidesPerView={1}
-      coverflowEffect={{
-
-      }}
+      speed={1000}
       breakpoints={{
         640: {
           slidesPerView: 3, // Muestra 1.2 slides en vistas móviles
@@ -27,7 +24,7 @@ export const SliderCoverflow = ({ beats }) => {
         delay: 1500,
         disableOnInteraction: false,
       }}
-      modules={[EffectCoverflow,Autoplay]}
+      modules={[EffectCoverflow, Autoplay]}
       className="mySwiper w-12/12 py-10"
     >
       {beats.map((e, index) => (
@@ -43,7 +40,6 @@ export const SliderCoverflow = ({ beats }) => {
               licenses={e.licenses}
               image={e.image}
               priceArs={e.licenses[0].priceArs}
-
             />
           </div>
         </SwiperSlide>

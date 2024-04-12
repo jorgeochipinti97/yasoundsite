@@ -1,4 +1,4 @@
-import { Wallet, initMercadoPago } from "@mercadopago/sdk-react";
+import {  initMercadoPago } from "@mercadopago/sdk-react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useUsers } from "@/hooks/useUsers";
@@ -35,9 +35,9 @@ export const CheckoutComponent = ({ product, user, _id }) => {
           ? product.priceArs * 0.03
           : product.priceArs * 0.15,
         back_urls: {
-          success: `https://www.yasound.site/success?orderID=${_id}`,
-          failure: "https://www.yasound.site/",
-          pending: "https://www.yasound.site/",
+          success: `https://www.dublingroup.store/success?orderID=${_id}`,
+          failure: "https://www.dublingroup.store/",
+          pending: "https://www.dublingroup.store/",
         },
       };
 

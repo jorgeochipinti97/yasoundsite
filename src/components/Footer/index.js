@@ -10,30 +10,12 @@ export const FooterComponent = () => {
   return (
     <footer
       style={{ display: pathname.includes("perfil") ? "none" : "auto" }}
-      className="bg-slate-800   justify-center pt-10 px-4 md:px-6 flex flex-col items-center text-center"
+      className="bg-slate-800   justify-center py-10 px-4 md:px-6 flex flex-col items-center text-center"
     >
       <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl/none text-white">
         Estemos conectados.
       </h2>
-      <p className="mx-auto max-w-[700px] text-zinc-100 md:text-lg dark:text-zinc-800">
-        Suscribete a nuestro newsletter para mantenerte informado.
-      </p>
-      <div className="w-full max-w-md space-y-2 my-4">
-        <form className="flex space-x-2">
-          <Input
-            className="max-w-lg flex-1 text-zinc-900 bg-white"
-            placeholder="Ingresa tu Email"
-            type="email"
-          />
-          <Button
-            className="text-black border-white hover:animate-tilt"
-            type="submit"
-            variant="outline"
-          >
-            Enviar
-          </Button>
-        </form>
-      </div>
+
       <div className="h-fit mt-5 w-screen flex items-center justify-center flex-wrap">
         <img
           src="/twitter.png"

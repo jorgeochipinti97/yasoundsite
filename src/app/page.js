@@ -408,6 +408,54 @@ export default function Home() {
           </div>
         )}
 
+        <p
+          className="text-center tracking-tighter   text-5xl md:text-7xl mt-10  md:mt-32   mb-5 md:mb-10 font-bold text-black"
+          style={{
+            opacity: 0.4,
+          }}
+        >
+          Descubrí Productores
+        </p>
+
+        <div className="my-5">
+          <Marquee direction="right">
+            {users &&
+              users.map((e, index) => (
+                <div
+                  key={index}
+                  style={{
+                    backgroundImage:
+                      e.profilePicture.length > 3
+                        ? `linear-gradient(129deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 34%), url(${e.profilePicture})`
+                        : "rgba(0,0,0,1)",
+                        backgroundSize:'cover'
+                  }}
+                  className="h-[300px] w-[300px] rounded-xl bg-violet-100 mx-2  flex flex-col items-center"
+                >
+                  <p className="font-geist font-bold text-black tracking-tighter text-center mt-10 text-4xl">
+                    {e.username}
+                  </p>
+                  <div className="flex justify-center mt-5">
+                    <div>
+                      {e.genders.map((e) => (
+                        <Badge key={e} className="w-fit mx-2">
+                          {e}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex justify-center mt-5">
+                    <Link href={`/perfil/${e.username}`}>
+                      <Button className="hover:animate-tilt">
+                        Visitar perfil
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+          </Marquee>
+        </div>
+
         <div className=" w-screen">
           <p className="text-center font-bold text-7xl mt-10 font-geist tracking-tighter">
             Membresias
@@ -689,6 +737,7 @@ export default function Home() {
                   </span>
                 </span>
               </div>
+
               <div className="flex justify-center mt-5">
                 <PayPalScriptProvider
                   options={{
@@ -830,43 +879,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="my-5">
-          <Marquee direction="right">
-            {users &&
-              users.map((e, index) => (
-                <div
-                  key={index}
-                  style={{
-                    backgroundImage:
-                      e.profilePicture.length > 3
-                        ? `url(${e.profilePicture})`
-                        : "rgba(0,0,0,1)",
-                  }}
-                  className="h-[300px] w-[300px] rounded-xl bg-violet-100 mx-2  flex flex-col items-center"
-                >
-                  <p className="font-geist font-bold text-black tracking-tighter text-center mt-10 text-4xl">
-                    {e.username}
-                  </p>
-                  <div className="flex justify-center mt-5">
-                    <div>
-                      {e.genders.map((e) => (
-                        <Badge key={e} className="w-fit mx-2">
-                          {e}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex justify-center mt-5">
-                    <Link href={`/perfil/${e.username}`}>
-                      <Button className="hover:animate-tilt">
-                        Visitar perfil
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              ))}
-          </Marquee>
-        </div>
+
         <div
           className="flex items-center md:flex-row py-10 flex-col justify-around mt-10 rounded-t-xl"
           style={{

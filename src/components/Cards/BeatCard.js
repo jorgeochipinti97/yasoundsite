@@ -90,6 +90,7 @@ export const BeatCard = ({
             })
             .catch((error) => {
               alert("La reproducción de audio falló", error);
+              console.log(error);
               setIsPlaying(false); // Revertir el estado si la reproducción falla
               // Aquí puedes manejar el error, por ejemplo, mostrando una interfaz de usuario
               // para que el usuario inicie manualmente la reproducción
@@ -161,6 +162,22 @@ export const BeatCard = ({
       </g>
     </svg>
   );
+
+  const mimeType = getMimeType(audioUrl);
+
+  function getMimeType(url) {
+    const extension = url.split(".").pop().toLowerCase();
+    switch (extension) {
+      case "mp3":
+        return "audio/mpeg";
+      case "wav":
+        return "audio/wav";
+      case "ogg":
+        return "audio/ogg";
+      default:
+        return "audio/mpeg"; // Default, por si acaso no se reconoce la extensión
+    }
+  }
   return (
     <Card
       className=" md:h-[300px] border-none  mx-2 px-5 w-[300px]  md:w-[300px] rounded-xl flex items-start flex-col justify-start"
@@ -177,8 +194,7 @@ export const BeatCard = ({
         }}
       >
         <audio preload="auto" ref={audioRef}>
-          <source src={audioUrl} type="audio/mpeg" />
-          Tu navegador no soporta el elemento de audio.
+          <source src={audioUrl} type={mimeType} />
         </audio>
 
         <CardHeader>
