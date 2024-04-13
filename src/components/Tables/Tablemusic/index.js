@@ -4,25 +4,26 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 import { Button } from "@/components/ui/button";
-import { formatCurrency } from "@/utils/utils";
-import { Dialog, DialogContent, DialogTrigger } from "../../ui/dialog";
-
 import { ProductForm } from "@/components/Forms/ProductForm";
 import axios from "axios";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -64,8 +65,8 @@ export const TableMusic = () => {
     <div className="flex justify-center">
       <AlertComponent {...alertProps} />
 
-      <div className="w-8/12">
-        <ScrollArea className="h-[60vh]  ">
+      <div className="w-full md:w-8/12">
+        <ScrollArea className="h-[60vh] w-full  ">
           <Table className="">
             <TableCaption>Lista de tus productos</TableCaption>
             <TableHeader>
@@ -86,7 +87,7 @@ export const TableMusic = () => {
                     <TableCell className="  text-center font-geist tracking-tighter font-semibold text-md">
                       {e.licenses.length}
                     </TableCell>
-              
+
                     <TableCell className="text-center font-geist tracking-tighter flex flex-col ">
                       <div>
                         <Drawer>
@@ -132,15 +133,36 @@ export const TableMusic = () => {
                         </Drawer>
                       </div>
                       <div>
-                        <Button
-                          size="sm"
-                          className="my-1"
-                          variant="destructive"
-                          onClick={() => deleteProduct(e)}
-                        >
-                          {" "}
-                          Eliminar
-                        </Button>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              size="sm"
+                              className="my-1"
+                              variant="destructive"
+                            >
+                              {" "}
+                              Eliminar
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                ¿Estás seguro ?
+                              </AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Esta acción no se puede deshacer.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => deleteProduct(e)}
+                              >
+                                Continue
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </div>
                     </TableCell>
                   </TableRow>

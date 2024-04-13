@@ -13,6 +13,11 @@ const Page = () => {
   const { push } = useRouter();
   const { session, users } = useUsers();
   const [errorMessage, setErrorMessage] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setAcceptTerms(event.target.checked);
+  };
 
   useEffect(() => {
     session && push("/");
@@ -45,6 +50,12 @@ const Page = () => {
         );
         return;
       }
+
+      if (!acceptTerms) {
+        setErrorMessage("Debes aceptar los términos y condiciones");
+        return;
+      }
+
       if (isNewUser(email, username, users)) {
         const result = await axios.post("/api/auth/register", {
           username: username.toLowerCase(),
@@ -65,7 +76,7 @@ const Page = () => {
 
   return (
     <div className="w-full flex justify-center items-center  min-h-screen bg-black">
-      <div className="bg-white flex flex-col shadow h-fit py-20 mt-28 items-center border-2 w-fit px-20 rounded-xl justify-center ">
+      <div className="bg-white flex flex-col shadow h-[80vh] py-20 mt-10 items-center border-2 w-fit px-20 rounded-xl justify-center ">
         <div className="w-full flex">
           <a href="/">
             <Button
@@ -108,7 +119,7 @@ const Page = () => {
               className="my-2"
               type="phone"
               name="phone"
-              placeholder="+555555"
+              placeholder="+541132443355"
               required
             />
             <Input
@@ -133,9 +144,26 @@ const Page = () => {
               required
             />
           </section>
+          <div className="flex mt-5">
+            <input
+              checked={acceptTerms}
+              onChange={handleCheckboxChange}
+              className="mr-2 focus:bg-fuchsia-400"
+              type="checkbox"
+              id="cbox2"
+              value="second_checkbox"
+            />
+            <p className="text-xs tracking-tighter font-bold ">
+              Para registrarte debes aceptar nuestras políticas y los terminos y
+              condiciones.
+            </p>
+          </div>
+          <div className="h-[30px] my-3">
+
           {errorMessage && (
-            <p className="mt-5 font-geist tracking-tighter ">{errorMessage}</p>
+            <p className=" font-geist tracking-tighter ">{errorMessage}</p>
           )}
+          </div>
           <section className="flex justify-center mt-5  ">
             <Button type="submit" className="my-2 hover:animate-tilt ">
               Registrarme

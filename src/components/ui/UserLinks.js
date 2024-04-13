@@ -1,4 +1,12 @@
 export const UserLinks = ({ links }) => {
+  const ensureHttpPrefix = (url) => {
+    // Verifica si el URL comienza con 'http://', 'https://', o es un path de correo 'mailto:'
+    if (/^https?:\/\//i.test(url)) {
+      return url;
+    }
+    return `https://${url}`; // Añade 'https://' si no está presente
+  };
+
   const Icons = {
     Instagram: (
       <div className="w-fit my-1 rounded-full border-black  p-2 border-2 hover:animate-tilt cursor-pointer">
@@ -115,17 +123,17 @@ export const UserLinks = ({ links }) => {
         .filter((link) => link.link.length > 4)
         .map((link, index) => {
           // Filtra links con más de 4 caracteres
+          const properUrl = ensureHttpPrefix(link.link); // Asegura que el link tiene el protocolo http
           const Icon = Icons[link.name.replace(/\s+/g, "")]; // Asume que el nombre de la plataforma no tiene espacios
           return link.link && Icon ? ( // Verifica que el link y el Icono existan antes de renderizar
             <a
               key={index}
-              href={link.link}
+              href={properUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="link-icon"
             >
               {Icon}
-
             </a>
           ) : null;
         })}

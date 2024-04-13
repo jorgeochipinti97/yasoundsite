@@ -52,6 +52,8 @@ export const BeatCard = ({
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  const [acceptTerms, setAcceptTerms] = useState(false);
+
   const [isSubmit, setIsSubmit] = useState(false);
   const [orderId, setOrderId] = useState("");
   const { push } = useRouter();
@@ -69,7 +71,11 @@ export const BeatCard = ({
       product: name,
     });
     response && setOrderId(response.data._id);
-    setIsSubmit(true);
+    response && setIsSubmit(true);
+  };
+
+  const handleCheckboxChange = (event) => {
+    setAcceptTerms(event.target.checked);
   };
 
   const togglePlayPause = () => {
@@ -217,10 +223,13 @@ export const BeatCard = ({
             </svg>
             <p className="mt-2 font-geist text-white font-mono">{owner}</p>
           </a>
-          <div className=" my-3" style={{display:genders ?'flex' :'none'}}>
+          <div className=" my-3" style={{ display: genders ? "flex" : "none" }}>
             {genders &&
               genders.map((e, index) => (
-                <Badge className="mx-1 bg-slate-300 text-black hover:bg-slate-400" key={index}>
+                <Badge
+                  className="mx-1 bg-slate-300 text-black hover:bg-slate-400"
+                  key={index}
+                >
                   {e}
                 </Badge>
               ))}
@@ -280,7 +289,7 @@ export const BeatCard = ({
                     ></path>{" "}
                   </g>
                 </svg>
-                Comprar
+                Ver más
               </Button>
             </DialogTrigger>
             <DialogContent className="">
@@ -290,7 +299,7 @@ export const BeatCard = ({
                   <TableRow>
                     <TableHead className="text-center">Nombre</TableHead>
                     <TableHead className="text-center">Precio</TableHead>
-                    <TableHead className="text-center">Método</TableHead>
+                    <TableHead className="text-center">-</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -306,33 +315,64 @@ export const BeatCard = ({
                         </TableCell>
                         <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
                           <Dialog>
-                            <DialogTrigger>
-                              <span className="bg-violet-500 px-2 py-1 rounded-md text-white">
-                                Comprar
-                              </span>
+                            <DialogTrigger asChild>
+                              <div className="flex justify-center">
+                                <Button>
+                                  <svg
+                                    width={20}
+                                    className="mr-1"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      stroke="#f5f5f7"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth="2"
+                                      d="M3 9h18M7 15h2m-2.8 4h11.6c1.12 0 1.68 0 2.108-.218a2 2 0 00.874-.874C21 17.48 21 16.92 21 15.8V8.2c0-1.12 0-1.68-.218-2.108a2 2 0 00-.874-.874C19.48 5 18.92 5 17.8 5H6.2c-1.12 0-1.68 0-2.108.218a2 2 0 00-.874.874C3 6.52 3 7.08 3 8.2v7.6c0 1.12 0 1.68.218 2.108a2 2 0 00.874.874C4.52 19 5.08 19 6.2 19z"
+                                    ></path>
+                                  </svg>
+                                  Comprar
+                                </Button>
+                              </div>
                             </DialogTrigger>
                             <DialogContent className="">
+                              <div className="flex justify-start capitalize flex-col">
+                                <p className="font-geist tracking-tighter font-semibold text-md">
+                                  {e.title}
+                                </p>
+                                <p className="font-geist tracking-tighter font-semibold text-xs">
+                                  {e.description}
+                                </p>
+                              </div>
                               <form
-                                className="mx-10 mt-5 formPurchase"
+                                className="mx-2 formPurchase"
                                 onSubmit={handleSubmit(onSubmit)}
                               >
                                 <div className="my-2">
                                   <Label className="text-black font-bold">
                                     Nombre Completo
                                   </Label>
-                                  <Input {...register("nombre")} />
+                                  <Input
+                                    {...register("nombre", { required: true })}
+                                  />
                                 </div>
                                 <div className="my-2">
                                   <Label className="text-black font-bold">
                                     Email
                                   </Label>
-                                  <Input {...register("email")} />
+                                  <Input
+                                    {...register("email", { required: true })}
+                                  />
                                 </div>
                                 <div className="my-2">
                                   <Label className="text-black font-bold">
                                     Celular
                                   </Label>
-                                  <Input {...register("celular")} />
+                                  <Input
+                                    {...register("celular", { required: true })}
+                                  />
                                 </div>
                                 <div className="mb-2">
                                   <Label className="text-black font-bold">
@@ -359,7 +399,24 @@ export const BeatCard = ({
                                     </SelectContent>
                                   </Select>
                                 </div>
+
+                                <div className="flex mt-5">
+                                  <input
+                                    checked={acceptTerms}
+                                    onChange={handleCheckboxChange}
+                                    className="mr-2 focus:bg-fuchsia-400"
+                                    type="checkbox"
+                                    id="cbox2"
+                                    value="second_checkbox"
+                                  />
+                                  <p className="text-xs tracking-tighter font-bold ">
+                                    Para continuar debes aceptar nuestras
+                                    políticas y los terminos y condiciones.
+                                  </p>
+                                </div>
+
                                 <Button
+                                  disabled={!acceptTerms}
                                   type="submit"
                                   variant="outline"
                                   className="mt-5 hover:animate-tilt"
@@ -509,9 +566,6 @@ export const BeatCard = ({
                                     </div>
                                   </div> */}
                                 </CardContent>
-                                <CardFooter>
-                                  <Button className="w-full">Continue</Button>
-                                </CardFooter>
                               </Card>
                             </DialogContent>
                           </Dialog>

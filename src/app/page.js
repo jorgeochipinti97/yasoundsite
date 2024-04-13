@@ -336,7 +336,7 @@ export default function Home() {
           Descubrí Productores
         </p>
 
-        <div className="w-screen flex justify-center">
+        <div className=" flex justify-center">
           <div className="w-12/12 md:w-6/12">
             <Table className=" ">
               <TableCaption>Una tabla de nuestros ultimos 6 usuarios registrados.</TableCaption>
@@ -354,11 +354,6 @@ export default function Home() {
                   users.slice(-6).map((e, index) => (
                     <TableRow key={index}>
                       <TableCell className="font-medium">
-                        {/* <img
-                          src={e.profilePicture}
-                          className="w-[50px] h-[50px]"
-                        /> */}  
-
                         <div>
                           {e.profilePicture.length >= 5 ? (
                             <img

@@ -167,6 +167,8 @@ export const ProductForm = ({ product }) => {
           createProduct &&
             showAlert("Éxito", "Producto  actualizado con éxito", <></>);
           createProduct && reset();
+          createProduct && setSelectedGenders([]);
+          createProduct && setTags([]);
         }
       } else {
         let productData = {
@@ -330,10 +332,10 @@ export const ProductForm = ({ product }) => {
                       <span
                         className="mr-2 text-black border rounded-full px-2 cursor-pointer bg-white"
                         onClick={() => removeTag(index)}
-                        >
+                      >
                         x
                       </span>
-                        {tag}
+                      {tag}
                     </Badge>
                   ))}
                 </div>
