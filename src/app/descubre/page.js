@@ -53,7 +53,7 @@ const Page = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Busca por género, artista o ritmo "
-            className="w-6/12 border-black "
+            className="w-10/12 md:w-6/12 border-black "
           />
         </div>
         <div className="mt-10">
