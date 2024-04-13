@@ -8,6 +8,7 @@ import { Navbar } from "@/components/Navbar";
 import { FooterComponent } from "@/components/Footer";
 import GoogleTagManager from "@/components/GoogleTagManager";
 import { Analytics } from "@vercel/analytics/react";
+import { FloatMenu } from "@/components/FloatMenu";
 
 export const metadata = {
   title: "Yasound",
@@ -23,7 +24,7 @@ export default async function RootLayout({ children }) {
           <Navbar />
           {children}
           <Analytics />
-
+          <FloatMenu />
           <FooterComponent />
           <GoogleTagManager />
         </SessionProvider>

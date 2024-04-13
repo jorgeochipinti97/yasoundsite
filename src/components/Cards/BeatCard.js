@@ -24,7 +24,6 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -38,13 +37,14 @@ import { useForm } from "react-hook-form";
 import gsap, { Power1 } from "gsap";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Badge } from "../ui/badge";
 
 export const BeatCard = ({
   name,
   owner,
   price,
   audioUrl,
-  fileType,
+  genders,
   licenses,
   image,
   user,
@@ -180,7 +180,7 @@ export const BeatCard = ({
   }
   return (
     <Card
-      className=" h-[300px] border-none  mx-2 px-5 w-[300px] rounded-xl flex items-start flex-col justify-start"
+      className=" h-[300px] border-none  mx-2 w-[300px] rounded-xl flex items-start flex-col justify-start"
       style={{
         backgroundImage: `linear-gradient(129deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 34%), url('${image}')`,
         backgroundSize: "cover",
@@ -197,11 +197,11 @@ export const BeatCard = ({
           <source src={audioUrl} type={mimeType} />
         </audio>
 
-        <CardHeader>
-          <p className="font-geist font-bold text-white text-xl">{name}</p>
+        <CardContent>
+          <p className="font-geist font-bold text-white text-xl mt-5">{name}</p>
           <a
             href={`/perfil/${owner}`}
-            className="hover:animate-tada flex items-center"
+            className="hover:animate-tada flex items-center "
           >
             <svg
               width={20}
@@ -217,7 +217,15 @@ export const BeatCard = ({
             </svg>
             <p className="mt-2 font-geist text-white font-mono">{owner}</p>
           </a>
-          <p className="mt-2 font-geist text-white font-mono">{fileType}</p>
+          <div className=" my-3" style={{display:genders ?'flex' :'none'}}>
+            {genders &&
+              genders.map((e, index) => (
+                <Badge className="mx-1 bg-slate-300 text-black hover:bg-slate-400" key={index}>
+                  {e}
+                </Badge>
+              ))}
+          </div>
+
           <p className="mt-2 font-geist text-white font-mono">
             USD {formatCurrency(price)}
           </p>
@@ -226,8 +234,9 @@ export const BeatCard = ({
           </p>
 
           <p className="mt-2 font-geist text-white font-mono"></p>
-        </CardHeader>
-        <CardContent>{isPlaying ? <PauseIcon /> : <PlayIcon />}</CardContent>
+
+          {isPlaying ? <PauseIcon /> : <PlayIcon />}
+        </CardContent>
         <CardFooter>
           <Dialog>
             <DialogTrigger className="text-white">

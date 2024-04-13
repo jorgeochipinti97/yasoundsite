@@ -47,8 +47,8 @@ const Page = () => {
       }
       if (isNewUser(email, username, users)) {
         const result = await axios.post("/api/auth/register", {
-          username: username,
-          email: email,
+          username: username.toLowerCase(),
+          email: email.toLowerCase(),
           password: password,
           name: name,
           phone: phone,
@@ -58,7 +58,6 @@ const Page = () => {
       } else {
         setErrorMessage("Email o usuario ya existente");
       }
-
     } catch (err) {
       console.log(err);
     }

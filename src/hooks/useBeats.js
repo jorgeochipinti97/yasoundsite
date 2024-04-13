@@ -7,12 +7,13 @@ export function useBeats() {
 
   const getBeats = async () => {
     try {
-      const response = await axios.get("/api/beats");
+      const response = await axios.get("/api/products");
       // Asegúrate de que esta ruta es correcta y accesible
-      const beatsData = response.data.data;
+      const beatsData = response.data
       // Verifica que response.data.data es la estructura correcta según tu API
       if (beatsData) {
-        setBeats(beatsData);
+        setBeats(beatsData.data);
+
       } else {
         setError('No se encontraron datos.'); // Manejo de casos donde no hay datos
       }

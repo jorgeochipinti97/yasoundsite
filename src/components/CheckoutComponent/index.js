@@ -18,7 +18,6 @@ export const CheckoutComponent = ({ product, user, _id }) => {
 
   useEffect(() => {
     user && setIspremiun(user.premium);
-    console.log(user);
   }, [user]);
 
   const getPayment = async () => {
