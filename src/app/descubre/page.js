@@ -58,8 +58,8 @@ const Page = () => {
         </div>
         <div className="mt-10">
           <div className="grid grid-cols-1 md:grid-cols-4">
-            {products.slice(-12).map((product) => (
-              <div className="w-full flex justify-center my-5">
+            {products.slice(-12).map((product,index) => (
+              <div className="w-full flex justify-center my-5" key={index}>
                 <BeatCard
                   user={product.owner}
                   name={product.title}
