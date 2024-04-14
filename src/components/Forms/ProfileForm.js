@@ -318,7 +318,7 @@ export const ProfileForm = () => {
                     Este servicio es para usuarios premium
                   </p>
                 )}
-                <div className="mt-5 bg-gray-300 p-3">{renderLinkInputs}</div>
+                <div className="mt-5 bg-gray-300 rounded-xl p-3">{renderLinkInputs}</div>
               </div>
             </div>
             <div className="mt-5">

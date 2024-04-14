@@ -510,11 +510,13 @@ export const BeatCard = ({
                                             }
                                           }}
                                         />
-                                        <CheckoutComponent
-                                          user={user}
-                                          product={e}
-                                          _id={orderId}
-                                        />
+                                        {user && user.tokens.access_token && (
+                                          <CheckoutComponent
+                                            user={user}
+                                            product={e}
+                                            _id={orderId}
+                                          />
+                                        )}
                                       </div>
                                     )}
                                   </ScrollArea>
