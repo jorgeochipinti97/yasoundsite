@@ -24,24 +24,24 @@ const Page = () => {
       setProducts(beats); // Si no hay consulta, muestra todos los beats.
       return;
     }
-  
+
     const queryLower = query.toLowerCase();
-  
+
     // Filtra los beats basándose en el propietario, los géneros y el título.
-    const filteredBeats = beats.filter(beat => {
+    const filteredBeats = beats.filter((beat) => {
       const ownerMatches = beat.owner.toLowerCase().includes(queryLower);
-      const genreMatches = beat.genders.some(gender => 
+      const genreMatches = beat.genders.some((gender) =>
         gender.toLowerCase().includes(queryLower)
       );
       const titleMatches = beat.title.toLowerCase().includes(queryLower);
-  
+
       // Retorna true si cualquiera de las condiciones se cumple
       return ownerMatches || genreMatches || titleMatches;
     });
-  
+
     setProducts(filteredBeats);
   };
-  
+
   return (
     <>
       <div className="min-h-screen w-screen pt-20">
@@ -58,13 +58,21 @@ const Page = () => {
         </div>
         <div className="mt-10">
           <div className="grid grid-cols-1 md:grid-cols-4">
-            {products.slice(-12).map((product,index) => (
+            {products.slice(-12).map((product, index) => (
               <div className="w-full flex justify-center my-5" key={index}>
                 <BeatCard
                   user={product.owner}
                   name={product.title}
-                  price={product.licenses[0].price}
-                  priceArs={product.licenses[0].priceArs}
+                  price={
+                    product.licenses && product.licenses[0]
+                      ? product.licenses[0].price
+                      : "N/A"
+                  }
+                  priceArs={
+                    product.licenses && product.licenses[0]
+                      ? product.licenses[0].priceArs
+                      : "N/A"
+                  }
                   owner={product.owner}
                   audioUrl={product.file.url}
                   fileType={product.file.fileType}

@@ -139,8 +139,16 @@ const Page = () => {
                             <BeatCard
                               user={user}
                               name={e.title}
-                              price={e.licenses[0].price}
-                              priceArs={e.licenses[0].priceArs}
+                              price={
+                                e.licenses && e.licenses[0]
+                                  ? e.licenses[0].price
+                                  : "N/A"
+                              }
+                              priceArs={
+                                e.licenses && e.licenses[0]
+                                  ? e.licenses[0].priceArs
+                                  : "N/A"
+                              }
                               owner={e.owner}
                               audioUrl={e.file.url}
                               fileType={e.file.fileType}
