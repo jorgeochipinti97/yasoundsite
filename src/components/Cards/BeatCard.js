@@ -49,6 +49,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useUsers } from "@/hooks/useUsers";
 
 export const BeatCard = ({
   name,
@@ -58,13 +59,12 @@ export const BeatCard = ({
   genders,
   licenses,
   image,
-  user,
   priceArs,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
   const [acceptTerms, setAcceptTerms] = useState(false);
-
+  const { user } = useUsers(owner);
   const [isSubmit, setIsSubmit] = useState(false);
   const [orderId, setOrderId] = useState("");
   const { push } = useRouter();
@@ -84,7 +84,9 @@ export const BeatCard = ({
     response && setOrderId(response.data._id);
     response && setIsSubmit(true);
   };
-
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
   const handleCheckboxChange = (event) => {
     setAcceptTerms(event.target.checked);
   };
@@ -510,13 +512,12 @@ export const BeatCard = ({
                                             }
                                           }}
                                         />
-                                        {user && user.tokens.access_token && (
-                                          <CheckoutComponent
-                                            user={user}
-                                            product={e}
-                                            _id={orderId}
-                                          />
-                                        )}
+
+                                        <CheckoutComponent
+                                          user={user}
+                                          product={e}
+                                          _id={orderId}
+                                        />
                                       </div>
                                     )}
                                   </ScrollArea>
