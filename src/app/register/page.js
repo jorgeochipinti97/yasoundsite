@@ -9,6 +9,14 @@ import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 import { useUsers } from "@/hooks/useUsers";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { TermsComponent } from "@/components/Terms/page";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
 const Page = () => {
   const { push } = useRouter();
   const { session, users } = useUsers();
@@ -153,16 +161,24 @@ const Page = () => {
               id="cbox2"
               value="second_checkbox"
             />
-            <p className="text-xs tracking-tighter font-bold ">
-              Para registrarte debes aceptar nuestras políticas y los terminos y
-              condiciones.
-            </p>
+
+            <Dialog>
+              <DialogTrigger className="font-geist font-light"> 
+                {" "}
+                Para registrarte debes aceptar nuestras <span className="font-bold ">políticas y los terminos
+                y condiciones</span>
+              </DialogTrigger>
+              <DialogContent className="">
+                <ScrollArea className="h-[60vh]">
+                  <TermsComponent />
+                </ScrollArea>
+              </DialogContent>
+            </Dialog>
           </div>
           <div className="h-[30px] my-3">
-
-          {errorMessage && (
-            <p className=" font-geist tracking-tighter ">{errorMessage}</p>
-          )}
+            {errorMessage && (
+              <p className=" font-geist tracking-tighter ">{errorMessage}</p>
+            )}
           </div>
           <section className="flex justify-center mt-5  ">
             <Button type="submit" className="my-2 hover:animate-tilt ">

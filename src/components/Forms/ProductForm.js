@@ -33,12 +33,11 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import RightsComponent from "../Rights/page";
 
 export const ProductForm = ({ product }) => {
   const [isLoading, setIsLoading] = useState();
@@ -51,6 +50,7 @@ export const ProductForm = ({ product }) => {
   const inputImgRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedImg, setSelectedImg] = useState(null);
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const { register, control, handleSubmit, reset, setValue, watch } = useForm({
     defaultValues: {
@@ -85,10 +85,14 @@ export const ProductForm = ({ product }) => {
     },
   });
 
-  const { fields, append, remove, update } = useFieldArray({
+  const { fields, remove, update } = useFieldArray({
     control,
     name: "licenses",
   });
+
+  const handleCheckboxChange = (event) => {
+    setAcceptTerms(event.target.checked);
+  };
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -179,13 +183,13 @@ export const ProductForm = ({ product }) => {
     setValue("genders", newSelection, { shouldValidate: true });
   };
 
+
+  
   const onSubmit = async (data) => {
-    setIsLoading(true);
-    showAlert(
-      "Estamos procesando la carga del Beat",
-      "Por favor sea paciente",
-      <></>
-    );
+    if (!acceptTerms) {
+      showAlert("Debes aceptar los terminos y condiciones", "", <></>);
+      return;
+    }
 
     try {
       if (!product || !product.file || !product.file.url) {
@@ -193,6 +197,12 @@ export const ProductForm = ({ product }) => {
           alert("Por favor, selecciona un archivo primero.");
           return;
         }
+        setIsLoading(true);
+        showAlert(
+          "Estamos procesando la carga del Beat",
+          "Por favor sea paciente",
+          <></>
+        );
 
         const originalName = selectedFile.name;
 
@@ -463,6 +473,7 @@ export const ProductForm = ({ product }) => {
                 <p className="text-xl my-5 font-bold tracking-thiger font-geist">
                   Licencias
                 </p>
+
                 <div>
                   <Dialog>
                     <DialogTrigger asChild>
@@ -532,6 +543,33 @@ export const ProductForm = ({ product }) => {
                   ))}
                 </div>
               </div>
+
+              <div className="flex mt-5">
+                <input
+                  checked={acceptTerms}
+                  onChange={handleCheckboxChange}
+                  className="mr-2 focus:bg-fuchsia-400"
+                  type="checkbox"
+                  id="cbox2"
+                  value="second_checkbox"
+                />
+
+                <Dialog>
+                  <DialogTrigger className="font-geist text-xs font-light">
+                    {" "}
+                    Para registrarte debes aceptar nuestras{" "}
+                    <span className="font-bold ">
+                      políticas y los terminos y condiciones
+                    </span>
+                  </DialogTrigger>
+                  <DialogContent className="">
+                    <ScrollArea className="h-[60vh]">
+                      <RightsComponent />
+                    </ScrollArea>
+                  </DialogContent>
+                </Dialog>
+              </div>
+
               <div className="mt-10">
                 <div className="mt-5">
                   <Button type="submit" disabled={isLoading}>
