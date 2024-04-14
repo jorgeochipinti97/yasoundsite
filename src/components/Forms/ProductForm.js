@@ -475,7 +475,7 @@ export const ProductForm = ({ product }) => {
                       <Accordion type="single" collapsible className="w-full">
                         <div>
                           {standardLicenses.map((e, index) => (
-                            <AccordionItem value={index + 1}>
+                            <AccordionItem value={index + 1} key={index}>
                               <AccordionTrigger>{e.title}</AccordionTrigger>
                               <AccordionContent>
                                 {e.description}
