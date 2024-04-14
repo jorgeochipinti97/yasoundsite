@@ -105,7 +105,7 @@ export const SliderFlip = ({ user }) => {
                   </g>
                 </g>
               </svg>
-              Tokens para utilizar la IA
+              Perfil avanzado
             </div>
             <div className="flex text-white mt-2 font-geist tracking-tighter	">
               <svg
@@ -127,7 +127,7 @@ export const SliderFlip = ({ user }) => {
                   </g>
                 </g>
               </svg>
-              Comisión bonificada
+              Colaboración Ilimitada
             </div>
           </div>
           <div className="flex flex-col items-start">
@@ -151,7 +151,7 @@ export const SliderFlip = ({ user }) => {
                   </g>
                 </g>
               </svg>
-              Descuentos en Servicios Adicionales
+              Licencias Flexibles
             </div>
           </div>
           <div className="flex flex-col items-start">
@@ -199,17 +199,135 @@ export const SliderFlip = ({ user }) => {
                   </g>
                 </g>
               </svg>
-              Acceso total a la comunidad para interactuar y colaborar.{" "}
+              Comisión Reducida
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <div className="flex text-white mt-2 font-geist tracking-tighter	">
+              <svg
+                width={25}
+                className="mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <g>
+                  <g>
+                    <path
+                      stroke="#f3e8ff"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 12l4.95 4.95L19.557 6.343"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              Acceso Prioritario a Nuevas Funciones
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <div className="flex text-white mt-2 font-geist tracking-tighter	">
+              <svg
+                width={25}
+                className="mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <g>
+                  <g>
+                    <path
+                      stroke="#f3e8ff"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 12l4.95 4.95L19.557 6.343"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              Soporte VIP
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <div className="flex text-white mt-2 font-geist tracking-tighter	">
+              <svg
+                width={25}
+                className="mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <g>
+                  <g>
+                    <path
+                      stroke="#f3e8ff"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 12l4.95 4.95L19.557 6.343"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              Utilización de Inteligencia Artificial
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <div className="flex text-white mt-2 font-geist tracking-tighter	">
+              <svg
+                width={25}
+                className="mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <g>
+                  <g>
+                    <path
+                      stroke="#f3e8ff"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 12l4.95 4.95L19.557 6.343"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              Descuentos en Servicios Adicionales, marcas y tiendas
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <div className="flex text-white mt-2 font-geist tracking-tighter	">
+              <svg
+                width={25}
+                className="mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <g>
+                  <g>
+                    <path
+                      stroke="#f3e8ff"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 12l4.95 4.95L19.557 6.343"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              Eventos Exclusivos{" "}
             </div>
           </div>
           <div className="mt-5 flex justify-center ">
             <span className="text-white font-mono  tracking-tighter text-4xl ">
               <span className="line-through	text-5xl font-light ">
-              {formatCurrency(10)}
+                {formatCurrency(10)}
               </span>
-              <span className="ml-2	text-5xl">
-              {formatCurrency(5)}
-              </span>
+              <span className="ml-2	text-5xl">{formatCurrency(5)}</span>
               <span className="font-thin">/</span>
               <span className="text-white tracking-tighter font-thin font-geist text-3xl">
                 Mensual
@@ -396,7 +514,7 @@ export const SliderFlip = ({ user }) => {
                   </g>
                 </g>
               </svg>
-              Tokens para utilizar la IA
+              Perfil avanzado
             </div>
             <div className="flex text-white mt-2 font-geist tracking-tighter	">
               <svg
@@ -418,7 +536,7 @@ export const SliderFlip = ({ user }) => {
                   </g>
                 </g>
               </svg>
-              Comisión bonificada
+              Colaboración Ilimitada
             </div>
           </div>
           <div className="flex flex-col items-start">
@@ -442,7 +560,7 @@ export const SliderFlip = ({ user }) => {
                   </g>
                 </g>
               </svg>
-              Descuentos en Servicios Adicionales
+              Licencias Flexibles
             </div>
           </div>
           <div className="flex flex-col items-start">
@@ -490,7 +608,127 @@ export const SliderFlip = ({ user }) => {
                   </g>
                 </g>
               </svg>
-              Acceso total a la comunidad para interactuar y colaborar.{" "}
+              Comisión Reducida
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <div className="flex text-white mt-2 font-geist tracking-tighter	">
+              <svg
+                width={25}
+                className="mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <g>
+                  <g>
+                    <path
+                      stroke="#f3e8ff"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 12l4.95 4.95L19.557 6.343"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              Acceso Prioritario a Nuevas Funciones
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <div className="flex text-white mt-2 font-geist tracking-tighter	">
+              <svg
+                width={25}
+                className="mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <g>
+                  <g>
+                    <path
+                      stroke="#f3e8ff"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 12l4.95 4.95L19.557 6.343"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              Soporte VIP
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <div className="flex text-white mt-2 font-geist tracking-tighter	">
+              <svg
+                width={25}
+                className="mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <g>
+                  <g>
+                    <path
+                      stroke="#f3e8ff"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 12l4.95 4.95L19.557 6.343"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              Utilización de Inteligencia Artificial
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <div className="flex text-white mt-2 font-geist tracking-tighter	">
+              <svg
+                width={25}
+                className="mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <g>
+                  <g>
+                    <path
+                      stroke="#f3e8ff"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 12l4.95 4.95L19.557 6.343"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              Descuentos en Servicios Adicionales, marcas y tiendas
+            </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <div className="flex text-white mt-2 font-geist tracking-tighter	">
+              <svg
+                width={25}
+                className="mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <g>
+                  <g>
+                    <path
+                      stroke="#f3e8ff"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 12l4.95 4.95L19.557 6.343"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              Eventos Exclusivos{" "}
             </div>
           </div>
           <div className="mt-5 flex justify-center ">

@@ -22,7 +22,7 @@ export const ContactForm = () => {
   const onSubmit = async (data) => {
     const response = await axios.post("/api/contact", data);
     response && reset();
-    response && alert('mensaje enviado con éxito')
+    response && alert("mensaje enviado con éxito");
   };
   return (
     <>
