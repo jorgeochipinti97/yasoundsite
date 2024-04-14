@@ -15,7 +15,7 @@ export const SliderCoverflow = ({ beats }) => {
       grabCursor={true}
       slidesPerView={1}
       speed={1000}
-loop={true}
+      loop={true}
       breakpoints={{
         640: {
           slidesPerView: 3, // Muestra 1.2 slides en vistas móviles
@@ -34,13 +34,15 @@ loop={true}
             <BeatCard
               user={e.owner}
               name={e.title}
-              price={e.licenses[0].price}
+              price={e.licenses && e.licenses[0] ? e.licenses[0].price : "N/A"}
               owner={e.owner}
               audioUrl={e.file.url}
               fileType={e.file.fileType}
               licenses={e.licenses}
               image={e.image}
-              priceArs={e.licenses[0].priceArs}
+              priceArs={
+                e.licenses && e.licenses[0] ? e.licenses[0].priceArs : "N/A"
+              }
             />
           </div>
         </SwiperSlide>

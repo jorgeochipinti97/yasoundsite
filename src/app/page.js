@@ -55,6 +55,7 @@ export default function Home() {
   const getBeats = async () => {
     const data = await axios.get("/api/products");
     data && setBeats_(data.data.data);
+    console.log(data)
   };
 
   useEffect(() => {
