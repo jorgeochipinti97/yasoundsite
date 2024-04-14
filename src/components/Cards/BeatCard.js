@@ -8,7 +8,6 @@ import {
 import { formatCurrency } from "@/utils/utils";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 
 import { Input } from "../ui/input";
@@ -38,6 +37,18 @@ import gsap, { Power1 } from "gsap";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Badge } from "../ui/badge";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export const BeatCard = ({
   name,
@@ -342,9 +353,32 @@ export const BeatCard = ({
                                 <p className="font-geist tracking-tighter font-semibold text-md">
                                   {e.title}
                                 </p>
-                                <p className="font-geist tracking-tighter font-semibold text-xs">
-                                  {e.description}
-                                </p>
+                                <div className="flex justify-start my-5">
+                                  <div>
+                                    <AlertDialog>
+                                      <AlertDialogTrigger asChild>
+                                        <Button size="sm">Ver info</Button>
+                                      </AlertDialogTrigger>
+                                      <AlertDialogContent>
+                                        <AlertDialogHeader>
+                                          <AlertDialogTitle>
+                                            Descripción
+                                          </AlertDialogTitle>
+                                          <AlertDialogDescription>
+                                            <p className="font-geist tracking-tighter font-semibold text-xs">
+                                              {e.description}
+                                            </p>
+                                          </AlertDialogDescription>
+                                        </AlertDialogHeader>
+                                        <AlertDialogFooter>
+                                          <AlertDialogCancel>
+                                            Volver
+                                          </AlertDialogCancel>
+                                        </AlertDialogFooter>
+                                      </AlertDialogContent>
+                                    </AlertDialog>
+                                  </div>
+                                </div>
                               </div>
                               <form
                                 className="mx-2 formPurchase"

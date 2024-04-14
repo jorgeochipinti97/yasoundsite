@@ -3,11 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import {
   Select,
   SelectContent,
   SelectItem,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -22,28 +23,72 @@ import gsap, { Power1 } from "gsap";
 import { generosList } from "@/utils/generos";
 import { Badge } from "../ui/badge";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 export const ProductForm = ({ product }) => {
   const [isLoading, setIsLoading] = useState();
   const [selectedGenders, setSelectedGenders] = useState([]);
   const [tags, setTags] = useState([]);
   const { alertProps, showAlert } = useAlert();
 
-  const { register, control, handleSubmit, reset, setValue } = useForm({
+  const { user } = useUsers();
+  const inputFileRef = useRef(null);
+  const inputImgRef = useRef(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedImg, setSelectedImg] = useState(null);
+
+  const { register, control, handleSubmit, reset, setValue, watch } = useForm({
     defaultValues: {
       file: "",
       owner: "",
       description: "",
       genders: [],
       title: "",
-      licenses: [{ title: "", description: "", price: 0, priceArs: 0 }],
+      licenses: [
+        {
+          title: "Licencia Estándar",
+          description:
+            "Esta licencia permite la grabación y distribución de música con el derecho a producir hasta 3,000 copias físicas y 300,000 transmisiones de audio en línea. Incluye también la creación de un video musical, derechos de transmisión en radio sin límites de estaciones, y la posibilidad de realizar actuaciones en vivo con fines de lucro. Ideal para artistas y productores que buscan ampliar su presencia en el mercado y maximizar el alcance de su música.",
+          price: 0,
+          priceArs: 0,
+        },
+        {
+          title: "Licencia Premium",
+          description:
+            "Esta licencia autoriza la grabación y distribución de música, permitiendo hasta 5,000 copias físicas y 500,000 transmisiones de audio en línea. Además, se incluye la producción de un vídeo musical y derechos ilimitados para transmisiones de radio. También se permite la realización de actuaciones en vivo con fines de lucro, brindando una amplia libertad para maximizar la visibilidad y rentabilidad del trabajo musical.",
+          price: 0,
+          priceArs: 0,
+        },
+        {
+          title: "Licencia VIP",
+          description:
+            "Esta licencia ofrece derechos ilimitados para la grabación y distribución de música, permitiendo la producción y distribución de un número ilimitado de copias físicas y transmisiones de audio en línea. Incluye la creación de vídeos musicales sin restricciones y derechos de transmisión en radio a través de estaciones ilimitadas. Además, autoriza la realización de actuaciones en vivo con fines de lucro, proporcionando una libertad total para maximizar el alcance y los ingresos del contenido musical.",
+          price: 0,
+          priceArs: 0,
+        },
+      ],
     },
   });
 
-  const { user } = useUsers();
-  const inputFileRef = useRef(null);
-  const inputImgRef = useRef(null);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedImg, setSelectedImg] = useState(null);
+  const { fields, append, remove, update } = useFieldArray({
+    control,
+    name: "licenses",
+  });
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -72,20 +117,54 @@ export const ProductForm = ({ product }) => {
     }
   };
 
+  const standardLicenses = [
+    {
+      title: "Licencia Estándar",
+      description:
+        "Esta licencia permite la grabación y distribución de música con el derecho a producir hasta 3,000 copias físicas y 300,000 transmisiones de audio en línea. Incluye también la creación de un video musical, derechos de transmisión en radio sin límites de estaciones, y la posibilidad de realizar actuaciones en vivo con fines de lucro. Ideal para artistas y productores que buscan ampliar su presencia en el mercado y maximizar el alcance de su música.",
+      price: 0,
+      priceArs: 0,
+    },
+    {
+      title: "Licencia Premium",
+      description:
+        "Esta licencia autoriza la grabación y distribución de música, permitiendo hasta 5,000 copias físicas y 500,000 transmisiones de audio en línea. Además, se incluye la producción de un vídeo musical y derechos ilimitados para transmisiones de radio. También se permite la realización de actuaciones en vivo con fines de lucro, brindando una amplia libertad para maximizar la visibilidad y rentabilidad del trabajo musical.",
+      price: 0,
+      priceArs: 0,
+    },
+    {
+      title: "Licencia VIP",
+      description:
+        "Esta licencia ofrece derechos ilimitados para la grabación y distribución de música, permitiendo la producción y distribución de un número ilimitado de copias físicas y transmisiones de audio en línea. Incluye la creación de vídeos musicales sin restricciones y derechos de transmisión en radio a través de estaciones ilimitadas. Además, autoriza la realización de actuaciones en vivo con fines de lucro, proporcionando una libertad total para maximizar el alcance y los ingresos del contenido musical.",
+      price: 0,
+      priceArs: 0,
+    },
+  ];
+
+  const handleLicenseUpdate = (index, licenseData) => {
+    if (licenseData) {
+      update(index, licenseData); // Actualiza el ítem en la posición 'index' con 'licenseData'
+    } else {
+      remove(index); // Elimina el ítem si 'licenseData' es null o undefined
+    }
+  };
+
   const removeTag = (index) => {
     const newTags = tags.filter((tag, i) => i !== index);
     setTags(newTags);
     setValue("tags", newTags); // Actualiza el campo en React Hook Form
   };
+  const removeGender = (genderToRemove) => {
+    const filteredGenders = selectedGenders.filter(
+      (gender) => gender !== genderToRemove
+    );
 
-  const {
-    fields: licenseFields,
-    append: appendLicense,
-    remove: removeLicense,
-  } = useFieldArray({
-    control,
-    name: "licenses",
-  });
+    // Actualiza el estado con el nuevo array de géneros seleccionados
+    setSelectedGenders(filteredGenders);
+
+    // Actualiza el valor en React Hook Form
+    setValue("genders", filteredGenders, { shouldValidate: true });
+  };
 
   const handleSelectChange = (selectedValue) => {
     let newSelection = [...selectedGenders];
@@ -178,7 +257,17 @@ export const ProductForm = ({ product }) => {
           licenses: data.licenses,
         };
         const response = await axios.put("/api/products", productData);
-        console.log(response);
+
+        response &&
+          gsap.to(".pantallacarga", {
+            opacity: 0,
+            ease: Power1.easeIn,
+          });
+        response &&
+          gsap.to(".pantallacarga", {
+            display: "none",
+            delay: 1,
+          });
         response &&
           showAlert("Éxito", "Producto  actualizado con éxito", <></>);
       }
@@ -196,6 +285,7 @@ export const ProductForm = ({ product }) => {
         owner: product.owner,
         licenses: product.licenses,
       });
+      console.log(product);
     }
   }, [product, reset]);
 
@@ -231,7 +321,7 @@ export const ProductForm = ({ product }) => {
       </div>
       <ScrollArea className="h-[60vh] ">
         <div className="w-full flex justify-center ">
-          <div className="w-6/12">
+          <div className="w-10/12 md:w-6/12">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <Label>Nombre</Label>
@@ -359,7 +449,7 @@ export const ProductForm = ({ product }) => {
                 {selectedGenders.map((e, index) => (
                   <Badge key={index} variant={"outline"} className="mx-1">
                     <span
-                      onClick={() => removeGender(e)} // Llamada a la función para eliminar el género
+                      onClick={() => removeGender(e)}
                       className="mr-2 text-black border rounded-full px-2 cursor-pointer bg-white"
                     >
                       x
@@ -370,53 +460,76 @@ export const ProductForm = ({ product }) => {
               </div>
               <div className="flex flex-col mt-5">
                 <Separator />
-                <p className="text-xl mt-5 font-bold tracking-thiger font-geist">
+                <p className="text-xl my-5 font-bold tracking-thiger font-geist">
                   Licencias
                 </p>
-                {licenseFields.map((item, index) => (
-                  <div key={item.id} className="mt-5">
-                    <Label>Titulo</Label>
-                    <Input {...register(`licenses.${index}.title`)} />
-                    <Label>Description</Label>
-                    <Textarea {...register(`licenses.${index}.description`)} />
-                    <Label>Precio USD</Label>
-                    <Input
-                      type="number"
-                      {...register(`licenses.${index}.price`)}
-                    />
-                    <Label>Precio ARS</Label>
-                    <Input
-                      type="number"
-                      {...register(`licenses.${index}.priceArs`, {
-                        setValueAs: (value) =>
-                          value === "" ? null : Number(value),
-                      })}
-                    />
-                    <Button
-                      variant="destructive"
-                      className="mt-2"
-                      type="button"
-                      onClick={() => removeLicense(index)}
-                    >
-                      Remove License
-                    </Button>
-                  </div>
-                ))}
-                <div className="mt-2">
-                  <Button
-                    variant="outline"
-                    type="button"
-                    onClick={() =>
-                      appendLicense({
-                        type: "",
-                        description: "",
-                        price: 0,
-                        priceArs: 0,
-                      })
-                    }
-                  >
-                    Agregar otra
-                  </Button>
+                <div>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline">Más información</Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>Nuestras Licencias Estandar</DialogTitle>
+                      </DialogHeader>
+                      <Accordion type="single" collapsible className="w-full">
+                        <div>
+                          {standardLicenses.map((e, index) => (
+                            <AccordionItem value={index + 1}>
+                              <AccordionTrigger>{e.title}</AccordionTrigger>
+                              <AccordionContent>
+                                {e.description}
+                              </AccordionContent>
+                            </AccordionItem>
+                          ))}
+                        </div>
+                      </Accordion>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+
+                <div className="my-5">
+                  {fields.map((field, index) => (
+                    <div key={index} className="mt-5">
+                      <Input
+                        {...register(`licenses.${index}.title`)}
+                        placeholder="License Title"
+                        className="my-2"
+                      />
+                      <Textarea
+                        {...register(`licenses.${index}.description`)}
+                        placeholder="License Description"
+                        className="my-2"
+                      />
+                      <Input
+                        type="number"
+                        {...register(`licenses.${index}.price`, {
+                          setValueAs: (value) =>
+                            value === "" ? null : parseFloat(value),
+                        })}
+                        placeholder="Price USD"
+                        className="my-2"
+                      />
+                      <Input
+                        type="number"
+                        {...register(`licenses.${index}.priceArs`, {
+                          setValueAs: (value) =>
+                            value === "" ? null : parseFloat(value),
+                        })}
+                        placeholder="Price ARS"
+                        className="my-2"
+                      />
+                      <Button
+                        variant="destructive"
+                        type="button"
+                        className="mt-5"
+                        onClick={() => remove(index)}
+                      >
+                        Remove
+                      </Button>
+                      <Separator className="my-5" />
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="mt-10">

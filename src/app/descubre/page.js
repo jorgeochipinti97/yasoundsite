@@ -44,8 +44,8 @@ const Page = () => {
   
   return (
     <>
-      <div className="min-h-screen w-screen mt-20">
-        <p className="text-center font-bold text-4xl md:text-7xl tracking-tighter font-geist">
+      <div className="min-h-screen w-screen pt-20">
+        <p className="text-center font-bold opacity-40 text-4xl md:text-7xl tracking-tighter font-geist">
           Descubre nueva musica con Yasound
         </p>
         <div className="flex justify-center mt-10">
