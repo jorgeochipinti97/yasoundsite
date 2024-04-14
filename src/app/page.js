@@ -41,6 +41,7 @@ import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { SliderCoverflow } from "@/components/Slidercoverflow";
 import { SliderFlip } from "@/components/SliderFlip";
 import { AccordionComponent } from "@/components/Faqs";
+import { ContactForm } from "@/components/Forms/ContactForm";
 export default function Home() {
   const { push } = useRouter();
 
@@ -778,48 +779,7 @@ export default function Home() {
               </PayPalScriptProvider>
             </div>
           </div>
-          <div className="flex  flex-col  w-fit  justify-start p-5 rounded-md">
-            <div className="mx-5">
-              <p className=" font-bold text-5xl tracking-tighter text-white ">
-                Contactanos{" "}
-              </p>
-            </div>
-            <div className="mx-10 mt-5">
-              <div className="mb-2">
-                <Label className="text-white font-bold ">Nombre</Label>
-                <Input />
-              </div>
-              <div className="mb-2">
-                <Label className="text-white font-bold ">Email</Label>
-                <Input />
-              </div>
-              <div className="mb-2">
-                <Label className="text-white font-bold ">Celular</Label>
-                <Input />
-              </div>
-              <div className="mb-2">
-                <Label className="text-white font-bold ">Mensaje</Label>
-                <Textarea />
-              </div>
-              <Button variant="outline" className="mt-5 hover:animate-tilt">
-                <svg
-                  width={20}
-                  className="mr-2"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="#000"
-                    fillRule="evenodd"
-                    d="M1.265 4.426C1.043 2.872 2.617 1.68 4.053 2.314l17.781 7.857c1.589.702 1.589 2.956 0 3.658l-17.78 7.857c-1.437.635-3.011-.558-2.789-2.112l.726-5.082a1.2 1.2 0 01.897-.995L8.877 12l-5.99-1.497a1.2 1.2 0 01-.896-.995l-.726-5.082zM21.025 12L3.246 4.143l.65 4.55 8.96 2.24c1.11.278 1.11 1.856 0 2.134l-8.96 2.24-.65 4.55L21.025 12z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-                Enviar
-              </Button>
-            </div>
-          </div>
+        <ContactForm/>
         </div>
         <p className="text-center text-7xl my-10 font-bold tracking-tighter font-geist">FAQS</p>
       <div className="w-12/12 flex flex-col items-center">

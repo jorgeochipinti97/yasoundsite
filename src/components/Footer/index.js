@@ -17,34 +17,43 @@ export const FooterComponent = () => {
       </h2>
 
       <div className="h-fit mt-5 w-screen flex items-center justify-center flex-wrap">
-        <img
-          src="/twitter.png"
-          className=" rounded-full bg-black p-2 border-black w-[40px] md:w-[55px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
-          alt=""
-        />
-        <img
-          src="/discord.png"
-          className=" rounded-full bg-violet-200 p-2 border-black w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
-          alt=""
-        />
-        <img
-          src="/instagram.svg"
-          className="w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
-          alt=""
-        />
-        <img
-          src="/wpp.svg"
-          className="w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
-          alt=""
-        />
-        <img
-          src="/telegram.svg"
-          className="w-[45px] md:w-[60px]  hover:scale-[1.2] grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
-          alt=""
-        />
+        <a href="https://twitter.com/YasoundSite">
+          <img
+            src="/twitter.png"
+            className=" rounded-full bg-black p-2 border-black w-[40px] md:w-[55px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
+            alt=""
+          />
+        </a>
+        <a href="https://discord.com/channels/1206058475088519179/1206058475088519181">
+          <img
+            src="/discord.png"
+            className=" rounded-full bg-violet-200 p-2 border-black w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
+            alt=""
+          />
+        </a>
+        <a href="https://www.instagram.com/yasound.beat/">
+          <img
+            src="/instagram.svg"
+            className="w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
+            alt=""
+          />
+        </a>
+        <a href="https://chat.whatsapp.com/Hvf5XOuCHfEBwITu1PJHBa ">
+          <img
+            src="/wpp.svg"
+            className="w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
+            alt=""
+          />
+        </a>
+        <a href="https://t.me/+PMdmo_DnbXQxNzUx">
+          <img
+            src="/telegram.svg"
+            className="w-[45px] md:w-[60px]  hover:scale-[1.2] grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
+            alt=""
+          />
+        </a>
       </div>
       <div className="flex">
- 
         <a href="/terms" className="mx-2 text-white font-bold mt-5">
           Términos y condiciones.
         </a>
