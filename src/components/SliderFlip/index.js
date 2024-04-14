@@ -24,7 +24,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 export const SliderFlip = ({ user }) => {
-    const { push }= useRouter()
+  const { push } = useRouter();
   const getPremium = async (anual) => {
     try {
       const preference = {
@@ -32,7 +32,7 @@ export const SliderFlip = ({ user }) => {
           {
             title: "USUARIO PREMIUM",
             quantity: 1,
-            unit_price: anual ? 10000 : 45000   ,
+            unit_price: anual ? 5000 : 45000,
           },
         ],
         back_urls: {
@@ -64,7 +64,6 @@ export const SliderFlip = ({ user }) => {
       effect={"flip"}
       grabCursor={true}
       pagination={true}
-
       modules={[EffectFlip, Pagination, Navigation]}
       className="mySwiper w-10/12 "
     >
@@ -204,10 +203,15 @@ export const SliderFlip = ({ user }) => {
             </div>
           </div>
           <div className="mt-5 flex justify-center ">
-            <span className="text-white font-mono  tracking-tighter text-6xl">
+            <span className="text-white font-mono  tracking-tighter text-4xl ">
+              <span className="line-through	text-5xl font-light ">
               {formatCurrency(10)}
+              </span>
+              <span className="ml-2	text-5xl">
+              {formatCurrency(5)}
+              </span>
               <span className="font-thin">/</span>
-              <span className="text-white tracking-tighter font-thin font-geist text-4xl">
+              <span className="text-white tracking-tighter font-thin font-geist text-3xl">
                 Mensual
               </span>
             </span>
@@ -279,7 +283,7 @@ export const SliderFlip = ({ user }) => {
                                     purchase_units: [
                                       {
                                         amount: {
-                                          value: 10,
+                                          value: 5,
                                         },
                                       },
                                     ],
@@ -315,7 +319,7 @@ export const SliderFlip = ({ user }) => {
                                 <Button
                                   variant="outline"
                                   className="w-fit"
-                                  onClick={()=>getPremium(false)}
+                                  onClick={() => getPremium(false)}
                                 >
                                   <img
                                     src="/merca.png"
@@ -355,7 +359,7 @@ export const SliderFlip = ({ user }) => {
       </SwiperSlide>
 
       <SwiperSlide>
-      <div class="shadowLow bg-black  md:mt-0 mt-10 py-10  w-12/12  rounded-xl p-4">
+        <div class="shadowLow bg-black  md:mt-0 mt-10 py-10  w-12/12  rounded-xl p-4">
           <div className="flex justify-center">
             <svg
               className=""
@@ -601,7 +605,7 @@ export const SliderFlip = ({ user }) => {
                                 <Button
                                   variant="outline"
                                   className="w-fit"
-                                  onClick={()=>getPremium(true)}
+                                  onClick={() => getPremium(true)}
                                 >
                                   <img
                                     src="/merca.png"

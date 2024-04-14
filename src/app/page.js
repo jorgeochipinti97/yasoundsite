@@ -846,7 +846,7 @@ export default function Home() {
           <AccordionComponent
             question={"¿Cuáles son las tarifas de transacción en Yasound?"}
             answer={
-              "Las tarifas de transacción aplicadas en Yasound son las siguientes: Para transacciones a través de MercadoPago: 6,5% + IVA (21%) sobre el total de la venta. Para transacciones mediante PayPal: 5.6% + comisión fija (1,29%) sobre el monto total de la transacción. Estas tarifas se agregan al costo del producto y se deducen automáticamente durante la transacción."
+              "Las tarifas de transacción aplicadas en Yasound son las siguientes: Para transacciones a través de MercadoPago: 6,5% + IVA (21%) sobre el total de la venta. Para transacciones mediante PayPal: 5.6% + comisión fija (1,29%) sobre el monto total de la transacción. Estas tarifas se agregan al costo del producto y se deducen automáticamente durante la transacción. Por otra parte los Usuarios Free cuentan con una comisión por el uso de la plataforma del 15%, en cambio los Usuarios Premium poseen una comisión del 3%"
             }
           />
           <AccordionComponent

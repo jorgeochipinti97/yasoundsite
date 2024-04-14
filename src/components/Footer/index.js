@@ -44,10 +44,8 @@ export const FooterComponent = () => {
         />
       </div>
       <div className="flex">
-        <a href="#" className="mx-2 text-white font-bold mt-5">
-          Politicas de privacidad.
-        </a>
-        <a href="#" className="mx-2 text-white font-bold mt-5">
+ 
+        <a href="/terms" className="mx-2 text-white font-bold mt-5">
           Términos y condiciones.
         </a>
       </div>

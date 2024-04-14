@@ -160,7 +160,7 @@ export const PersonalForm = ({ user }) => {
           </p> */}
         </div>
         {user && (
-          <div className="w-6/12 my-2 flex justify-start  ">
+          <div className="w-10/12 md:w-6/12 my-2 flex justify-start  ">
             <div className="w-full flex justify-start">
               <Button
                 onClick={() => push(authorizationUrl)}
@@ -173,7 +173,7 @@ export const PersonalForm = ({ user }) => {
             </div>
           </div>
         )}
-        <form className="w-6/12  " onSubmit={handleSubmit(onSubmit)}>
+        <form className="w-10/12 md:w-6/12  " onSubmit={handleSubmit(onSubmit)}>
           <div className="my-2">
             <input
               type="file"

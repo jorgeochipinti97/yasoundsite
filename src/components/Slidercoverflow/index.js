@@ -15,6 +15,7 @@ export const SliderCoverflow = ({ beats }) => {
       grabCursor={true}
       slidesPerView={1}
       speed={1000}
+loop={true}
       breakpoints={{
         640: {
           slidesPerView: 3, // Muestra 1.2 slides en vistas móviles

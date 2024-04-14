@@ -151,6 +151,7 @@ export const ProfileForm = () => {
           {platform}
         </label>
         <Input
+          disabled={user && user.premium ? false : true}
           className="mt-2"
           defaultValue={existingLink} // Usa el link existente como valor por defecto, si lo hay
           {...register(`${platform.toLowerCase()}Link`)}
@@ -280,6 +281,7 @@ export const ProfileForm = () => {
                     // Registra el campo de entrada para nuevos enlaces de video
                   />
                   <Button
+                    disabled={user && user.premium ? false : true}
                     type="button"
                     onClick={addVideo} // Llama a addVideo sin necesidad de acceder directamente al DOM
                     className="mt-2"
@@ -311,8 +313,12 @@ export const ProfileForm = () => {
                     ))}
                   </div>
                 </div>
-
-                <div className="mt-5">{renderLinkInputs}</div>
+                {!user.premium && (
+                  <p className="font-geist mt-5 font-bold tracking-tighter">
+                    Este servicio es para usuarios premium
+                  </p>
+                )}
+                <div className="mt-5 bg-gray-300 p-3">{renderLinkInputs}</div>
               </div>
             </div>
             <div className="mt-5">
