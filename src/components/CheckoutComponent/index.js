@@ -34,9 +34,9 @@ export const CheckoutComponent = ({ product, user, _id }) => {
           ? product.priceArs * 0.03
           : product.priceArs * 0.15,
         back_urls: {
-          success: `https://www.dublingroup.store/success?orderID=${_id}`,
-          failure: "https://www.dublingroup.store/",
-          pending: "https://www.dublingroup.store/",
+          success: `https://www.yasound.site/success?orderID=${_id}`,
+          failure: "https://www.yasound.site/",
+          pending: "https://www.yasound.site/",
         },
       };
 

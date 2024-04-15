@@ -266,7 +266,6 @@ export const ProductForm = ({ product }) => {
       } else {
         const urlParts = product.image.split("/");
         const fileName_ = urlParts.pop();
-        console.log(fileName_);
         const deleteImage = await axios.put("/api/s3", { fileName: fileName_ });
         deleteImage && console.log("eliminada");
         const formdataUpdateImage = new FormData();
@@ -274,7 +273,7 @@ export const ProductForm = ({ product }) => {
         formdataUpdateImage.append("username", user.username);
         const responseImage = await axios.post("/api/s3", formdataUpdateImage);
         const imageUrl_ = responseImage.data.fileUrl;
-        console.log(imageUrl_);
+
         imageUrl_ &&
           showAlert(
             "Imagen de perfil actualizada con éxito",
@@ -305,7 +304,6 @@ export const ProductForm = ({ product }) => {
         };
 
         const response = await axios.put("/api/products", productData);
-        console.log(response);
         response &&
           gsap.to(".pantallacarga", {
             opacity: 0,

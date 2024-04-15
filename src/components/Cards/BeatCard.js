@@ -84,9 +84,7 @@ export const BeatCard = ({
     response && setOrderId(response.data._id);
     response && setIsSubmit(true);
   };
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+
   const handleCheckboxChange = (event) => {
     setAcceptTerms(event.target.checked);
   };
