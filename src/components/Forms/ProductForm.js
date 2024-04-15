@@ -558,7 +558,7 @@ export const ProductForm = ({ product }) => {
                 <div>
                   <Button
                     className="bg-black hover:bg-gray-500 text-white"
-                    disabled={user.premium ? fields.length >= 3 : 1} // Deshabilitar el botón si ya hay 3 licencias
+                    disabled={fields.length >= (user && user.premium ? 3 : 1)}
                     type="button"
                     onClick={() =>
                       append({
