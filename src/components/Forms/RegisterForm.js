@@ -159,7 +159,7 @@ export const RegisterForm = () => {
     setSelectedGenders(newSelection);
   };
   return (
-    <div className=" flex flex-col shadowLow h-fit py-10 mt-20 items-center border-2 w-11/12 md:w-6/12 rounded-xl justify-center bg-white">
+    <div className=" flex flex-col shadowLow h-fit py-10 my-20 items-center border-2 w-11/12 md:w-6/12 rounded-xl justify-center bg-white">
       <ScrollArea className="h-[80vh] w-11/12">
         <input
           type="file"
