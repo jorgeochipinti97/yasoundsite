@@ -389,7 +389,7 @@ export default function Home() {
                         {e.username}
                       </TableCell>
                       <TableCell className=" font-geist text-xs flex items-center font-bold">
-                        {e.country} - <span className="text-2xl"> {e.country && getFlagEmoji(e.country)}</span>
+                        {e.country}  <span className="text-2xl"> {e.country && getFlagEmoji(e.country)}</span>
                       </TableCell>
                       <TableCell className="text-right font-geist text-xs font-bold hidden md:table-cell   ">
                         {e.genders.map((g) => `${g}, `)}
