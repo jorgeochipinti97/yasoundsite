@@ -558,7 +558,7 @@ export const ProductForm = ({ product }) => {
                 <div>
                   <Button
                     className="bg-black hover:bg-gray-500 text-white"
-                    disabled={fields.length >= (user && user.premium ? 3 : 1)}
+                    disabled={fields.length >= (user && user.premium ? 5 : 2)}
                     type="button"
                     onClick={() =>
                       append({
