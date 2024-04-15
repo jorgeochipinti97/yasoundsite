@@ -8,7 +8,6 @@ import {
   Select,
   SelectContent,
   SelectItem,
-  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -227,7 +226,7 @@ export const ProductForm = ({ product }) => {
               fileType: selectedFile.type,
             },
             image: imageUrl_,
-            owner: user.username,
+            owner: user._id,
           };
           const createProduct = await axios.post("/api/products", productData);
           createProduct && setIsLoading(true);
@@ -332,6 +331,11 @@ export const ProductForm = ({ product }) => {
               ></path>
             </svg>
           );
+        response.data.data._id &&
+          (await axios.put("/api/users", {
+            _id: user._id,
+            products: [...user.products, response.data._di],
+          }));
       }
     } catch (er) {
       console.log(er);
@@ -347,7 +351,6 @@ export const ProductForm = ({ product }) => {
         owner: product.owner,
         licenses: product.licenses,
       });
-
     }
   }, [product, reset]);
 
@@ -411,7 +414,9 @@ export const ProductForm = ({ product }) => {
 
                 <div className="my-2">
                   {product && product.file.url ? (
-                    <p className="font-geist text-xs tracking-tighter font-bold">Ya subiste el archivo de audio</p>
+                    <p className="font-geist text-xs tracking-tighter font-bold">
+                      Ya subiste el archivo de audio
+                    </p>
                   ) : (
                     <Button
                       type="button"

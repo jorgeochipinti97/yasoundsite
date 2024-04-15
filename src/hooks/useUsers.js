@@ -2,11 +2,11 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export function useUsers(username) {
+export function useUsers(query) {
   const { data: session, status } = useSession();
   const [user, setUser] = useState(null); // Cambiado a null para un estado inicial más claro
   const [users, setUsers] = useState(null); // Cambiado a null para un estado inicial más claro
-  const [userByUsername, setUserByUsername] = useState(null); // Cambiado el nombre para evitar confusión
+  const [userByQuery, setUserByQuery] = useState(null); // Cambiado el nombre para evitar confusión
   const isLoading = status === "loading";
 
   useEffect(() => {
@@ -21,9 +21,9 @@ export function useUsers(username) {
           );
           setUser(userByEmail);
         }
-        if (username) {
-          const userByUsername = data.data.find((e) => e.username === username);
-          setUserByUsername(userByUsername);
+        if (query) {
+          const userByQuery = data.data.find((e) => e.username === query || e._id == query);
+          setUserByQuery(userByQuery);
         }
       } catch (err) {
         console.error("Failed to fetch users:", err);
@@ -31,11 +31,11 @@ export function useUsers(username) {
     };
 
     fetchData();
-  }, [session, username, isLoading]); // Se añade username a las dependencias
+  }, [session, query, isLoading]); // Se añade username a las dependencias
 
-  // Combinamos user y userByUsername en un solo estado para simplificar el retorno
+  // Combinamos user y userByQuery en un solo estado para simplificar el retorno
   // y hacer el hook más predecible en su uso.
-  const resultUser = username ? userByUsername : user;
+  const resultUser = query ? userByQuery : user;
 
   return { session, isLoading, user: resultUser, users };
 }

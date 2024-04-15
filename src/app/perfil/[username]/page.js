@@ -34,7 +34,11 @@ const Page = () => {
   const getBeats = async () => {
     const data = await axios.get("/api/products");
     data &&
-      setProductos(data.data.data.filter((e) => e.owner == user.username));
+      setProductos(
+        data.data.data.filter(
+          (e) => e.owner == user.username || e.owner == user._id
+        )
+      );
   };
 
   useEffect(() => {
