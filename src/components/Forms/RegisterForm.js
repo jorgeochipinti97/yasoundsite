@@ -160,7 +160,7 @@ export const RegisterForm = () => {
   };
   return (
     <div className="bg-white flex flex-col shadow h-[80vh] py-20 mt-10 items-center border-2 w-fit  rounded-xl justify-center ">
-      <ScrollArea className="h-[60vh] w-11/12">
+      <ScrollArea className="h-[80vh] w-11/12">
         <input
           type="file"
           ref={inputFileRef}
