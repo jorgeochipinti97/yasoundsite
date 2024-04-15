@@ -226,7 +226,7 @@ export const ProductForm = ({ product }) => {
               url: `https://yasoundtestbucket.s3.sa-east-1.amazonaws.com/${fileName}`,
               fileType: selectedFile.type,
             },
-            image: imageUrl,
+            image: imageUrl_,
             owner: user.username,
           };
           const createProduct = await axios.post("/api/products", productData);

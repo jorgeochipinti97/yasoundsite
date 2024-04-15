@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -9,8 +9,28 @@ import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
 import { BeatCard } from "../Cards/BeatCard";
 
 export const SliderCoverflow = ({ beats }) => {
+  const swiperRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    const swiper = swiperRef.current;
+    if (swiper && swiper.autoplay.running) {
+      swiper.autoplay.stop();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    const swiper = swiperRef.current;
+    if (swiper && !swiper.autoplay.running) {
+      swiper.autoplay.start();
+    }
+  };
+
+
+
   return (
     <Swiper
+    ref={swiperRef}
+
       effect={"coverflow"}
       grabCursor={true}
       slidesPerView={1}
@@ -27,6 +47,12 @@ export const SliderCoverflow = ({ beats }) => {
       }}
       modules={[EffectCoverflow, Autoplay]}
       className="mySwiper w-12/12 py-10"
+
+      onSlideChange={() => console.log('slide change')}
+
+
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {beats.map((e, index) => (
         <SwiperSlide key={index} className="w-fit bg-transparent">

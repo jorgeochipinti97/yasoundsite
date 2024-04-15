@@ -199,9 +199,9 @@ export const BeatCard = ({
   }
   return (
     <Card
-      className=" h-[300px] border-none  mx-2 w-[300px] rounded-xl flex items-start flex-col justify-start"
+      className=" h-[300px]  border-none  mx-2 w-[300px] rounded-xl flex items-start flex-col justify-start"
       style={{
-        backgroundImage: `linear-gradient(129deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 34%), url('${image}?${Date.now()}')`,
+        backgroundImage: `linear-gradient(129deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 34%), url('${image}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
