@@ -386,10 +386,16 @@ export default function Home() {
                         </div>
                       </TableCell>
                       <TableCell className=" font-geist text-xs font-bold">
-                        {e.username}
+                        {e.username.length > 12
+                          ? `${e.username.slice(0, 12)}...`
+                          : e.username}
                       </TableCell>
-                      <TableCell className=" font-geist text-xs flex items-center font-bold">
-                        {e.country}  <span className="text-2xl"> {e.country && getFlagEmoji(e.country)}</span>
+                      <TableCell className=" font-geist text-xs flex items-center font-bold ">
+                        {e.country}{" "}
+                        <span className="text-2xl">
+                          {" "}
+                          {e.country && getFlagEmoji(e.country)}
+                        </span>
                       </TableCell>
                       <TableCell className="text-right font-geist text-xs font-bold hidden md:table-cell   ">
                         {e.genders.map((g) => `${g}, `)}

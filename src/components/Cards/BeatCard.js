@@ -70,9 +70,10 @@ export const BeatCard = ({
   const { push } = useRouter();
   const { register, handleSubmit, setValue } = useForm();
   const onSubmit = async (data) => {
+    
     const response = await axios.post("/api/orders", {
       buyer: data.nombre,
-      seller: owner,
+      seller: user._id,
       buyerEmail: data.email,
       buyerPhone: data.phone,
       buyerCountry: data.country,

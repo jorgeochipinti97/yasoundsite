@@ -25,7 +25,7 @@ const Page = () => {
 
     setTransactiosn(
       data.data.filter(
-        (e) => e.seller == user.username && e.status == "approved"
+        (e) => e.seller == user.username && e.status == "approved" ||e.seller == user._id && e.status == "approved" 
       )
     );
 
@@ -53,7 +53,7 @@ const Page = () => {
   }, [user]);
   return (
     <div className="min-h-screen w-screen">
-      <section className="mt-20">
+      <section className="pt-20">
         <div className="flex justify-center">
           <div className="flex flex-col items-center mx-5">
             <p className="font-bold text-2xl">USD </p>
