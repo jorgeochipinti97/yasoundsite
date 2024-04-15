@@ -1,55 +1,60 @@
-import sgMail from "@sendgrid/mail";
-import { connectDB } from "@/lib/database";
-import Waitlist from "@/models/Waitlist";
-import User from "@/models/User";
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+import { connectDB } from '@/lib/database';
+import Waitlist from '@/models/Waitlist';
+import User from '@/models/User';
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
-  }
+    if (req.method !== 'POST') {
+        return res.status(405).json({ message: 'Method not allowed' });
+    }
 
-  try {
-    await connectDB();
-    const waitlistUsers = await Waitlist.find({});
+    try {
+        await connectDB();
+        // const waitlistUsers = await Waitlist.find({});
 
-    const results = await Promise.all(
-      waitlistUsers.map(async (waitlistUser) => {
-        const user = await User.findOne({ email: waitlistUser.email });
-        if (!user) {
-          return {
-            message: `No hay un usuario creado con el email ${waitlistUser.email}.`,
-          };
+        // const results = await Promise.all(waitlistUsers.map(async (waitlistUser) => {
+        //     const baseUsername = waitlistUser.nombre.trim().replace(/\s+/g, '');
+        //     const newUsername = await generateUniqueUsername(baseUsername);
+
+        //     // Actualizar el usuario en la base de datos de usuarios
+        //     const updatedUser = await User.findOneAndUpdate(
+        //         { email: waitlistUser.email }, // Localizar por email
+        //         { username: newUsername }, // Establecer el nuevo username
+        //         { new: true } // Devolver el documento actualizado
+        //     );
+
+        //     if (!updatedUser) {
+        //         return { message: `No se encontró un usuario con el email ${waitlistUser.email}.` };
+        //     }
+
+        //     return updatedUser;
+        // }));
+
+        // res.status(200).json({ message: 'Usuarios actualizados correctamente', data: results });
+    } catch (error) {
+        console.error('Error updating users:', error);
+        res.status(500).json({ message: 'Failed to update users', error: error.message });
+    }
+}
+
+async function generateUniqueUsername(baseUsername) {
+    let uniqueUsername = baseUsername;
+    let counter = 1;
+
+    while (true) {
+        try {
+            const existingUser = await User.findOne({ username: uniqueUsername });
+            if (!existingUser) {
+                return uniqueUsername; // Si no existe, es único
+            }
+            uniqueUsername = `${baseUsername}${counter}`; // Incrementa si existe
+            counter++;
+        } catch (error) {
+            if (error.code === 11000) { // Captura el error de duplicado
+                uniqueUsername = `${baseUsername}${counter}`;
+                counter++;
+                continue; // Continúa intentando
+            }
+            throw error; // Re-lanza si es un error diferente
         }
-
-        const resetPasswordUrl = `https://www.yasound.site/regenerate?id=${user._id}`;
-        const imageUrl = "https://www.yasound.site/images/banner.jpeg"; // Reemplaza esto con la URL real de tu imagen
-        const msg = {
-          to: user.email,
-          from: "contacto@yasound.site",
-          subject: "Recuperación de Contraseña",
-          text: "Aquí puedes escribir instrucciones para establecer la contraseña",
-          html: ` <img src="${imageUrl}" alt="Banner" style="width:100%; max-width:600px;">
-                <p><strong><a href="${resetPasswordUrl}" target="_blank">Aquí puedes cambiar tu contraseña</a></strong></p>
-            `,
-        };
-
-        await sgMail.send(msg);
-        return { message: `Correo de recuperación enviado a ${user.email}` };
-      })
-    );
-
-    res
-      .status(200)
-      .json({ message: "Emails de recuperación enviados", data: results });
-  } catch (error) {
-    console.error("Error al enviar correos de recuperación:", error);
-    res
-      .status(500)
-      .json({
-        message: "Error al procesar la solicitud",
-        error: error.message,
-      });
-  }
+    }
 }
