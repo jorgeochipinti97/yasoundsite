@@ -31,7 +31,7 @@ export const CheckoutComponent = ({ product, user, _id }) => {
           },
         ],
         marketplace_fee: isPremium
-          ? product.priceArs * 0.03
+          ? product.priceArs * 0.05
           : product.priceArs * 0.15,
         back_urls: {
           success: `https://www.yasound.site/success?orderID=${_id}`,
