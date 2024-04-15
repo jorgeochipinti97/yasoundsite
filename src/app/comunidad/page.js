@@ -6,7 +6,7 @@ import React from "react";
 const Page = () => {
   return (
     <div>
-      <div className="min-h-screen py-10">
+      <div className="h-fit py-10">
         <div className="flex justify-center">
           <p
             style={{ letterSpacing: -2 }}
@@ -17,17 +17,23 @@ const Page = () => {
         </div>
 
         <div className="my-10">
-          <div className="flex justify-center">
-            <Card className="w-10/12  p-5 bg-gray-100 border-none">
-              <CardTitle className="text-center text-4xl md:text-7xl font-geist tracking-tighter">
+          <div className="flex justify-center items-center">
+            <Card
+              className="w-10/12 md:w-7/12  py-5 md:py-10 shadowLow bg-gray-100  border border-black  "
+              style={{
+                backgroundImage:
+                  "linear-gradient(129deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.6) 34%),url('/proximam.png')",
+              }}
+            >
+              <CardTitle className="text-center font-extrabold text-4xl md:text-7xl text-white font-geist ">
                 Proximamente
               </CardTitle>
               <CardContent>
-                <p className="text-center font-geist font-semibold mt-5 text-xl md:text-4xl tracking-tighter">
+                <p className="text-center text-white mt-5 font-geist font-semibold mtext-xl md:text-4xl tracking-tighter">
                   Estamos preparando algo asombrosos para vos.
                 </p>
-                <div className="flex  justify-around w-full mt-10">
-                  <Label className="p-2 rounded-xl  text- md:text-4xl text-black">
+                <div className="flex  justify-around w-full ">
+                  <Label className="p-2 text-white  rounded-xl text-center   font-ligth text-xl md:text-4xl ">
                     Blog, beneficios Yasound y muchas cosas más..
                   </Label>
                 </div>
@@ -45,85 +51,6 @@ const Page = () => {
             colaborar en proyectos, recibir retroalimentación valiosa y
             compartir tus conocimientos con otros apasionados de la música.
           </p>
-          <p className="mt-5 font-sans text-center font-bold opacity-[80%]">
-            ¡Podemos llevar tu música al siguiente nivel!
-          </p>
-          <div class="shadowSeparator bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-[1vh] rounded-full w-9/12 md:w-4/12 my-2"></div>
-
-          <div className="h-fit mt-5 w-screen flex items-center justify-center flex-wrap">
-            <a href="https://twitter.com/YasoundSite">
-              <img
-                src="/twitter.png"
-                className=" rounded-full bg-black p-2 border-black w-[40px] md:w-[55px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
-                alt=""
-              />
-            </a>
-            <a href="https://discord.com/channels/1206058475088519179/1206058475088519181">
-              <img
-                src="/discord.png"
-                className=" rounded-full bg-violet-200 p-2 border-black w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
-                alt=""
-              />
-            </a>
-            <a href="https://www.instagram.com/yasound.beat/">
-              <img
-                src="/instagram.svg"
-                className="w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
-                alt=""
-              />
-            </a>
-            <a href="https://chat.whatsapp.com/Hvf5XOuCHfEBwITu1PJHBa ">
-              <img
-                src="/wpp.svg"
-                className="w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
-                alt=""
-              />
-            </a>
-            <a href="https://t.me/+PMdmo_DnbXQxNzUx">
-              <img
-                src="/telegram.svg"
-                className="w-[45px] md:w-[60px]  hover:scale-[1.2] grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
-                alt=""
-              />
-            </a>
-            <a href="https://www.tiktok.com/@yasound.site">
-              <svg
-                className="w-[45px] md:w-[60px]  hover:scale-[1.2] bg-gray-400 rounded-full p-2 hover:bg-fuchsia-400 grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
-                width={45}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32 32"
-              >
-                <path d="M16.656 1.029c1.637-.025 3.262-.012 4.886-.025a7.762 7.762 0 002.189 5.213l-.002-.002A8.77 8.77 0 0029 8.45l.028.002v5.036a13.327 13.327 0 01-5.331-1.247l.082.034a15.385 15.385 0 01-2.077-1.196l.052.034c-.012 3.649.012 7.298-.025 10.934a9.513 9.513 0 01-1.707 4.954l.02-.031c-1.652 2.366-4.328 3.919-7.371 4.011h-.014a9.071 9.071 0 01-5.139-1.31l.04.023C5.05 28.185 3.32 25.603 3 22.6l-.004-.041a23.163 23.163 0 01-.012-1.862c.49-4.779 4.494-8.476 9.361-8.476.547 0 1.083.047 1.604.136l-.056-.008c.025 1.849-.05 3.699-.05 5.548a4.29 4.29 0 00-5.465 2.619l-.009.03c-.133.427-.21.918-.21 1.426 0 .206.013.41.037.61l-.002-.024a4.26 4.26 0 004.382 3.586h-.009a4.198 4.198 0 003.451-1.994l.01-.018c.267-.372.45-.822.511-1.311l.001-.014c.125-2.237.075-4.461.087-6.698.012-5.036-.012-10.06.025-15.083z"></path>
-              </svg>
-            </a>
-          </div>
-
-          {/* <div className=" flex flex-col items-center justify-center  ">
-            <p
-              className="font-sans font-bold text-center md:text-6xl mt-10 text-4xl md:mt-20"
-              style={{ letterSpacing: -2 }}
-            >
-              Nuestras noticias
-            </p>
-            {blogs && (
-              <div className="w-screen mt-5  flex justify-center ">
-                <div className="grid-cols-1  grid md:grid-cols-2 w-10/12 ">
-                  {blogs.map((e, index) => (
-                    <div className="flex w-full justify-center" key={index}>
-                      <BlogCard
-                        title={e.titulo}
-                        subtitle={e.subtitulo}
-                        descripcion={e.cuerpo}
-                        img={e.imagenes[0] ? e.imagenes[0] : ""}
-                        _id={e._id}
-                        comentarios={e.comentarios}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div> */}
         </div>
       </div>
 
@@ -342,12 +269,18 @@ const Page = () => {
                 ¡Contáctanos!
               </span>
             </p>
-
-            <p className="font-geist tracking-tighter mt-2 text-3xl">
+<p className="my-5 text-gray-700 font-semibold tracking-tighter  text-2xl">contacto@yasound.site</p>
+            <p className="font-geist tracking-tighter mt-2 text-5xl md:text-3xl">
               Estamos ansiosos por colaborar contigo y crear juntos nuevas y
               emocionantes oportunidades.
             </p>
           </div>
+        </div>
+        <div className="flex flex-col items-center justify-center mt-20">
+          <p className="mt-5 text-2xl md:text-4xl font-sans text-center font-bold opacity-[80%]">
+            ¡Podemos llevar tu música al siguiente nivel!
+          </p>
+          <div class="shadowSeparator bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-[1vh] rounded-full w-9/12 md:w-4/12 my-2"></div>
         </div>
       </div>
     </div>
