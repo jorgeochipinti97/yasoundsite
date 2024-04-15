@@ -16,7 +16,8 @@ export default async function handler(req, res) {
 
 const register = async (req, res) => {
   try {
-    const { email, password, username } = req.body;
+    const { email, password, username, profilePicture, country, genders } =
+      req.body;
 
     if (!email || !email.includes("@") || !password) {
       return;
@@ -31,11 +32,14 @@ const register = async (req, res) => {
     }
 
     const hashedPassword = await hashPassword(password);
-    
+
     await User.create({
       email,
       password: hashedPassword,
       username,
+      profilePicture,
+      country,
+      genders,
     });
   } catch (error) {
     console.log(error.message);

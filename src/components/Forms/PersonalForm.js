@@ -84,7 +84,7 @@ export const PersonalForm = ({ user }) => {
   };
   const inputFileRef = useRef(null);
 
-  // Función para manejar el clic en el botón, que activa el input de tipo archivo
+
   const handleClick = () => {
     inputFileRef.current.click();
   };

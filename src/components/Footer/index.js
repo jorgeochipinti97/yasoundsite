@@ -17,42 +17,48 @@ export const FooterComponent = () => {
       </h2>
 
       <div className="h-fit mt-5 w-screen flex items-center justify-center flex-wrap">
-        <a href="https://twitter.com/YasoundSite">
+        <a target="_blank" href="https://twitter.com/YasoundSite">
           <img
             src="/twitter.png"
             className=" rounded-full bg-black p-2 border-black w-[40px] md:w-[55px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
             alt=""
           />
         </a>
-        <a href="https://discord.com/channels/1206058475088519179/1206058475088519181">
+        <a
+          target="_blank"
+          href="https://discord.com/channels/1206058475088519179/1206058475088519181"
+        >
           <img
             src="/discord.png"
             className=" rounded-full bg-violet-200 p-2 border-black w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
             alt=""
           />
         </a>
-        <a href="https://www.instagram.com/yasound.beat/">
+        <a target="_blank" href="https://www.instagram.com/yasound.beat/">
           <img
             src="/instagram.svg"
             className="w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
             alt=""
           />
         </a>
-        <a href="https://chat.whatsapp.com/Hvf5XOuCHfEBwITu1PJHBa ">
+        <a
+          target="_blank"
+          href="https://chat.whatsapp.com/Hvf5XOuCHfEBwITu1PJHBa "
+        >
           <img
             src="/wpp.svg"
             className="w-[45px] md:w-[60px] hover:scale-[1.2]  grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
             alt=""
           />
         </a>
-        <a href="https://t.me/+PMdmo_DnbXQxNzUx">
+        <a target="_blank" href="https://t.me/+PMdmo_DnbXQxNzUx">
           <img
             src="/telegram.svg"
             className="w-[45px] md:w-[60px]  hover:scale-[1.2] grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
             alt=""
           />
         </a>
-        <a href="https://www.tiktok.com/@yasound.site">
+        <a target="_blank" href="https://www.tiktok.com/@yasound.site">
           <svg
             className="w-[45px] md:w-[60px]  hover:scale-[1.2] bg-gray-400 rounded-full p-2 hover:bg-fuchsia-400 grayscale-[100%] hover:grayscale-0 transition-all duration-100 cursor-pointer  mx-2"
             width={45}

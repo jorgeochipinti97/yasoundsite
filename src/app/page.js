@@ -42,6 +42,7 @@ import { SliderCoverflow } from "@/components/Slidercoverflow";
 import { SliderFlip } from "@/components/SliderFlip";
 import { AccordionComponent } from "@/components/Faqs";
 import { ContactForm } from "@/components/Forms/ContactForm";
+import { paises } from "@/utils/paises";
 export default function Home() {
   const { push } = useRouter();
 
@@ -55,7 +56,7 @@ export default function Home() {
   const getBeats = async () => {
     const data = await axios.get("/api/products");
     data && setBeats_(data.data.data);
-    console.log(data)
+    console.log(data);
   };
 
   useEffect(() => {
@@ -129,6 +130,14 @@ export default function Home() {
       delay: 1.5,
     });
   }, []);
+
+  const getFlagEmoji = (countryName) => {
+    const countryObject = paises.find(
+      (pais) => pais.country.toLowerCase() === countryName.toLowerCase()
+    );
+    return countryObject ? countryObject.emoji : "";
+  };
+
   return (
     <>
       <section className="md:hidden fixed bottom-16  z-50 w-fit">
@@ -339,7 +348,7 @@ export default function Home() {
         </p>
 
         <div className=" flex justify-center">
-          <div className="w-12/12 md:w-6/12">
+          <div className="w-12/12 md:w-5/12">
             <Table className=" ">
               <TableCaption>
                 Una tabla de nuestros ultimos 6 usuarios registrados.
@@ -349,10 +358,10 @@ export default function Home() {
                   <TableHead className=""></TableHead>
                   <TableHead>Usuario</TableHead>
                   <TableHead className="text-center">País</TableHead>
-                  <TableHead className="text-center hidden md:block">
+                  <TableHead className="text-center hidden md:table-cell ">
                     Generos
                   </TableHead>
-                  <TableHead className="text-center">Acción</TableHead>
+                  <TableHead className="text-center ">Acción</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -379,10 +388,10 @@ export default function Home() {
                       <TableCell className=" font-geist text-xs font-bold">
                         {e.username}
                       </TableCell>
-                      <TableCell className=" font-geist text-xs font-bold">
-                        {e.country}
+                      <TableCell className=" font-geist text-xs flex items-center font-bold">
+                        {e.country} - <span className="text-2xl"> {e.country && getFlagEmoji(e.country)}</span>
                       </TableCell>
-                      <TableCell className="text-right font-geist text-xs font-bold hidden md:block">
+                      <TableCell className="text-right font-geist text-xs font-bold hidden md:table-cell   ">
                         {e.genders.map((g) => `${g}, `)}
                       </TableCell>
                       <TableCell className="text-right">
@@ -403,7 +412,9 @@ export default function Home() {
           </div>
         </div>
         <div className="flex justify-center mt-10">
-          <Button size="lg">Descubrir más</Button>
+          <Button size="lg" onClick={() => push("/descubre")}>
+            Descubrir más
+          </Button>
         </div>
 
         <div className=" w-screen">
