@@ -159,7 +159,7 @@ export const RegisterForm = () => {
     setSelectedGenders(newSelection);
   };
   return (
-    <div className="bg-white flex flex-col shadow h-[80vh] py-20 mt-10 items-center border-2 w-fit  rounded-xl justify-center ">
+    <div className=" flex flex-col shadowLow h-fit py-10 mt-20 items-center border-2 w-11/12 md:w-6/12 rounded-xl justify-center bg-white">
       <ScrollArea className="h-[80vh] w-11/12">
         <input
           type="file"
@@ -169,9 +169,11 @@ export const RegisterForm = () => {
           accept="image/*" // Asegura que solo se puedan seleccionar imágenes
         />
         <div className="flex justify-center">
-        <img src="/logo.png" className="w-[20vw] md:w-[10vw]" />
+          <img src="/logo.png" className="w-[20vw] md:w-[10vw]" />
         </div>
-        <p className="text-4xl tracking-tighter font-bold text-center mb-2">Registro</p>
+        <p className="text-4xl tracking-tighter font-bold text-center mb-2">
+          Registro
+        </p>
         <Separator className="  mb-5" />
         <div className="flex justify-center">
           <form onSubmit={handleSubmit} className="w-10/12">
@@ -290,7 +292,7 @@ export const RegisterForm = () => {
                 ))}
               </div>
             </section>
-            <div className="flex mt-5">
+            <div className="flex mt-5 items-start">
               <input
                 checked={acceptTerms}
                 onChange={handleCheckboxChange}
@@ -301,12 +303,9 @@ export const RegisterForm = () => {
               />
 
               <Dialog>
-                <DialogTrigger className="font-geist font-light">
+                <DialogTrigger className="font-geist tracking-tighter text-xs font-light">
                   {" "}
-                  Para registrarte debes aceptar nuestras{" "}
-                  <span className="font-bold ">
-                    políticas y los terminos y condiciones
-                  </span>
+                  Debes aceptar nuestras políticas y los terminos y condiciones
                 </DialogTrigger>
                 <DialogContent className="">
                   <ScrollArea className="h-[60vh]">
