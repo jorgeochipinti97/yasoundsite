@@ -390,7 +390,7 @@ export default function Home() {
                           ? `${e.username.slice(0, 12)}...`
                           : e.username}
                       </TableCell>
-                      <TableCell className=" font-geist text-xs flex items-end font-bold ">
+                      <TableCell className=" font-geist text-xs font-bold ">
                         {e.country} {e.country && getFlagEmoji(e.country)}
                       </TableCell>
                       <TableCell className="text-right font-geist text-xs tracking-tighter  hidden md:table-cell   ">
