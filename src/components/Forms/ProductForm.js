@@ -52,7 +52,7 @@ export const ProductForm = ({ product }) => {
   const [selectedImg, setSelectedImg] = useState(null);
   const [acceptTerms, setAcceptTerms] = useState(false);
 
-  const { register, control, handleSubmit, reset, setValue, watch } = useForm({
+  const { register, control, handleSubmit, reset, setValue } = useForm({
     defaultValues: {
       file: "",
       owner: "",
@@ -85,7 +85,7 @@ export const ProductForm = ({ product }) => {
     },
   });
 
-  const { fields, remove, update } = useFieldArray({
+  const { fields, remove, update, append } = useFieldArray({
     control,
     name: "licenses",
   });
@@ -183,8 +183,6 @@ export const ProductForm = ({ product }) => {
     setValue("genders", newSelection, { shouldValidate: true });
   };
 
-
-  
   const onSubmit = async (data) => {
     if (!acceptTerms) {
       showAlert("Debes aceptar los terminos y condiciones", "", <></>);
@@ -314,6 +312,15 @@ export const ProductForm = ({ product }) => {
         delay: 1,
       });
   }, [isLoading]);
+
+  const addLicense = () => {
+    append({
+      title: "",
+      description: "",
+      price: 0,
+      priceArs: 0,
+    });
+  };
 
   return (
     <div>
@@ -504,14 +511,17 @@ export const ProductForm = ({ product }) => {
                     <div key={index} className="mt-5">
                       <Input
                         {...register(`licenses.${index}.title`)}
-                        placeholder="License Title"
+                        placeholder="Titulo de la Licencia"
                         className="my-2"
                       />
                       <Textarea
                         {...register(`licenses.${index}.description`)}
-                        placeholder="License Description"
+                        placeholder="Descripción de la Licencia"
                         className="my-2"
                       />
+                      <p className="font-geist tracking-tighter font-bold text-xl mt-5">
+                        Precio en USD
+                      </p>
                       <Input
                         type="number"
                         {...register(`licenses.${index}.price`, {
@@ -521,6 +531,9 @@ export const ProductForm = ({ product }) => {
                         placeholder="Price USD"
                         className="my-2"
                       />
+                      <p className="font-geist tracking-tighter font-bold text-xl mt-5">
+                        Precio en ARS
+                      </p>
                       <Input
                         type="number"
                         {...register(`licenses.${index}.priceArs`, {
@@ -536,11 +549,28 @@ export const ProductForm = ({ product }) => {
                         className="mt-5"
                         onClick={() => remove(index)}
                       >
-                        Remove
+                        Remover
                       </Button>
                       <Separator className="my-5" />
                     </div>
                   ))}
+                </div>
+                <div>
+                  <Button
+                  className='bg-black hover:bg-gray-500 text-white'
+                    disabled={fields.length >= 3} // Deshabilitar el botón si ya hay 3 licencias
+                    type="button"
+                    onClick={() =>
+                      append({
+                        title: "",
+                        description: "",
+                        price: 0,
+                        priceArs: 0,
+                      })
+                    }
+                  >
+                    Agregar licencia
+                  </Button>
                 </div>
               </div>
 
