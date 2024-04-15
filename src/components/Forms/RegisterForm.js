@@ -138,6 +138,7 @@ export const RegisterForm = () => {
     } catch (err) {
       console.error(err);
       setErrorMessage("Error al procesar tu solicitud.");
+      push('/register')
     }
   };
 
@@ -145,7 +146,7 @@ export const RegisterForm = () => {
     setErrorMessage("");
     setSelectedImage(null);
     setAcceptTerms(false);
-    // Reset additional form fields if necessary
+
   };
   const handleSelectChange = (selectedValue) => {
     let newSelection = [...selectedGenders];

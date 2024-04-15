@@ -47,7 +47,7 @@ export const FloatMenu = () => {
                   className={"border-violet-500 text-violet-500"}
                 >
                   {" "}
-                  PLAN FREE
+                  {user && user.premium ? "PREMIUM" : "PLAN FREE"}
                 </Badge>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
