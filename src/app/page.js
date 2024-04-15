@@ -390,14 +390,14 @@ export default function Home() {
                           ? `${e.username.slice(0, 12)}...`
                           : e.username}
                       </TableCell>
-                      <TableCell className=" font-geist text-xs flex items-center font-bold ">
+                      <TableCell className=" font-geist text-xs flex items-end font-bold ">
                         {e.country}{" "}
-                        <span className="text-2xl">
+                        <span className="text-xl">
                           {" "}
                           {e.country && getFlagEmoji(e.country)}
                         </span>
                       </TableCell>
-                      <TableCell className="text-right font-geist text-xs font-bold hidden md:table-cell   ">
+                      <TableCell className="text-right font-geist text-xs tracking-tighter  hidden md:table-cell   ">
                         {e.genders.map((g) => `${g}, `)}
                       </TableCell>
                       <TableCell className="text-right">
