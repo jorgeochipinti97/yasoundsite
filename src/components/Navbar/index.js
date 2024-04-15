@@ -27,7 +27,7 @@ export const Navbar = () => {
   const { push } = useRouter();
   const { user } = useUsers();
   const [hoveredIndex, setHoveredIndex] = useState(0);
-  const pillTabs = ["Home", "Descubre", "Comunidad"];
+  const pillTabs = ["Home", "Descubre", "Info"];
 
   const tabsComponents = pillTabs.map((text, i) => {
     return (
@@ -39,7 +39,7 @@ export const Navbar = () => {
             (text == "Home" && push("/")) ||
             // (text == "Beats" && push("#")) ||
             // (text == "Tu música" && push("/upload")) ||
-            (text == "Comunidad" && push("/comunidad")) ||
+            (text == "Info" && push("/info")) ||
             (text == "Descubre" && push("/descubre"))
 
           // (text == "Modifica tu perfil" && push(`/create/${usuario.username}`))
