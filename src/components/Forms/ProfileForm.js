@@ -21,7 +21,6 @@ import { useAlert } from "@/hooks/useAlert";
 
 export const ProfileForm = () => {
   const { user } = useUsers();
-  const [images, setImages] = useState([]);
   const [selectedColorIndex, setSelectedColorIndex] = useState(null);
   const { alertProps, showAlert } = useAlert();
 
@@ -57,39 +56,8 @@ export const ProfileForm = () => {
   });
   const [youtubeVideos, setYoutubeVideos] = useState([]);
 
-  const handleImageUpload = async (event) => {
-    try {
-      const response = await axios.post("/api/s3", formData);
 
-      const newImageUrl = response.data.fileUrl;
-      console.log(response.data.fileUrl);
-      response.data.fileUrl &&
-        setImages((prevImages) => {
-          const updatedImages = [...prevImages, newImageUrl];
-          return updatedImages;
-        });
-      response.data.fileUrl &&
-        setValue("images", [...getValues("images"), newImageUrl]); // Añade la nueva imagen al array existente
-    } catch (error) {
-      // Manejar error en la subida
-      console.error("Error subiendo archivos:", error);
-    }
-  };
 
-  const handleDeleteImage = async (imageUrl) => {
-    const fileName = imageUrl.split("/").pop();
-    console.log(fileName);
-    try {
-      await axios.put("/api/s3", JSON.stringify({ fileName: fileName }));
-      setImages(images.filter((image) => image !== imageUrl));
-      setValue(
-        "images",
-        getValues("images").filter((image) => image !== imageUrl)
-      );
-    } catch (error) {
-      console.error("Error al eliminar la imagen:", error);
-    }
-  };
 
   const handleColorChange = (event) => {
     // Supongamos que selectedColorIndex se establece en algún lugar para indicar qué color estamos cambiando
@@ -99,9 +67,7 @@ export const ProfileForm = () => {
     setValue("colors", newColors); // Actualiza el valor en React Hook Form
   };
 
-  const handleClickImage = () => {
-    inputFileRef.current.click();
-  };
+
 
   useEffect(() => {
     if (user) {
@@ -110,7 +76,6 @@ export const ProfileForm = () => {
       setYoutubeVideos(user.videos);
       setValue("links", user.links);
       setValue("images", user.images);
-      setImages(user.images);
       user.colors.lenght > 3 && setValue("colors", user.colors);
       user.colors.lenght > 3 && setColors(user.colors);
       user.links.forEach((linkObj) => {

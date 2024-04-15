@@ -23,9 +23,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "../ui/badge";
 
-
-
-
 export const Navbar = () => {
   const { push } = useRouter();
   const { user } = useUsers();
@@ -161,7 +158,7 @@ export const Navbar = () => {
                 </Badge>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => push("/billing")}>
-                Billing
+                Estadísticas
               </DropdownMenuItem>
             </DropdownMenuGroup>
             {/* <DropdownMenuSeparator />

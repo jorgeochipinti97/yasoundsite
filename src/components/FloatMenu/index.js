@@ -82,7 +82,7 @@ export const FloatMenu = () => {
                   </Badge>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => push("/billing")}>
-                  Billing
+                  Estadísticas
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               {/* <DropdownMenuSeparator />
