@@ -393,7 +393,7 @@ export default function Home() {
                       <TableCell className=" font-geist text-xs font-bold ">
                         {e.country} {e.country && getFlagEmoji(e.country)}
                       </TableCell>
-                      <TableCell className="text-right font-geist text-xs tracking-tighter  hidden md:table-cell   ">
+                      <TableCell className=" font-geist text-xs tracking-tighter  hidden md:table-cell   ">
                         {e.genders.map((g) => `${g}, `)}
                       </TableCell>
                       <TableCell className="text-right">
