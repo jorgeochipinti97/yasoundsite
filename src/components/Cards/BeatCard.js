@@ -70,7 +70,6 @@ export const BeatCard = ({
   const { push } = useRouter();
   const { register, handleSubmit, setValue } = useForm();
   const onSubmit = async (data) => {
-    
     const response = await axios.post("/api/orders", {
       buyer: data.nombre,
       seller: user._id,
@@ -233,7 +232,9 @@ export const BeatCard = ({
                 <path d="M14.485 9.47a.75.75 0 00-1.063 1.06c1.164 1.168 1.133 3.279-.303 4.72l-4.847 4.866c-1.435 1.44-3.533 1.47-4.694.304-1.164-1.168-1.132-3.28.303-4.72l2.424-2.433a.75.75 0 00-1.063-1.059l-2.424 2.433c-1.911 1.92-2.151 4.982-.303 6.838 1.85 1.858 4.907 1.615 6.82-.304l4.847-4.867c1.911-1.918 2.151-4.982.303-6.837z"></path>
               </g>
             </svg>
-            <p className="mt-2 font-geist text-white font-mono">{user && user.username}</p>
+            <p className="mt-2 font-geist text-white font-mono">
+              {user && user.username}
+            </p>
           </a>
           <div className=" my-3" style={{ display: genders ? "flex" : "none" }}>
             {genders &&
@@ -250,13 +251,14 @@ export const BeatCard = ({
           <p className="mt-2 font-geist text-white font-mono">
             USD {formatCurrency(price)}
           </p>
-          <p className="mt-2 font-geist text-white font-mono">
-            ARS {formatCurrency(priceArs)}
-          </p>
-
-          <p className="mt-2 font-geist text-white font-mono"></p>
-
+          {priceArs > 0 && (
+            <p className="mt-2 font-geist text-white font-mono">
+              ARS {formatCurrency(priceArs)}
+            </p>
+          )}
+<div className="mt-3">
           {isPlaying ? <PauseIcon /> : <PlayIcon />}
+</div>
         </CardContent>
         <CardFooter>
           <Dialog>
@@ -323,7 +325,9 @@ export const BeatCard = ({
                         </TableCell>
                         <TableCell className="  text-center font-geist flex-col flex tracking-tighter font-semibold ">
                           <span>{formatCurrency(e.price)} USD </span>
-                          <span>{formatCurrency(e.priceArs)}ARS</span>
+                          {priceArs && priceArs > 0 && (
+                            <span>{formatCurrency(e.priceArs)}ARS</span>
+                          )}
                         </TableCell>
                         <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
                           <Dialog>
