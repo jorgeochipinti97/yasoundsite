@@ -3,9 +3,10 @@
 import React from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export const FooterComponent = () => {
+  const { push } = useRouter();
   const pathname = usePathname();
   return (
     <footer
@@ -74,9 +75,14 @@ export const FooterComponent = () => {
           Términos y condiciones.
         </a>
       </div>
-
+      <Button onClick={() => push("https://wa.link/vsobjt")} className='mt-5'>
+        Obtené ayuda en linea
+      </Button>
       <div className="flex mt-5">
-        <img src="/merca.png" className="w-[70px] md:w-[100px] mx-1 rounded-xl grayscale-[90%]" />
+        <img
+          src="/merca.png"
+          className="w-[70px] md:w-[100px] mx-1 rounded-xl grayscale-[90%]"
+        />
         <div className="w-[70px] md:w-[100px] bg-white mx-1 rounded-xl grayscale-[90%]">
           <img src="/paypal.png" />
         </div>

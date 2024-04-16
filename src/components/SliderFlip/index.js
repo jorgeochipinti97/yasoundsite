@@ -473,12 +473,12 @@ export const SliderFlip = ({ user }) => {
               </Dialog>
             </PayPalScriptProvider>
           </div>
-          <div className="flex mt-5">
+          <div className="flex mt-5 justify-center w-full">
             <img
               src="/merca.png"
-              className="w-[30px] md:w-[100px] mx-1 rounded-xl grayscale-[90%]"
+              className="w-[50px] mx-1 rounded-xl grayscale-[90%]"
             />
-            <div className="w-[30px] md:w-[100px] bg-white mx-1 rounded-xl grayscale-[90%]">
+            <div className="w-[50px] bg-white mx-1 rounded-xl grayscale-[90%]">
               <img src="/paypal.png" />
             </div>
           </div>
@@ -887,6 +887,15 @@ export const SliderFlip = ({ user }) => {
                 </DialogContent>
               </Dialog>
             </PayPalScriptProvider>
+          </div>
+          <div className="flex mt-5 justify-center w-full">
+            <img
+              src="/merca.png"
+              className="w-[50px] mx-1 rounded-xl grayscale-[90%]"
+            />
+            <div className="w-[50px] bg-white mx-1 rounded-xl grayscale-[90%]">
+              <img src="/paypal.png" />
+            </div>
           </div>
         </div>
       </SwiperSlide>

@@ -177,6 +177,7 @@ export const RegisterForm = () => {
           style={{ display: "none" }}
           accept="image/*" // Asegura que solo se puedan seleccionar imágenes
         />
+        
         <div className="flex justify-center">
           <img src="/logo.png" className="w-[20vw] md:w-[10vw]" />
         </div>

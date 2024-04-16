@@ -151,7 +151,6 @@ export default function Home() {
           </div>
         )}
       </section>
-
       <div
         className="min-h-screen flex justify-center
        items-center flex-col w-screen bg-white"
@@ -169,6 +168,8 @@ export default function Home() {
         >
           La comunidad latina de artistas.
         </p>
+        
+
         <img src="/logoblack.svg" className="w-[40%] logoblack" />
         <div
           className="grid grid-cols-1 md:grid-cols-2 md:mt-10 indexz displayvideo"
