@@ -23,6 +23,7 @@ import { generosList } from "@/utils/generos";
 import { Badge } from "../ui/badge";
 
 export const RegisterForm = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const { push } = useRouter();
   const { session, users } = useUsers();
   const [errorMessage, setErrorMessage] = useState("");
@@ -78,6 +79,7 @@ export const RegisterForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true)
     const formData = new FormData(event.target);
     const email = formData.get("email").trim().toLowerCase();
     const password = formData.get("password");
@@ -138,7 +140,7 @@ export const RegisterForm = () => {
     } catch (err) {
       console.error(err);
       setErrorMessage("Error al procesar tu solicitud.");
-      push('/register')
+      window.location.reload();
     }
   };
 
@@ -146,7 +148,6 @@ export const RegisterForm = () => {
     setErrorMessage("");
     setSelectedImage(null);
     setAcceptTerms(false);
-
   };
   const handleSelectChange = (selectedValue) => {
     let newSelection = [...selectedGenders];
@@ -323,7 +324,7 @@ export const RegisterForm = () => {
             <section className="flex justify-center mt-5  ">
               <Button
                 type="submit"
-                disabled={acceptTerms ? false : true}
+                disabled={acceptTerms && !isLoading ? false : true}
                 className="my-2 hover:animate-tilt "
               >
                 Registrarme
