@@ -215,10 +215,10 @@ export const BeatCard = ({
         </audio>
 
         <CardContent>
-          <p className="font-geist font-bold text-white text-xl mt-5">{name}</p>
+          <p className="font-geist font-bold text-white text-md mt-5">{name}</p>
           <a
             href={`/perfil/${owner}`}
-            className="hover:animate-tada flex items-center "
+            className="hover:animate-tada flex items-center mt-2 "
           >
             <svg
               width={20}
@@ -240,7 +240,7 @@ export const BeatCard = ({
             {genders &&
               genders.map((e, index) => (
                 <Badge
-                  className=" bg-slate-300 text-black hover:bg-slate-400"
+                  className=" bg-slate-300 mx-1 text-black hover:bg-slate-400"
                   key={index}
                 >
                   {e}
