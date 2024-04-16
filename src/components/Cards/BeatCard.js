@@ -321,12 +321,13 @@ export const BeatCard = ({
                         <TableCell className="text-center font-geist tracking-tighter font-semibold text-md md:text-xl">
                           {e.title}
                         </TableCell>
-                        <TableCell className="  text-center font-geist items-center flex-col flex tracking-tighter font-semibold ">
+                        <TableCell className="  text-center font-geist items-center tracking-tighter font-semibold ">
+
                           <span className="text-md">
                             {formatCurrency(e.price)} USD{" "}
                           </span>
 
-                          {e.priceArs != 0 && (
+                          {!e.priceArs||e.priceArs != 0  && (
                           <span className="text-md">
                           {formatCurrency(e.priceArs)} ARS{" "}
                             </span>
