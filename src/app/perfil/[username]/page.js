@@ -54,11 +54,11 @@ const Page = () => {
               <div className="flex justify-center">
                 <img
                   src={`${user.profilePicture}?${new Date().getTime()}`}
-                  className="rounded-full border-[6px] border-fuchsia-800 w-[200px] md:w-[300px] md:ml-10 "
+                  className="rounded-xl border-2 shadowLow border-fuchsia-800 w-[200px] md:w-[300px] md:ml-10 "
                 />
               </div>
               <div className="flex justify-center mt-5 ">
-                <Card className="w-12/12 md:w-10/12 bg-white/40">
+                <Card className="w-11/12 md:w-10/12 bg-white/40">
                   <CardHeader className="">
                     <div className="w-full  flex">
                       <p className="capitalize font-geist font-bold tracking-tighter ">

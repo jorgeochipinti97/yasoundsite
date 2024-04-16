@@ -256,9 +256,7 @@ export const BeatCard = ({
               ARS {formatCurrency(priceArs)}
             </p>
           )}
-<div className="mt-3">
-          {isPlaying ? <PauseIcon /> : <PlayIcon />}
-</div>
+          <div className="mt-3">{isPlaying ? <PauseIcon /> : <PlayIcon />}</div>
         </CardContent>
         <CardFooter>
           <Dialog>
@@ -323,10 +321,15 @@ export const BeatCard = ({
                         <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
                           {e.title}
                         </TableCell>
-                        <TableCell className="  text-center font-geist flex-col flex tracking-tighter font-semibold ">
-                          <span>{formatCurrency(e.price)} USD </span>
-                          {priceArs && priceArs > 0 && (
-                            <span>{formatCurrency(e.priceArs)}ARS</span>
+                        <TableCell className="  text-center font-geist items-center flex-col flex tracking-tighter font-semibold ">
+                          <span className="text-md">
+                            {formatCurrency(e.price)} USD{" "}
+                          </span>
+
+                          {e.priceArs != 0 && (
+                          <span className="text-md">
+                          {formatCurrency(e.priceArs)} ARS{" "}
+                            </span>
                           )}
                         </TableCell>
                         <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
