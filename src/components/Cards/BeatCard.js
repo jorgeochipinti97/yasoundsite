@@ -318,7 +318,7 @@ export const BeatCard = ({
                   {licenses &&
                     licenses.map((e) => (
                       <TableRow key={e._id}>
-                        <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
+                        <TableCell className="text-center font-geist tracking-tighter font-semibold text-md md:text-xl">
                           {e.title}
                         </TableCell>
                         <TableCell className="  text-center font-geist items-center flex-col flex tracking-tighter font-semibold ">
