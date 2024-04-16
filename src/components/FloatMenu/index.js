@@ -12,10 +12,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "../ui/badge";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
+
+
+
 export const FloatMenu = () => {
   const { user } = useUsers();
   const { push } = useRouter();
-
   return (
     <div>
       {user && (
