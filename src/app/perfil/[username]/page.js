@@ -112,12 +112,12 @@ const Page = () => {
                 <div className="flex justyfy-center ">
                   <div className="w-full ">
              
-                    <div className=" mt-2 grid grid-cols-1 md:grid-cols-2   ">
+                    <div className=" mt-2 grid grid-cols-1 md:grid-cols-3   ">
                       {productos &&
                         productos.map((e, index) => (
                           <div
                             key={index}
-                            className="flex w-full  mt-5 justify-center"
+                            className="flex w-full  mt-5  justify-center"
                           >
                             <BeatCard
                               user={user}
@@ -141,7 +141,7 @@ const Page = () => {
                           </div>
                         ))}
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center ">
                       {user.videos.length > 0 && (
                         <Carousel className="w-9/12 md:w-10/12 mt-5 ">
                           <CarouselContent className="">

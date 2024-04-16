@@ -473,6 +473,15 @@ export const SliderFlip = ({ user }) => {
               </Dialog>
             </PayPalScriptProvider>
           </div>
+          <div className="flex mt-5">
+            <img
+              src="/merca.png"
+              className="w-[30px] md:w-[100px] mx-1 rounded-xl grayscale-[90%]"
+            />
+            <div className="w-[30px] md:w-[100px] bg-white mx-1 rounded-xl grayscale-[90%]">
+              <img src="/paypal.png" />
+            </div>
+          </div>
         </div>
       </SwiperSlide>
 

@@ -240,7 +240,7 @@ export const BeatCard = ({
             {genders &&
               genders.map((e, index) => (
                 <Badge
-                  className="mx-1 bg-slate-300 text-black hover:bg-slate-400"
+                  className=" bg-slate-300 text-black hover:bg-slate-400"
                   key={index}
                 >
                   {e}
@@ -322,16 +322,18 @@ export const BeatCard = ({
                           {e.title}
                         </TableCell>
                         <TableCell className="  text-center font-geist items-center tracking-tighter font-semibold ">
-
-                          <span className="text-md">
-                            {formatCurrency(e.price)} USD{" "}
-                          </span>
-
-                          {!e.priceArs||e.priceArs != 0  && (
-                          <span className="text-md">
-                          {formatCurrency(e.priceArs)} ARS{" "}
+                          <div className="flex flex-col items-center justify-center">
+                            <span className="text-md">
+                              {formatCurrency(e.price)} USD{" "}
                             </span>
-                          )}
+
+                            {!e.priceArs ||
+                              (e.priceArs != 0 && (
+                                <span className="text-md">
+                                  {formatCurrency(e.priceArs)} ARS{" "}
+                                </span>
+                              ))}
+                          </div>
                         </TableCell>
                         <TableCell className="text-center font-geist tracking-tighter font-semibold text-xl">
                           <Dialog>
