@@ -290,6 +290,7 @@ export default function Home() {
             className="w-11/12 md:w-8/12 rounded-xl shadow-xl shadow-black"
             autoPlay
             loop
+            playsInline
             muted
           />
         </div>
