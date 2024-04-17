@@ -38,8 +38,13 @@ export const TableMusic = () => {
 
   const getProducts = async () => {
     const response = await axios.get("/api/products");
-    setProducts(response.data.data.filter((e) => user.username == e.owner));
+    setProducts(
+      response.data.data.filter(
+        (e) => user.username == e.owner || user._id == e.owner
+      )
+    );
   };
+
   useEffect(() => {
     user && getProducts();
   }, [user]);

@@ -63,21 +63,21 @@ export const ProductForm = ({ product }) => {
           title: "Licencia Estándar",
           description:
             "Esta licencia permite la grabación y distribución de música con el derecho a producir hasta 3,000 copias físicas y 300,000 transmisiones de audio en línea. Incluye también la creación de un video musical, derechos de transmisión en radio sin límites de estaciones, y la posibilidad de realizar actuaciones en vivo con fines de lucro. Ideal para artistas y productores que buscan ampliar su presencia en el mercado y maximizar el alcance de su música.",
-          price: 0,
+          price: 1,
           priceArs: 0,
         },
         {
           title: "Licencia Premium",
           description:
             "Esta licencia autoriza la grabación y distribución de música, permitiendo hasta 5,000 copias físicas y 500,000 transmisiones de audio en línea. Además, se incluye la producción de un vídeo musical y derechos ilimitados para transmisiones de radio. También se permite la realización de actuaciones en vivo con fines de lucro, brindando una amplia libertad para maximizar la visibilidad y rentabilidad del trabajo musical.",
-          price: 0,
+          price: 1,
           priceArs: 0,
         },
         {
           title: "Licencia VIP",
           description:
             "Esta licencia ofrece derechos ilimitados para la grabación y distribución de música, permitiendo la producción y distribución de un número ilimitado de copias físicas y transmisiones de audio en línea. Incluye la creación de vídeos musicales sin restricciones y derechos de transmisión en radio a través de estaciones ilimitadas. Además, autoriza la realización de actuaciones en vivo con fines de lucro, proporcionando una libertad total para maximizar el alcance y los ingresos del contenido musical.",
-          price: 0,
+          price: 1,
           priceArs: 0,
         },
       ],
@@ -159,21 +159,21 @@ export const ProductForm = ({ product }) => {
       title: "Licencia Estándar",
       description:
         "Esta licencia permite la grabación y distribución de música con el derecho a producir hasta 3,000 copias físicas y 300,000 transmisiones de audio en línea. Incluye también la creación de un video musical, derechos de transmisión en radio sin límites de estaciones, y la posibilidad de realizar actuaciones en vivo con fines de lucro. Ideal para artistas y productores que buscan ampliar su presencia en el mercado y maximizar el alcance de su música.",
-      price: 0,
+      price: 1,
       priceArs: 0,
     },
     {
       title: "Licencia Premium",
       description:
         "Esta licencia autoriza la grabación y distribución de música, permitiendo hasta 5,000 copias físicas y 500,000 transmisiones de audio en línea. Además, se incluye la producción de un vídeo musical y derechos ilimitados para transmisiones de radio. También se permite la realización de actuaciones en vivo con fines de lucro, brindando una amplia libertad para maximizar la visibilidad y rentabilidad del trabajo musical.",
-      price: 0,
+      price: 1,
       priceArs: 0,
     },
     {
       title: "Licencia VIP",
       description:
         "Esta licencia ofrece derechos ilimitados para la grabación y distribución de música, permitiendo la producción y distribución de un número ilimitado de copias físicas y transmisiones de audio en línea. Incluye la creación de vídeos musicales sin restricciones y derechos de transmisión en radio a través de estaciones ilimitadas. Además, autoriza la realización de actuaciones en vivo con fines de lucro, proporcionando una libertad total para maximizar el alcance y los ingresos del contenido musical.",
-      price: 0,
+      price: 1,
       priceArs: 0,
     },
   ];
@@ -211,6 +211,14 @@ export const ProductForm = ({ product }) => {
   const onSubmit = async (data) => {
     if (!acceptTerms) {
       showAlert("Debes aceptar los terminos y condiciones", "", <></>);
+      return;
+    }
+    if (data.price < 1 || data.priceArs < 1) {
+      showAlert(
+        "El precio en USD no puede ser igual o menor que 0 ",
+        "",
+        <></>
+      );
       return;
     }
 
