@@ -115,13 +115,11 @@ export const RegisterForm = () => {
 
 
     const originalName = selectedImage.name;
-
     const extension = originalName.split(".").pop();
-
-    const fileName = `${username}-${Date.now()}.${extension}`;
-
+    const fileName = `${username}.${extension}`;
+    
     const imageFormData = new FormData();
-    imageFormData.append("username", fileName);
+    imageFormData.append("username", fileName);  // Changed from "username" to "fileName"
     imageFormData.append("file", selectedImage);
 
     try {

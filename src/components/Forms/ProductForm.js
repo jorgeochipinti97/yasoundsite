@@ -213,14 +213,7 @@ export const ProductForm = ({ product }) => {
       showAlert("Debes aceptar los terminos y condiciones", "", <></>);
       return;
     }
-    if (data.price < 1 || data.priceArs < 1) {
-      showAlert(
-        "El precio en USD no puede ser igual o menor que 0 ",
-        "",
-        <></>
-      );
-      return;
-    }
+
 
     try {
       if (!product || !product.file || !product.file.url) {
@@ -611,26 +604,30 @@ export const ProductForm = ({ product }) => {
                         Precio en USD
                       </p>
                       <Input
-                        type="number"
-                        {...register(`licenses.${index}.price`, {
-                          setValueAs: (value) =>
-                            value === "" ? null : parseFloat(value),
-                        })}
-                        placeholder="Price USD"
-                        className="my-2"
-                      />
+  type="number"
+  min="0" // Ensures the input cannot be negative
+  {...register(`licenses.${index}.price`, {
+    setValueAs: (value) =>
+      value === "" ? null : parseFloat(value),
+    validate: value => value >= 0 // Additional validation rule
+  })}
+  placeholder="Price USD"
+  className="my-2"
+/>
                       <p className="font-geist tracking-tighter font-bold text-xl mt-5">
                         Precio en ARS
                       </p>
                       <Input
-                        type="number"
-                        {...register(`licenses.${index}.priceArs`, {
-                          setValueAs: (value) =>
-                            value === "" ? null : parseFloat(value),
-                        })}
-                        placeholder="Price ARS"
-                        className="my-2"
-                      />
+  type="number"
+  min="0" // Ensures the input cannot be negative
+  {...register(`licenses.${index}.priceArs`, {
+    setValueAs: (value) =>
+      value === "" ? null : parseFloat(value),
+    validate: value => value >= 0 // Additional validation rule
+  })}
+  placeholder="Price ARS"
+  className="my-2"
+/>
                       <Button
                         variant="destructive"
                         type="button"
