@@ -244,7 +244,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className=" border-2min-h-screen w-screen flex items-start md:items-center flex-col justify-start md:mb-10 relative">
+      <div className=" border-2min-h-screen w-full flex items-start md:items-center flex-col justify-start md:mb-10 relative">
         <p className="text-5xl font-semibold text-center tracking-tighter mt-10 md:mt-0 md:mb-5">
           Creá, generá y revolucioná
         </p>
@@ -324,7 +324,7 @@ export default function Home() {
           Sonidos exclusivos
         </Badge>
       </div>
-      <div className="min-h-screen w-screen ">
+      <div className="min-h-screen w-full ">
         <p
           className="text-center tracking-tighter   text-5xl md:text-7xl mt-10  md:mt-32   mb-5 md:mb-10 font-bold text-black"
           style={{
@@ -421,7 +421,7 @@ export default function Home() {
           </Button>
         </div>
 
-        <div className=" w-screen">
+        <div className=" w-full">
           <p className="text-center font-bold text-5xl mt-10 font-geist tracking-tighter">
             Membresias
           </p>
