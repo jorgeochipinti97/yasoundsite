@@ -140,7 +140,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="md:hidden fixed bottom-16  z-50 w-fit">
+      <section className="md:hidden border-2  fixed bottom-16  overflow-hidden  z-50 w-fit">
         {!user && (
           <div className="w-6/12 ">
             <Link href={"/login"}>
@@ -152,8 +152,8 @@ export default function Home() {
         )}
       </section>
       <div
-        className="min-h-screen flex justify-center
-       items-center flex-col w-screen bg-white"
+        className="min-h-screen flex justify-center 
+       items-center flex-col  bg-white"
         style={{ opacity: 1 }}
       >
         <p
@@ -168,7 +168,6 @@ export default function Home() {
         >
           La comunidad latina de artistas.
         </p>
-        
 
         <img src="/logoblack.svg" className="w-[40%] logoblack" />
         <div
@@ -244,7 +243,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className=" border-2min-h-screen w-full flex items-start md:items-center flex-col justify-start md:mb-10 relative">
+      <div className=" border-2min-h-screen max-w-screen flex items-start md:items-center flex-col justify-start md:mb-10 relative">
         <p className="text-5xl font-semibold text-center tracking-tighter mt-10 md:mt-0 md:mb-5">
           Creá, generá y revolucioná
         </p>
@@ -324,7 +323,7 @@ export default function Home() {
           Sonidos exclusivos
         </Badge>
       </div>
-      <div className="min-h-screen w-full ">
+      <div className="min-h-screen max-w-screen ">
         <p
           className="text-center tracking-tighter   text-5xl md:text-7xl mt-10  md:mt-32   mb-5 md:mb-10 font-bold text-black"
           style={{
@@ -335,7 +334,7 @@ export default function Home() {
         </p>
 
         {beats_ && (
-          <div className=" ">
+          <div className="max-w-screen ">
             <SliderCoverflow beats={beats_} />
           </div>
         )}
@@ -425,7 +424,7 @@ export default function Home() {
           <p className="text-center font-bold text-5xl mt-10 font-geist tracking-tighter">
             Membresias
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 max-w-screen mt-10">
             <div className="flex justify-center">
               <div class=" bg-gray-50 border md:mt-0  md:w-10/12 w-11/12 border-black p-8 rounded-xl">
                 <p className="font-bold  text-black text-center  tracking-tighter text-3xl">
@@ -848,8 +847,8 @@ export default function Home() {
         <p className="text-center text-7xl my-10 font-bold tracking-tighter font-geist">
           FAQS
         </p>
-        <div className="w-12/12 flex flex-col items-center">
-          <div className="w-10/12 md:w-6/12">
+        <div className="max-w-screen flex flex-col items-center">
+          <div className="max-w-10/12 md:w-6/12">
             <AccordionComponent
               question={"¿Qué es Yasound y cómo funciona?"}
               answer={
@@ -913,7 +912,7 @@ export default function Home() {
           <p className="text-center text-3xl font-bold mt-20  text-gray-600 tracking-tighter font-geist">
             Confian en nosotros
           </p>
-          <Marquee autoFill direction="right">
+          <Marquee autoFill direction="right" className="max-w-screen">
             <div className="flex justify-center mx-2">
               <img src="/lider2.jpeg" />
             </div>

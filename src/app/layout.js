@@ -19,7 +19,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body>
+      <body className="max-w-screen">
         <SessionProvider session={session}>
           <Navbar />
           {children}

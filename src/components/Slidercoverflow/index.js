@@ -46,7 +46,7 @@ export const SliderCoverflow = ({ beats }) => {
         disableOnInteraction: false,
       }}
       modules={[EffectCoverflow, Autoplay]}
-      className="mySwiper w-12/12 py-10"
+      className="mySwiper max-w-screen py-10"
 
       onSlideChange={() => console.log('slide change')}
 
