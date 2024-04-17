@@ -214,13 +214,13 @@ export const ProductForm = ({ product }) => {
       return;
     }
 
-
     try {
       if (!product || !product.file || !product.file.url) {
         if (!selectedFile) {
           alert("Por favor, selecciona un archivo primero.");
           return;
         }
+
         setIsLoading(true);
         showAlert(
           "Estamos procesando la carga del Beat",
@@ -263,8 +263,8 @@ export const ProductForm = ({ product }) => {
             image: imageUrl_,
             owner: user._id,
           };
+
           const createProduct = await axios.post("/api/products", productData);
-          createProduct && setIsLoading(true);
           createProduct &&
             gsap.to(".pantallacarga", {
               opacity: 0,
@@ -390,10 +390,6 @@ export const ProductForm = ({ product }) => {
   }, [product, reset]);
 
   useEffect(() => {
-    isLoading &&
-      gsap.to(".pantallacarga", {
-        display: "block",
-      });
     isLoading &&
       gsap.to(".pantallacarga", {
         display: "block",
@@ -604,30 +600,30 @@ export const ProductForm = ({ product }) => {
                         Precio en USD
                       </p>
                       <Input
-  type="number"
-  min="0" // Ensures the input cannot be negative
-  {...register(`licenses.${index}.price`, {
-    setValueAs: (value) =>
-      value === "" ? null : parseFloat(value),
-    validate: value => value >= 0 // Additional validation rule
-  })}
-  placeholder="Price USD"
-  className="my-2"
-/>
+                        type="number"
+                        min="0" // Ensures the input cannot be negative
+                        {...register(`licenses.${index}.price`, {
+                          setValueAs: (value) =>
+                            value === "" ? null : parseFloat(value),
+                          validate: (value) => value >= 0, // Additional validation rule
+                        })}
+                        placeholder="Price USD"
+                        className="my-2"
+                      />
                       <p className="font-geist tracking-tighter font-bold text-xl mt-5">
                         Precio en ARS
                       </p>
                       <Input
-  type="number"
-  min="0" // Ensures the input cannot be negative
-  {...register(`licenses.${index}.priceArs`, {
-    setValueAs: (value) =>
-      value === "" ? null : parseFloat(value),
-    validate: value => value >= 0 // Additional validation rule
-  })}
-  placeholder="Price ARS"
-  className="my-2"
-/>
+                        type="number"
+                        min="0" // Ensures the input cannot be negative
+                        {...register(`licenses.${index}.priceArs`, {
+                          setValueAs: (value) =>
+                            value === "" ? null : parseFloat(value),
+                          validate: (value) => value >= 0, // Additional validation rule
+                        })}
+                        placeholder="Price ARS"
+                        className="my-2"
+                      />
                       <Button
                         variant="destructive"
                         type="button"
@@ -687,7 +683,7 @@ export const ProductForm = ({ product }) => {
 
               <div className="mt-10">
                 <div className="mt-5">
-                  <Button type="submit" disabled={isLoading}>
+                  <Button type="submit" disabled={isLoading || !acceptTerms}>
                     <svg
                       width={20}
                       className="mr-2"
