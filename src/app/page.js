@@ -294,14 +294,14 @@ export default function Home() {
             muted
           />
         </div>
-      </div>
-      <div className="flex mt-10 flex-col items-center md:mt-0 ">
-        <p className="font-geist mb-2 font-bold text-4xl  tracking-tighter ">
-          {" "}
-          Resultado
-        </p>
+        <div className="flex  flex-col items-center md:mt-20 mt-10 w-full justify-center  ">
+          <p className="font-geist mb-2 font-bold text-4xl  tracking-tighter ">
+            {" "}
+            Resultado
+          </p>
 
-        <audio src="/track.wav" controls />
+          <audio src="/track.wav" controls />
+        </div>
       </div>
       <div className="flex justify-around mt-5 md:hidden flex-wrap">
         <Badge className=" bg-yellow-300  m-1 text-black hover:bg-yellow-500  rounded-xl h-fit tracking-tighter  text-2xl border-2 border-yellow-500 font-semibold font-geist">
@@ -421,7 +421,7 @@ export default function Home() {
         </div>
 
         <div className=" w-full">
-          <p className="text-center font-bold text-5xl mt-10 font-geist tracking-tighter">
+          <p className="text-center font-bold md:text-7xl text-5xl mt-20 font-geist tracking-tighter">
             Membresias
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 max-w-screen mt-10">
