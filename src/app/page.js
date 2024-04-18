@@ -140,7 +140,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="md:hidden border-2  fixed bottom-16  overflow-hidden  z-50 w-fit">
+      <section className="md:hidden   fixed bottom-16  overflow-hidden  z-50 w-fit">
         {!user && (
           <div className="w-6/12 ">
             <Link href={"/login"}>
@@ -243,7 +243,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className=" border-2min-h-screen max-w-screen flex items-start md:items-center flex-col justify-start md:mb-10 relative">
+      <div className=" min-h-screen max-w-screen flex items-start md:items-center flex-col justify-start md:mb-10 relative">
         <p className="text-5xl font-semibold text-center tracking-tighter mt-10 md:mt-0 md:mb-5">
           Creá, generá y revolucioná
         </p>
