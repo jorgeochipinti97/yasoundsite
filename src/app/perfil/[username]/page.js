@@ -36,7 +36,7 @@ const Page = () => {
     data &&
       setProductos(
         data.data.data.filter(
-          (e) => e.owner == user.username || e.owner == user._id
+          (e) => e.owner.toLowerCase() == user.username.toLowerCase() || e.owner == user._id
         )
       );
   };
@@ -119,7 +119,7 @@ const Page = () => {
                             key={index}
                             className="flex w-full  mt-5  justify-center"
                           >
-                            <BeatCard
+                            <BeatC.toLowerCase()ard
                               user={user}
                               name={e.title}
                               price={
