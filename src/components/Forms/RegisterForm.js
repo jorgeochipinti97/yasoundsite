@@ -91,25 +91,29 @@ export const RegisterForm = () => {
       setErrorMessage(
         "El nombre de usuario solo puede contener letras, números, guiones y guiones bajos."
       );
+      setIsLoading(false)
       return;
     }
 
     if (!acceptTerms) {
       setErrorMessage("Debes aceptar los términos y condiciones.");
+      setIsLoading(false)
       return;
     }
-
+    
     if (!isNewUser(email, username, users)) {
       setErrorMessage("Email o usuario ya existente.");
+      setIsLoading(false)
       return;
     }
-
+    
     if (!selectedImage) {
       setErrorMessage("Por favor, selecciona una imagen para el perfil.");
+      setIsLoading(false)
       return;
     }
     if (!country) {
-      setErrorMessage("Por favor, selecciona una imagen para el perfil.");
+      setErrorMessage("Por favor, selecciona un país.");
       return;
     }
 
