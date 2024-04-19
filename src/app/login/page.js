@@ -34,7 +34,7 @@ const Page = () => {
   }, [status]);
 
   useEffect(() => {
-    // session && push("/");
+    session && push("/");
   }, [session]);
 
   const handleSubmit = async (event) => {
@@ -162,8 +162,8 @@ const Page = () => {
                       instrucciones para restaurarla.
                     </AlertDialogDescription>
                     <Input
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="email"
+                      onChange={(e) => setEmail(e.target.value.toLowerCase())}
+                      placeholder="Email"
                       className="mt-5"
                     />
                   </AlertDialogHeader>
