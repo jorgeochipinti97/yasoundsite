@@ -36,7 +36,9 @@ const Page = () => {
     data &&
       setProductos(
         data.data.data.filter(
-          (e) => e.owner.toLowerCase() == user.username.toLowerCase() || e.owner == user._id
+          (e) =>
+            e.owner.toLowerCase() == user.username.toLowerCase() ||
+            e.owner == user._id
         )
       );
   };
@@ -80,7 +82,6 @@ const Page = () => {
                   {user.bio && (
                     <CardContent className="flex items-start font-semibold tracking-tighter font-geist">
                       <svg
-
                         className="mr-2 w-[60px]"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
@@ -111,7 +112,6 @@ const Page = () => {
               <div className="flex-1 flex justify-start   flex-col pb-10">
                 <div className="flex justyfy-center ">
                   <div className="w-full ">
-             
                     <div className=" mt-2 grid grid-cols-1 md:grid-cols-3   ">
                       {productos &&
                         productos.map((e, index) => (
@@ -119,7 +119,7 @@ const Page = () => {
                             key={index}
                             className="flex w-full  mt-5  justify-center"
                           >
-                            <BeatC.toLowerCase()ard
+                            <BeatCard
                               user={user}
                               name={e.title}
                               price={
