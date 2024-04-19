@@ -22,7 +22,7 @@ export function useUsers(query) {
           setUser(userByEmail);
         }
         if (query) {
-          const userByQuery = data.data.find((e) => e.username === query || e._id == query);
+          const userByQuery = data.data.find((e) => e.username.toLowerCase() === query.toLowerCase() || e._id == query);
           setUserByQuery(userByQuery);
         }
       } catch (err) {
