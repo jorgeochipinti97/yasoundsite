@@ -29,7 +29,7 @@ import ReactPlayer from "react-player";
 
 const Page = () => {
   const params = useParams();
-  const { user } = useUsers(params.username);
+  const { user } = useUsers(params.username.toLowerCase());
   const [productos, setProductos] = useState([]);
   const getBeats = async () => {
     const data = await axios.get("/api/products");

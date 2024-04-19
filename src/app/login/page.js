@@ -45,7 +45,7 @@ const Page = () => {
 
     const result = await signIn("credentials", {
       redirect: false,
-      email: email,
+      email: email.toLowerCase(),
       password: password,
     });
     result.error && setIsError(true);
