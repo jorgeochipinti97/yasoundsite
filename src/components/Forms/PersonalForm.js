@@ -41,9 +41,18 @@ export const PersonalForm = ({ user }) => {
   const authorizationUrl = `https://auth.mercadopago.com/authorization?client_id=4632397606638218&response_type=code&platform_id=mp&state=12312312&redirect_uri=${redirectUri}`;
 
   useEffect(() => {
-    user && setValue("genders", user.genders);
-    user && setSelectedGenders(user.genders);
-  }, [user]);
+    if (user) {
+      setValue("email", user.email);
+      setValue("name", user.name);
+      setValue("username", user.username);
+      setValue("phone", user.phone);
+      setValue("role", user.role);
+      setValue("country", user.country);
+      setValue("profilePicture", user.profilePicture);
+      setValue("genders", user.genders);
+      setSelectedGenders(user.genders);
+    }
+  }, [user, setValue]);
 
   const handleSelectChange = (selectedValue) => {
     let newSelection = [...selectedGenders];
@@ -84,7 +93,6 @@ export const PersonalForm = ({ user }) => {
   };
   const inputFileRef = useRef(null);
 
-
   const handleClick = () => {
     inputFileRef.current.click();
   };
@@ -92,12 +100,12 @@ export const PersonalForm = ({ user }) => {
     try {
       const file = event.target.files[0];
       if (!file) {
-        alert("No file selected.");
+        alert("Selecciona por favor una iamgen.");
         return;
       }
 
       if (!user.username) {
-        alert("You need to be logged in to change your profile image.");
+        alert("Necesitas un username");
         return;
       }
 
@@ -124,7 +132,6 @@ export const PersonalForm = ({ user }) => {
           </svg>
         );
       setValue("profilePicture", response.data.fileUrl);
-
     } catch (error) {
       console.error(error);
     }
@@ -142,15 +149,7 @@ export const PersonalForm = ({ user }) => {
     // Actualizar el valor en React Hook Form
     setValue("genders", newSelectedGenders, { shouldValidate: true });
   };
-  useEffect(() => {
-    user && user && setValue("email", user.email);
-    user && user.name && setValue("name", user.name);
-    user && user.username && setValue("username", user.username);
-    user && user.phone && setValue("phone", user.phone);
 
-    user && user.phone && setValue("role", user.role);
-    user && user.phone && setValue("country", user.country);
-  }, [user]);
   return (
     <ScrollArea className="h-[60vh] md:h-[80vh] flex justify-center flex-col items-center rounded-md  px-1-">
       <div className="flex flex-col justify-center items-center">
