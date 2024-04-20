@@ -9,7 +9,7 @@ import {
 
 export const AccordionComponent = ({ question, answer }) => {
   return (
-    <Accordion type="single" collapsible>
+    <Accordion type="single" collapsible className="w-10/12">
       <AccordionItem value="item-1">
         <AccordionTrigger className="font-geist text-xl font-bold text-start tracking-tighter">
           {question}

@@ -29,7 +29,7 @@ export const RegisterForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [country, setcountry] = useState("");
+  const [country, setCountry] = useState("");
   const inputFileRef = useRef(null);
   const [selectedGenders, setSelectedGenders] = useState([]);
 
@@ -91,25 +91,25 @@ export const RegisterForm = () => {
       setErrorMessage(
         "El nombre de usuario solo puede contener letras, números, guiones y guiones bajos."
       );
-      setIsLoading(false)
+      setIsLoading(false);
       return;
     }
 
     if (!acceptTerms) {
       setErrorMessage("Debes aceptar los términos y condiciones.");
-      setIsLoading(false)
+      setIsLoading(false);
       return;
     }
-    
+
     if (!isNewUser(email, username, users)) {
       setErrorMessage("Email o usuario ya existente.");
-      setIsLoading(false)
+      setIsLoading(false);
       return;
     }
-    
+
     if (!selectedImage) {
       setErrorMessage("Por favor, selecciona una imagen para el perfil.");
-      setIsLoading(false)
+      setIsLoading(false);
       return;
     }
     if (!country) {
@@ -117,13 +117,12 @@ export const RegisterForm = () => {
       return;
     }
 
-
     const originalName = selectedImage.name;
     const extension = originalName.split(".").pop();
     const fileName = `${username}.${extension}`;
-    
+
     const imageFormData = new FormData();
-    imageFormData.append("username", fileName);  // Changed from "username" to "fileName"
+    imageFormData.append("username", fileName); // Changed from "username" to "fileName"
     imageFormData.append("file", selectedImage);
 
     try {
@@ -179,7 +178,7 @@ export const RegisterForm = () => {
           style={{ display: "none" }}
           accept="image/*" // Asegura que solo se puedan seleccionar imágenes
         />
-        
+
         <div className="flex justify-center">
           <img src="/logo.png" className="w-[20vw] md:w-[10vw]" />
         </div>
@@ -227,7 +226,7 @@ export const RegisterForm = () => {
               />
 
               <div className="flex justify-center">
-                <Select className="my-2" onValueChange={(e) => setcountry(e)}>
+                <Select className="my-2" onValueChange={(e) => setCountry(e)} required>
                   <SelectTrigger className="">
                     <SelectValue placeholder="Elige tu país" />
                   </SelectTrigger>
@@ -290,9 +289,12 @@ export const RegisterForm = () => {
                     </svg>{" "}
                     Sube una foto de perfil
                   </Button>
-
                 </div>
-                  {selectedImage && <span className="mt-2 font-geist font-bold tracking-tighter">Imagen cargada con éxito</span>}
+                {selectedImage && (
+                  <span className="mt-2 font-geist font-bold tracking-tighter">
+                    Imagen cargada con éxito
+                  </span>
+                )}
               </div>
               <div>
                 {selectedGenders.map((e, index) => (
