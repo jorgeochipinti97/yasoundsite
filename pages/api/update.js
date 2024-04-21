@@ -1,5 +1,5 @@
 import { connectDB } from '@/lib/database';
-import Waitlist from '@/models/Waitlist';
+import Product from '@/models/Product';
 import User from '@/models/User';
 
 export default async function handler(req, res) {
@@ -9,52 +9,38 @@ export default async function handler(req, res) {
 
     try {
         await connectDB();
-        // const waitlistUsers = await Waitlist.find({});
+        const beats = await Product.find({});
 
-        // const results = await Promise.all(waitlistUsers.map(async (waitlistUser) => {
-        //     const baseUsername = waitlistUser.nombre.trim().replace(/\s+/g, '');
-        //     const newUsername = await generateUniqueUsername(baseUsername);
+        // const results = await Promise.allSettled(beats.map(async (beat) => {
+        //     try {
+        //         // Encuentra el usuario por username almacenado en 'owner'
+        //         const user = await User.findOne({ username: beat.owner });
+        //         if (!user) {
+        //             throw new Error(`No se encontró un usuario con el username ${beat.owner}.`);
+        //         }
 
-        //     // Actualizar el usuario en la base de datos de usuarios
-        //     const updatedUser = await User.findOneAndUpdate(
-        //         { email: waitlistUser.email }, // Localizar por email
-        //         { username: newUsername }, // Establecer el nuevo username
-        //         { new: true } // Devolver el documento actualizado
-        //     );
-
-        //     if (!updatedUser) {
-        //         return { message: `No se encontró un usuario con el email ${waitlistUser.email}.` };
+        //         // Actualizar el 'owner' con el '_id' del usuario encontrado
+        //         return await Product.findOneAndUpdate(
+        //             { _id: beat._id },
+        //             { owner: user._id },
+        //             { new: true }
+        //         );
+        //     } catch (error) {
+        //         return { error: error.message, beatId: beat._id };
         //     }
-
-        //     return updatedUser;
         // }));
 
-        // res.status(200).json({ message: 'Usuarios actualizados correctamente', data: results });
+        // // Filtrar resultados exitosos y errores para una mejor respuesta
+        // const successfulUpdates = results.filter(result => result.status === 'fulfilled').map(r => r.value);
+        // const failedUpdates = results.filter(result => result.status === 'rejected').map(r => r.reason);
+
+        // res.status(200).json({
+        //     message: 'Proceso completado con resultados de actualizaciones',
+        //     successfulUpdates: successfulUpdates,
+        //     failedUpdates: failedUpdates
+        // });
     } catch (error) {
-        console.error('Error updating users:', error);
-        res.status(500).json({ message: 'Failed to update users', error: error.message });
-    }
-}
-
-async function generateUniqueUsername(baseUsername) {
-    let uniqueUsername = baseUsername;
-    let counter = 1;
-
-    while (true) {
-        try {
-            const existingUser = await User.findOne({ username: uniqueUsername });
-            if (!existingUser) {
-                return uniqueUsername; // Si no existe, es único
-            }
-            uniqueUsername = `${baseUsername}${counter}`; // Incrementa si existe
-            counter++;
-        } catch (error) {
-            if (error.code === 11000) { // Captura el error de duplicado
-                uniqueUsername = `${baseUsername}${counter}`;
-                counter++;
-                continue; // Continúa intentando
-            }
-            throw error; // Re-lanza si es un error diferente
-        }
+        console.error('Error during the updating process:', error);
+        res.status(500).json({ message: 'Failed to update beats', error: error.message });
     }
 }

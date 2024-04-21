@@ -3,14 +3,14 @@
 import { BeatCard } from "@/components/Cards/BeatCard";
 import { Input } from "@/components/ui/input";
 import { useBeats } from "@/hooks/useBeats";
+import { useUsers } from "@/hooks/useUsers";
 import React, { useEffect, useState } from "react";
 
 const Page = () => {
   const [query, setQuery] = useState();
   const { beats } = useBeats();
   const [products, setProducts] = useState([]);
-
-  // Actualizar los productos filtrados cuando los beats o la query cambian
+  const { users } = useUsers();
   useEffect(() => {
     onQueryChange(query);
   }, [query]);
@@ -21,7 +21,7 @@ const Page = () => {
 
   const onQueryChange = (query) => {
     if (!query) {
-      setProducts(beats); // Si no hay consulta, muestra todos los beats.
+      setProducts(beats);
       return;
     }
 
@@ -29,14 +29,18 @@ const Page = () => {
 
     // Filtra los beats basándose en el propietario, los géneros y el título.
     const filteredBeats = beats.filter((beat) => {
-      const ownerMatches = beat.owner.toLowerCase().includes(queryLower);
-      const genreMatches = beat.genders.some((gender) =>
-        gender.toLowerCase().includes(queryLower)
-      );
-      const titleMatches = beat.title.toLowerCase().includes(queryLower);
+      if (users) {
+        const user = users.find((user) => user._id === beat.owner);
+        const ownerUsernameLower = user ? user.username.toLowerCase() : "";
 
-      // Retorna true si cualquiera de las condiciones se cumple
-      return ownerMatches || genreMatches || titleMatches;
+        const ownerMatches = ownerUsernameLower.includes(queryLower);
+        const genreMatches = beat.genders.some((gender) =>
+          gender.toLowerCase().includes(queryLower)
+        );
+        const titleMatches = beat.title.toLowerCase().includes(queryLower);
+
+        return ownerMatches || genreMatches || titleMatches;
+      }
     });
 
     setProducts(filteredBeats);
