@@ -365,7 +365,7 @@ export const BeatHomeSection = ({ beats, users, user }) => {
           </div>
         </div>
       </div>
-      <p className="mt-20 text-center font-bold font-geist text-4xl md:text-7xl opacity-55">
+      <p className="mt-20 text-center font-bold font-geist text-4xl md:text-7xl opacity-55 tracking-tighter">
         Partners exclusivos{" "}
       </p>
       <div className="flex justify-center mb-20 mt-5">
