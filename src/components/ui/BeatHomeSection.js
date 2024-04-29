@@ -370,11 +370,11 @@ export const BeatHomeSection = ({ beats, users, user }) => {
       </p>
       <div className="flex justify-center mb-20 mt-5">
         <Link href={"https://urbanroosters.com/"} className=" mx-2  w-5/12 md:w-2/12">
-          <img src="/urban.jpeg" className="rounded-xl w-full animate-tilt " />
+          <img src="/urban.jpeg" className="rounded-xl w-full hover:animate-tilt " />
         </Link>
 
         <Link href={"https://fms.tv/"} className=" mx-2  w-5/12 md:w-2/12">
-          <img src="/fms.png" className="rounded-xl w-full animate-tilt" />
+          <img src="/fms.png" className="rounded-xl w-full hover:animate-tilt" />
         </Link>
       </div>
 
