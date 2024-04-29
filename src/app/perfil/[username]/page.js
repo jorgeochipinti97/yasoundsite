@@ -1,10 +1,9 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import { BeatCard } from "@/components/Cards/BeatCard";
-import { ReproductorCard } from "@/components/Cards/ReproductorCard";
 import { UserLinks } from "@/components/ui/UserLinks";
 import { WavyBackground } from "@/components/ui/Waves";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -18,13 +17,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Textarea } from "@/components/ui/textarea";
-import { useProducts } from "@/hooks/useProducts";
 
-import { useUsers } from "@/hooks/useUsers";
 import axios from "axios";
-import { useParams, usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useUsers } from "@/hooks/useUsers";
+import { useParams } from "next/navigation";
 import ReactPlayer from "react-player";
 
 const Page = () => {

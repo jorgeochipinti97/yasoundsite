@@ -13,15 +13,14 @@ import {
 import { Badge } from "../ui/badge";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
-
-
+import Link from "next/link";
 
 export const FloatMenu = () => {
   const { user } = useUsers();
   const { push } = useRouter();
   return (
     <div>
-      {user && (
+      {user ? (
         <div className="md:hidden fixed bottom-16 left-2 z-50">
           <DropdownMenu className="">
             <DropdownMenuTrigger>
@@ -99,6 +98,18 @@ export const FloatMenu = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
+      ) : (
+        <section className="md:hidden   fixed bottom-16  overflow-hidden  z-50 w-fit">
+          {!user && (
+            <div className="w-6/12 ">
+              <Link href={"/login"}>
+                <div className="">
+                  <img src="/entrar.png" />
+                </div>
+              </Link>
+            </div>
+          )}
+        </section>
       )}
     </div>
   );

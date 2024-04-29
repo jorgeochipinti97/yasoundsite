@@ -154,10 +154,12 @@ export const PersonalForm = ({ user }) => {
     <ScrollArea className="h-[60vh] md:h-[80vh] flex justify-center flex-col items-center rounded-md  px-1-">
       <div className="flex flex-col justify-center items-center">
         <AlertComponent {...alertProps} />
-        <div className="w-full flex justify-center">
-          {/* <p className="font-bold tracking-tighter ">
-            Si deseas recibir cobros por MercadoPago, conectá tu cuenta.{" "}
-          </p> */}
+        <div className="w-10/12 md:w-6/12 my-2 flex justify-start ">
+          <p className="font-bold tracking-tighter ">
+            {user && user.tokens
+              ? "Renovar credencial"
+              : " Si deseas recibir cobros por MercadoPago, conectá tu cuenta."}
+          </p>
         </div>
         {user && (
           <div className="w-10/12 md:w-6/12 my-2 flex justify-start  ">
@@ -217,7 +219,9 @@ export const PersonalForm = ({ user }) => {
                     ></path>{" "}
                   </g>
                 </svg>{" "}
-                Foto de perfil
+                {user && user.profilePicture
+                  ? "Cambiar foto de perfil"
+                  : "Foto de perfil"}
               </Button>
             </div>
           </div>

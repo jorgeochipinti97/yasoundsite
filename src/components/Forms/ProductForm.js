@@ -143,13 +143,12 @@ export const ProductForm = ({ product }) => {
 
   const handleKeyDown = (event) => {
     if (event.key === " ") {
-      // Detecta la tecla espacio
-      event.preventDefault(); // Previene la funcionalidad por defecto para no añadir un espacio real
-      let value = event.target.value.trim(); // Elimina espacios adicionales
+      event.preventDefault(); 
+      let value = event.target.value.trim(); 
       if (value) {
-        setTags([...tags, value]); // Añade la nueva etiqueta al array de etiquetas
-        setValue("tags", [...tags, value]); // Actualiza el campo en React Hook Form
-        event.target.value = ""; // Limpia el campo de entrada
+        setTags([...tags, value]); 
+        setValue("tags", [...tags, value]);
+        event.target.value = ""; 
       }
     }
   };
@@ -240,62 +239,66 @@ export const ProductForm = ({ product }) => {
         };
 
         const response = await axios.post("/api/getSigned", fileData);
-
-        const result = await axios.put(response.data.url, selectedFile, {
-          headers: {
-            "Content-Type": selectedFile.type,
-          },
-        });
-
-        const formDataImg_ = new FormData();
-        formDataImg_.append("file", selectedImg);
-        formDataImg_.append("username", user.username);
-        const responseImage = await axios.post("/api/s3", formDataImg_);
-        const imageUrl_ = responseImage.data.fileUrl;
-
-        if (result.status == 200 && imageUrl_) {
-          let productData = {
-            ...data,
-            file: {
-              url: `https://yasoundtestbucket.s3.sa-east-1.amazonaws.com/${fileName}`,
-              fileType: selectedFile.type,
+        if (response && response.data && response.data.url) {
+          await axios.put(response.data.url, selectedFile, {
+            headers: {
+              "Content-Type": selectedFile.type,
             },
-            image: imageUrl_,
-            owner: user._id,
-          };
+          });
 
-          const createProduct = await axios.post("/api/products", productData);
-          createProduct &&
-            gsap.to(".pantallacarga", {
-              opacity: 0,
-              ease: Power1.easeIn,
-            });
-          createProduct &&
-            gsap.to(".pantallacarga", {
-              display: "none",
-              delay: 1,
-            });
-          createProduct &&
-            showAlert(
-              "Éxito",
-              "Producto  actualizado con éxito",
-              <svg
-                width={25}
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
+          const formDataImg_ = new FormData();
+          formDataImg_.append("file", selectedImg);
+          formDataImg_.append("username", user.username);
+          const responseImage = await axios.post("/api/s3", formDataImg_);
+          const imageUrl_ = responseImage.data.fileUrl;
+
+          if (result.status == 200 && imageUrl_) {
+            let productData = {
+              ...data,
+              file: {
+                url: `https://yasoundtestbucket.s3.sa-east-1.amazonaws.com/${fileName}`,
+                fileType: selectedFile.type,
+              },
+              image: imageUrl_,
+              owner: user._id,
+            };
+
+            const createProduct = await axios.post(
+              "/api/products",
+              productData
             );
-          createProduct && reset();
-          createProduct && setSelectedGenders([]);
-          createProduct && setTags([]);
+            createProduct &&
+              gsap.to(".pantallacarga", {
+                opacity: 0,
+                ease: Power1.easeIn,
+              });
+            createProduct &&
+              gsap.to(".pantallacarga", {
+                display: "none",
+                delay: 1,
+              });
+            createProduct &&
+              showAlert(
+                "Éxito",
+                "Producto  actualizado con éxito",
+                <svg
+                  width={25}
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              );
+            createProduct && reset();
+            createProduct && setSelectedGenders([]);
+            createProduct && setTags([]);
+          }
         }
       } else {
         const urlParts = product.image.split("/");

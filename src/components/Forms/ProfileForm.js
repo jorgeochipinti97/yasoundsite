@@ -56,9 +56,6 @@ export const ProfileForm = () => {
   });
   const [youtubeVideos, setYoutubeVideos] = useState([]);
 
-
-
-
   const handleColorChange = (event) => {
     // Supongamos que selectedColorIndex se establece en algún lugar para indicar qué color estamos cambiando
     const newColors = [...colors];
@@ -66,8 +63,6 @@ export const ProfileForm = () => {
     setColors(newColors);
     setValue("colors", newColors); // Actualiza el valor en React Hook Form
   };
-
-
 
   useEffect(() => {
     if (user) {
@@ -194,7 +189,11 @@ export const ProfileForm = () => {
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="mx-5">
-              <div className="my-5 bg-gray-200 w-fit p-2 rounded-xl">
+              <div
+                className={`my-5 ${
+                  user.premium ? "bg-transparent" : "bg-gray-200"
+                } w-fit p-2 rounded-xl`}
+              >
                 <label className="tracking-tighter text-md font-semibold ">
                   Personaliza tus ondas
                 </label>
@@ -249,7 +248,7 @@ export const ProfileForm = () => {
                     disabled={user && user.premium ? false : true}
                     type="button"
                     onClick={addVideo} // Llama a addVideo sin necesidad de acceder directamente al DOM
-                    className="mt-2"
+                    className="mt-2 bg-black"
                   >
                     Agregar
                   </Button>
@@ -283,7 +282,13 @@ export const ProfileForm = () => {
                     Este servicio es para usuarios premium
                   </p>
                 )}
-                <div className="mt-5 bg-gray-300 rounded-xl p-3">{renderLinkInputs}</div>
+                <div
+                  className={`mt-5 ${
+                    user.premium ? "bg-transparent" : "bg-gray-200"
+                  } rounded-xl p-3`}
+                >
+                  {renderLinkInputs}
+                </div>
               </div>
             </div>
             <div className="mt-5">

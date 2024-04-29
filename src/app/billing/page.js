@@ -6,9 +6,7 @@ import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -18,9 +16,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -62,6 +58,10 @@ const Page = () => {
   useEffect(() => {
     user && getOrders();
   }, [user]);
+
+
+
+  
   return (
     <div className="min-h-screen w-screen">
       <section className="pt-20">
