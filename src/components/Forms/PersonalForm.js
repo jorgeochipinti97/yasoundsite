@@ -149,7 +149,16 @@ export const PersonalForm = ({ user }) => {
     // Actualizar el valor en React Hook Form
     setValue("genders", newSelectedGenders, { shouldValidate: true });
   };
-
+  function createSlug(username) {
+    return username
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .replace(/^-+/, '')
+      .replace(/-+$/, '');
+  }
+  
   return (
     <ScrollArea className="h-[60vh] md:h-[80vh] flex justify-center flex-col items-center rounded-md  px-1-">
       <div className="flex flex-col justify-center items-center">

@@ -368,13 +368,26 @@ export const BeatHomeSection = ({ beats, users, user }) => {
       <p className="mt-20 text-center font-bold font-geist text-4xl md:text-7xl opacity-55 tracking-tighter">
         Partners exclusivos{" "}
       </p>
+      <div className="flex justify-center w-screen">
+        <video src="/videourban.mp4" loop autoPlay playsInline muted  className="w-10/12 rounded-xl"/>
+      </div>
+      <p className="font-geist font-bold tracking-tighter text-4xl text-center mt-5">Descubrí más sobre ellos</p>
       <div className="flex justify-center mb-20 mt-5">
-        <Link href={"https://urbanroosters.com/"} className=" mx-2  w-5/12 md:w-2/12">
-          <img src="/urban.jpeg" className="rounded-xl w-full hover:animate-tilt " />
+        <Link
+          href={"https://urbanroosters.com/"}
+          className=" mx-2  w-5/12 md:w-2/12"
+        >
+          <img
+            src="/urban.jpeg"
+            className="rounded-xl w-full hover:animate-tilt "
+          />
         </Link>
 
         <Link href={"https://fms.tv/"} className=" mx-2  w-5/12 md:w-2/12">
-          <img src="/fms.png" className="rounded-xl w-full hover:animate-tilt" />
+          <img
+            src="/fms.png"
+            className="rounded-xl w-full hover:animate-tilt"
+          />
         </Link>
       </div>
 
