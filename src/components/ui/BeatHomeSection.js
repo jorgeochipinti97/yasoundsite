@@ -369,7 +369,7 @@ export const BeatHomeSection = ({ beats, users, user }) => {
         Partners exclusivos{" "}
       </p>
       <div className="flex justify-center w-screen">
-        <video src="/videourban.mp4" loop autoPlay playsInline muted  className="w-10/12 rounded-xl"/>
+        <video src="/videourban.mp4" loop autoPlay playsInline muted  className="w-10/12 rounded-xl my-5"/>
       </div>
       <p className="font-geist font-bold tracking-tighter text-4xl text-center mt-5">Descubrí más sobre ellos</p>
       <div className="flex justify-center mb-20 mt-5">
