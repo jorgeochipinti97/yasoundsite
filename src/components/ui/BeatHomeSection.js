@@ -368,29 +368,50 @@ export const BeatHomeSection = ({ beats, users, user }) => {
       <p className="mt-20 text-center font-bold font-geist text-4xl md:text-7xl opacity-55 tracking-tighter">
         Partners exclusivos{" "}
       </p>
-      <div className="flex justify-center w-screen">
-        <video src="/videourban.mp4" loop autoPlay playsInline muted  className="w-10/12 rounded-xl my-5"/>
-      </div>
-      <p className="font-geist font-bold tracking-tighter text-4xl text-center mt-5">Descubrí más sobre ellos</p>
-      <div className="flex justify-center mb-20 mt-5">
-        <Link
-          href={"https://urbanroosters.com/"}
-          className=" mx-2  w-5/12 md:w-2/12"
-        >
-          <img
-            src="/urban.jpeg"
-            className="rounded-xl w-full hover:animate-tilt "
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="flex justify-center w-full">
+          <video
+            src="/videourban.mp4"
+            loop
+            autoPlay
+            playsInline
+            muted
+            className="w-10/12 rounded-xl my-5"
           />
-        </Link>
+        </div>
+        <div className="flex items-center justify-center">
+          <div
+            className="w-full"
+            style={{ backgroundImage: "url('/fmsbackground.jpeg')" }}
+          >
+            <p className="font-geist font-bold tracking-tighter text-4xl text-center mt-5">
+              Descubrí más sobre ellos
+            </p>
+            <div className="flex justify-center mb-20 mt-5">
+              <Link
+                href={"https://urbanroosters.com/"}
+                className=" mx-2  w-5/12 md:w-2/12"
+              >
+                <img
+                  src="/urban.jpeg"
+                  className="rounded-xl w-full hover:animate-tilt "
+                />
+              </Link>
 
-        <Link href={"https://fms.tv/"} className=" mx-2  w-5/12 md:w-2/12">
-          <img
-            src="/fms.png"
-            className="rounded-xl w-full hover:animate-tilt"
-          />
-        </Link>
+              <Link
+                href={"https://fms.tv/"}
+                className=" mx-2  w-5/12 md:w-2/12"
+              >
+                <img
+                  src="/fms.png"
+                  className="rounded-xl w-full hover:animate-tilt"
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
-
+   
       <div
         className="flex items-center md:flex-row py-10 flex-col justify-around mt-10 rounded-t-xl"
         style={{

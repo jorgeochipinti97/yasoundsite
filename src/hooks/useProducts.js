@@ -8,8 +8,6 @@ export function useProducts() {
   const fetchData = async () => {
     try {
       const data = await axios.get("/api/products");
-      console.log(data);
-      console.log('hola');
     } catch (err) {
       console.error("Failed to fetch products:", err);
     }
