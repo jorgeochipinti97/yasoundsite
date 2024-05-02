@@ -501,24 +501,7 @@ export const BeatHomeSection = ({ beats, users, user }) => {
                 </svg>
                 Asesoramiento y Recursos
               </li>
-              <li className="font-semibold text-white my-2 flex">
-                <svg
-                  className="mr-2 "
-                  width={20}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="#f5f5f7"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17 5L8 15l-5-4"
-                  ></path>
-                </svg>
-                Perfil Avanzado
-              </li>
+      
               <li className="font-semibold text-white my-2 flex">
                 <svg
                   className="mr-2 "
