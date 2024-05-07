@@ -7,12 +7,56 @@ import { Separator } from "@/components/ui/separator";
 import { useBeats } from "@/hooks/useBeats";
 import { useUsers } from "@/hooks/useUsers";
 import React, { useEffect, useState } from "react";
+import * as XLSX from "xlsx";
 
 const Page = () => {
   const [query, setQuery] = useState();
   const { beats, popularGenres } = useBeats();
 
   const { users } = useUsers();
+
+  // useEffect(() => {
+  //   const filteredUsers =
+  //     users &&
+  //     users.filter((user) => user.products.length === 0);
+
+  //   const exportToExcel = () => {
+  //     // Ajusta los datos para incluir solo los campos que necesitas
+  //     const adjustedData = filteredUsers.map((user) => ({
+  //       mail: user.email,
+  //       username: user.username,
+  //       name: user.name,
+  //       phone: user.phone,
+  //       country: user.country,
+  //     }));
+
+  //     const worksheet = XLSX.utils.json_to_sheet(adjustedData);
+  //     const workbook = XLSX.utils.book_new();
+  //     XLSX.utils.book_append_sheet(workbook, worksheet, "Usuarios");
+  //     const excelBuffer = XLSX.write(workbook, {
+  //       bookType: "xlsx",
+  //       type: "array",
+  //     });
+  //     const dataBlob = new Blob([excelBuffer], {
+  //       type: "application/octet-stream",
+  //     });
+  //     const fileName = "usuarios.xlsx";
+  //     const link = document.createElement("a");
+  //     link.href = URL.createObjectURL(dataBlob);
+  //     link.download = fileName;
+  //     link.click();
+  //   };
+
+  //   // Llama a la función para exportar a Excel cuando cambie el conjunto de datos
+  //   if (filteredUsers && filteredUsers.length > 0) {
+  //     exportToExcel();
+  //   }
+
+  //   // Llama a la función para exportar a Excel cuando cambie el conjunto de datos
+  //   if (filteredUsers && filteredUsers.length > 0) {
+  //     exportToExcel();
+  //   }
+  // }, [users]);
 
   return (
     <>
@@ -64,7 +108,7 @@ const Page = () => {
           {popularGenres &&
             popularGenres.map((e) => (
               <div key={e.genre} className="mt-10">
-                <Separator className='my-5'/>
+                <Separator className="my-5" />
                 <p className="ml-5 text-3xl font-semibold tracking-tighter ">
                   {e.genre.toUpperCase()}
                 </p>

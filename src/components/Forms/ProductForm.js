@@ -313,7 +313,7 @@ export const ProductForm = ({ product }) => {
 
         imageUrl_ &&
           showAlert(
-            "Imagen de perfil actualizada con éxito",
+            "Imagen actualizada con éxito",
             "¡Gracias por confiar en nosotros!",
             <svg
               width={25}
@@ -341,6 +341,7 @@ export const ProductForm = ({ product }) => {
         };
 
         const response = await axios.put("/api/products", productData);
+        
         response &&
           gsap.to(".pantallacarga", {
             opacity: 0,
@@ -369,15 +370,18 @@ export const ProductForm = ({ product }) => {
               ></path>
             </svg>
           );
+          response && setIsLoading(false);
         response.data.data._id &&
           (await axios.put("/api/users", {
             _id: user._id,
-            products: [...user.products, response.data._di],
+            products: [...user.products, response.data._id],
           }));
       }
     } catch (er) {
       console.log(er);
       showAlert("Error", "Hubo un problema al procesar tu solicitud.", <></>);
+      setIsLoading(false);
+
     }
   };
   useEffect(() => {
