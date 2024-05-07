@@ -252,7 +252,7 @@ export const ProductForm = ({ product }) => {
           const responseImage = await axios.post("/api/s3", formDataImg_);
           const imageUrl_ = responseImage.data.fileUrl;
 
-          if (result.status == 200 && imageUrl_) {
+          if (response && imageUrl_) {
             let productData = {
               ...data,
               file: {
@@ -341,7 +341,7 @@ export const ProductForm = ({ product }) => {
         };
 
         const response = await axios.put("/api/products", productData);
-        
+
         response &&
           gsap.to(".pantallacarga", {
             opacity: 0,
