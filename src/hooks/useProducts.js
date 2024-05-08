@@ -13,7 +13,6 @@ export function useProducts() {
     }
   }
 
-
   useEffect(() => {
     fetchData();
   }, []);

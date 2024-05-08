@@ -29,14 +29,28 @@ const Page = () => {
   const [productos, setProductos] = useState([]);
   const getBeats = async () => {
     const data = await axios.get("/api/products");
-    data &&
-      setProductos(
+    const productosNoPremium = data.data.data.filter(
+      (e) =>
+        e.owner.toLowerCase() == user.username.toLowerCase() ||
+        e.owner == user._id
+    );
+
+    data && user.premium
+    ? setProductos(
         data.data.data.filter(
           (e) =>
-            e.owner.toLowerCase() == user.username.toLowerCase() ||
-            e.owner == user._id
+            e.owner.toLowerCase() === user.username.toLowerCase() ||
+            e.owner === user._id
         )
-      );
+      )
+    : setProductos(
+        data.data.data.filter(
+          (e) =>
+            e.owner.toLowerCase() === user.username.toLowerCase() ||
+            e.owner === user._id
+        ).slice(-3)
+      )
+
   };
 
   useEffect(() => {
