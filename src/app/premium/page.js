@@ -11,12 +11,18 @@ const Page = () => {
   //?orderID=660effc12c2b1665f2fec3a0&collection_id=75600689512&collection_status=approved&payment_id=75600689512&status=approved&external_reference=null&payment_type=account_money&merchant_order_id=17306289685&preference_id=743465031-d887ba61-b9f3-45fc-8c6e-98d30a7645bb&site_id=MLA&processing_mode=aggregator&merchant_account_id=null
   const { user } = useUsers();
   const updateUser = async (_id, paymentId) => {
+
+    const premiumDuration = 30; // Duración de la suscripción en días
+    const premiumTime = new Date(new Date().getTime() + premiumDuration * 24 * 60 * 60 * 1000);
+
+
     const response = await axios.put("/api/users", {
       _id: _id,
       transactionId: paymentId,
       premium: true,
+      premiumTime:premiumTime
     });
-    console.log(response);
+    console.log(response); 
   };
 
   useEffect(() => {

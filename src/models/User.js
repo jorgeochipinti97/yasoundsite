@@ -33,6 +33,7 @@ const userSchema = new Schema(
       user_id: { type: Number },
     },
     premium: { type: Boolean, default: false },
+    premiumTime: { type: Date },
   },
   { timestamps: true }
 );

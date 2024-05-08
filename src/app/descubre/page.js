@@ -8,21 +8,34 @@ import { useBeats } from "@/hooks/useBeats";
 import { useUsers } from "@/hooks/useUsers";
 import React, { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
-
+import axios from "axios";
 const Page = () => {
   const [query, setQuery] = useState();
   const { beats, popularGenres } = useBeats();
 
-  const { users } = useUsers();
+  // const { users } = useUsers();
+  // const findUsersWithNoProducts = async () => {
+  //   try {
+  //     // Hacer llamadas simultáneas para obtener usuarios y productos
+  //     const [usersResponse, productsResponse] = await Promise.all([
+  //       axios.get("/api/users"),
+  //       axios.get("/api/products"),
+  //     ]);
 
-  // useEffect(() => {
-  //   const filteredUsers =
-  //     users &&
-  //     users.filter((user) => user.products.length === 0);
+  //     // Extraer los datos de las respuestas
+  //     const users = usersResponse.data.data;
+  //     const products = productsResponse.data.data;
 
-  //   const exportToExcel = () => {
-  //     // Ajusta los datos para incluir solo los campos que necesitas
-  //     const adjustedData = filteredUsers.map((user) => ({
+  //     // Crear un conjunto de IDs de los usuarios que tienen productos
+  //     const userIdsWithProducts = new Set(
+  //       products.map((product) => product.owner)
+  //     );
+
+  //     // Filtrar para obtener usuarios que no tienen productos
+  //     const usersWithNoProducts = users.filter(
+  //       (user) => !userIdsWithProducts.has(user._id)
+  //     );
+  //     const adjustedData = usersWithNoProducts.map((user) => ({
   //       mail: user.email,
   //       username: user.username,
   //       name: user.name,
@@ -40,24 +53,19 @@ const Page = () => {
   //     const dataBlob = new Blob([excelBuffer], {
   //       type: "application/octet-stream",
   //     });
-  //     const fileName = "usuarios.xlsx";
+  //     const fileName = "usuarios-sin-producto.xlsx";
   //     const link = document.createElement("a");
   //     link.href = URL.createObjectURL(dataBlob);
   //     link.download = fileName;
   //     link.click();
-  //   };
-
-  //   // Llama a la función para exportar a Excel cuando cambie el conjunto de datos
-  //   if (filteredUsers && filteredUsers.length > 0) {
-  //     exportToExcel();
+  //   } catch (error) {
+  //     console.error("Error al recuperar usuarios o productos:", error);
+  //     return []; // Devolver un array vacío en caso de error
   //   }
-
-  //   // Llama a la función para exportar a Excel cuando cambie el conjunto de datos
-  //   if (filteredUsers && filteredUsers.length > 0) {
-  //     exportToExcel();
-  //   }
+  // };
+  // useEffect(() => {
+  //   users && findUsersWithNoProducts();
   // }, [users]);
-
   return (
     <>
       <div className="min-h-screen w-screen pt-20">
