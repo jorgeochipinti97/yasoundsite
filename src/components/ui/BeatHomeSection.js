@@ -120,48 +120,51 @@ export const BeatHomeSection = ({ beats, users, user }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {users &&
-                users.slice(-6).map((e, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">
-                      <div>
-                        {e.profilePicture.length >= 5 ? (
-                          <img
-                            src={`${e.profilePicture}?${new Date().getTime()}`}
-                            alt="Profile"
-                            className="  h-10 w-10 rounded-full border-2 border-violet-500"
-                          />
-                        ) : (
-                          <div className=" flex  h-10 w-10 rounded-full border-6 border-violet-500  cursor-pointer  bg-black  items-center justify-center text-white">
-                            {e.username[0].toUpperCase()}
-                          </div>
-                        )}
-                      </div>
-                    </TableCell>
-                    <TableCell className=" font-geist text-xs font-bold">
-                      {e.username.length > 12
-                        ? `${e.username.slice(0, 12)}...`
-                        : e.username}
-                    </TableCell>
-                    <TableCell className=" font-geist text-xs font-bold ">
-                      {e.country} {e.country && getFlagEmoji(e.country)}
-                    </TableCell>
-                    <TableCell className=" font-geist text-xs tracking-tighter  hidden md:table-cell   ">
-                      {e.genders.map((g) => `${g}, `)}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="border-black"
-                        onClick={() => push(`/perfil/${e.username}`)}
-                      >
-                        {" "}
-                        Ver perfil
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+            {users &&
+  users
+    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)) // Ordena los usuarios por 'updatedAt' descendente
+    .slice(0, 6) // Toma sólo los últimos 6 usuarios
+    .map((e, index) => (
+      <TableRow key={index}>
+        <TableCell className="font-medium">
+          <div>
+            {e.profilePicture.length >= 5 ? (
+              <img
+                src={`${e.profilePicture}?${new Date().getTime()}`}
+                alt="Profile"
+                className="h-10 w-10 rounded-full border-2 border-violet-500"
+              />
+            ) : (
+              <div className="flex h-10 w-10 rounded-full border-6 border-violet-500 cursor-pointer bg-black items-center justify-center text-white">
+                {e.username[0].toUpperCase()}
+              </div>
+            )}
+          </div>
+        </TableCell>
+        <TableCell className="font-geist text-xs font-bold">
+          {e.username.length > 12
+            ? `${e.username.slice(0, 12)}...`
+            : e.username}
+        </TableCell>
+        <TableCell className="font-geist text-xs font-bold">
+          {e.country} {e.country && getFlagEmoji(e.country)}
+        </TableCell>
+        <TableCell className="font-geist text-xs tracking-tighter hidden md:table-cell">
+          {e.genders.map((g) => `${g}, `)}
+        </TableCell>
+        <TableCell className="text-right">
+          <Button
+            size="sm"
+            variant="outline"
+            className="border-black"
+            onClick={() => push(`/perfil/${e.username}`)}
+          >
+            Ver perfil
+          </Button>
+        </TableCell>
+      </TableRow>
+    ))
+}
             </TableBody>
           </Table>
         </div>
