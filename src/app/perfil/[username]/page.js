@@ -50,10 +50,18 @@ const Page = () => {
           <div className="grid grid-cols-1 md:grid-cols-2  mt-28">
             <div>
               <div className="flex justify-center">
-                <img
-                  src={`${user.profilePicture}?${new Date().getTime()}`}
-                  className="rounded-xl border-2 shadowLow border-fuchsia-800 w-[200px] md:w-[300px] md:ml-10 "
-                />
+                {user.profilePicture ? (
+                  <img
+                    src={`${user.profilePicture}?${new Date().getTime()}`}
+                    className="rounded-xl border-2 shadowLow border-fuchsia-800 w-[200px] md:w-[300px] md:ml-10 "
+                  />
+                ) : (
+                  <>
+                    <div className="bg-black text-white font-geist p-5 text-7xl rounded-xl">
+                      {user.username[0]}
+                    </div>
+                  </>
+                )}
               </div>
               <div className="flex justify-center mt-5 ">
                 <Card className="w-11/12 md:w-10/12 bg-white/40">

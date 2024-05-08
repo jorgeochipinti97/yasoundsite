@@ -143,12 +143,12 @@ export const ProductForm = ({ product }) => {
 
   const handleKeyDown = (event) => {
     if (event.key === " ") {
-      event.preventDefault(); 
-      let value = event.target.value.trim(); 
+      event.preventDefault();
+      let value = event.target.value.trim();
       if (value) {
-        setTags([...tags, value]); 
+        setTags([...tags, value]);
         setValue("tags", [...tags, value]);
-        event.target.value = ""; 
+        event.target.value = "";
       }
     }
   };
@@ -298,6 +298,11 @@ export const ProductForm = ({ product }) => {
             createProduct && reset();
             createProduct && setSelectedGenders([]);
             createProduct && setTags([]);
+            createProduct &&
+              (await axios.put("/api/users", {
+                _id: user._id,
+                products: [...user.products, createProduct.data.data._id],
+              }));
           }
         }
       } else {
@@ -370,18 +375,17 @@ export const ProductForm = ({ product }) => {
               ></path>
             </svg>
           );
-          response && setIsLoading(false);
+        response && setIsLoading(false);
         response.data.data._id &&
           (await axios.put("/api/users", {
             _id: user._id,
-            products: [...user.products, response.data._id],
+            products: [...user.products, response.data.data._id],
           }));
       }
     } catch (er) {
       console.log(er);
       showAlert("Error", "Hubo un problema al procesar tu solicitud.", <></>);
       setIsLoading(false);
-
     }
   };
   useEffect(() => {

@@ -33,7 +33,9 @@ const register = async (req, res) => {
 
     const hashedPassword = await hashPassword(password);
     const premiumDuration = 3; // Duración de la suscripción gratuita en días
-    const premiumTime = new Date(new Date().getTime() + premiumDuration * 24 * 60 * 60 * 1000);
+    const premiumTime = new Date(
+      new Date().getTime() + premiumDuration * 24 * 60 * 60 * 1000
+    );
 
     await User.create({
       email,
@@ -42,7 +44,8 @@ const register = async (req, res) => {
       profilePicture,
       country,
       genders,
-      premiumTime,   
+      premiumTime,
+      premium: true,
     });
   } catch (error) {
     console.log(error.message);
