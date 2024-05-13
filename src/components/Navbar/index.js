@@ -81,7 +81,7 @@ export const Navbar = () => {
       style={{ backdropFilter: "blur(4px) ", zIndex: 1000 }}
       className="   h-[7vh]   flex items-center  max-w-screen   pt-5 absolute indexz inset-0"
     >
-      <section className="flex rounded-full">
+      <section className="flex rounded-full" onClick={()=> push('/')}>
         <img src="/logo.png" alt="" style={{ height: "70px" }} />
       </section>
 
