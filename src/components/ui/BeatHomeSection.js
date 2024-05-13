@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { useRouter } from "next/navigation";
@@ -31,10 +31,11 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { Separator } from "./separator";
 
 export const BeatHomeSection = ({ beats, users, user }) => {
   const { push } = useRouter();
-
+  const [usersTable, setUsersTable] = useState([]);
   const getPremium = async () => {
     try {
       const preference = {
@@ -76,6 +77,36 @@ export const BeatHomeSection = ({ beats, users, user }) => {
     return countryObject ? countryObject.emoji : "";
   };
 
+  const getUsersWithProducts = async () => {
+    try {
+      const data = await axios.get("/api/products");
+      const userIDs = data.data.data.map((product) => product.owner);
+
+      // Verificar que 'users' existe y es un array antes de filtrar
+      if (Array.isArray(users)) {
+        // Filtrar usuarios que son owners de productos
+        const filteredUsers = users.filter((user) =>
+          userIDs.includes(user._id) && user.profilePicture
+        );
+
+        // Ordenar por 'updatedAt' descendente y tomar los últimos 8
+        const lastEightUpdatedUsers = filteredUsers
+          .slice(-8);
+
+        setUsersTable(lastEightUpdatedUsers);
+      }
+    } catch (error) {
+      console.error("Failed to fetch products:", error);
+      // Manejar el error adecuadamente, por ejemplo, mostrando un mensaje al usuario
+    }
+  };
+
+  useEffect(() => {
+    // Llamar a getUsersWithProducts sólo si 'users' existe y es un array
+    if (Array.isArray(users) && users.length > 0) {
+      getUsersWithProducts();
+    }
+  }, [users]);
   return (
     <div className="min-h-screen max-w-screen ">
       <p
@@ -121,51 +152,46 @@ export const BeatHomeSection = ({ beats, users, user }) => {
             </TableHeader>
             <TableBody>
               {users &&
-                users
-                  .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)) // Ordena los usuarios por 'updatedAt' descendente
-                  .slice(0, 6) // Toma sólo los últimos 6 usuarios
-                  .map((e, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">
-                        <div>
-                          {e.profilePicture.length >= 5 ? (
-                            <img
-                              src={`${
-                                e.profilePicture
-                              }?${new Date().getTime()}`}
-                              alt="Profile"
-                              className="h-10 w-10 rounded-full border-2 border-violet-500"
-                            />
-                          ) : (
-                            <div className="flex h-10 w-10 rounded-full border-6 border-violet-500 cursor-pointer bg-black items-center justify-center text-white">
-                              {e.username[0].toUpperCase()}
-                            </div>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell className="font-geist text-xs font-bold">
-                        {e.username.length > 12
-                          ? `${e.username.slice(0, 12)}...`
-                          : e.username}
-                      </TableCell>
-                      <TableCell className="font-geist text-xs font-bold">
-                        {e.country} {e.country && getFlagEmoji(e.country)}
-                      </TableCell>
-                      <TableCell className="font-geist text-xs tracking-tighter hidden md:table-cell">
-                        {e.genders.map((g) => `${g}, `)}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="border-black"
-                          onClick={() => push(`/perfil/${e.username}`)}
-                        >
-                          Ver perfil
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                usersTable.map((e, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">
+                      <div>
+                        {e.profilePicture.length >= 5 ? (
+                          <img
+                            src={`${e.profilePicture}?${new Date().getTime()}`}
+                            alt="Profile"
+                            className="h-10 w-10 rounded-full border-2 border-violet-500"
+                          />
+                        ) : (
+                          <div className="flex h-10 w-10 rounded-full border-6 border-violet-500 cursor-pointer bg-black items-center justify-center text-white">
+                            {e.username[0].toUpperCase()}
+                          </div>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell className="font-geist text-xs font-bold">
+                      {e.username.length > 12
+                        ? `${e.username.slice(0, 12)}...`
+                        : e.username}
+                    </TableCell>
+                    <TableCell className="font-geist text-xs font-bold">
+                      {e.country} {e.country && getFlagEmoji(e.country)}
+                    </TableCell>
+                    <TableCell className="font-geist text-xs tracking-tighter hidden md:table-cell">
+                      {e.genders.map((g) => `${g}, `)}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="border-black"
+                        onClick={() => push(`/perfil/${e.username}`)}
+                      >
+                        Ver perfil
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </div>
@@ -415,7 +441,12 @@ export const BeatHomeSection = ({ beats, users, user }) => {
           </div>
         </div>
       </div>
-
+      <Separator className="my-5" />
+      <div className="flex justify-center">
+        <a href="https://www.passline.com">
+          <img src="/passline.png" className="botder-2 p-2" />
+        </a>
+      </div>
       <div
         className="flex items-center md:flex-row py-10 flex-col justify-around mt-10 rounded-t-xl"
         style={{

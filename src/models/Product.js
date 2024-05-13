@@ -11,6 +11,7 @@ const productSchema = new Schema(
     file: {
       fileType: { type: String },
       url: { type: String },
+      watermark: { type: String },
     },
 
     licenses: [
