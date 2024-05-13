@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 
 const Page = () => {
   const [transactions, setTransactios] = useState([]);
@@ -51,7 +52,7 @@ const Page = () => {
   return (
     //PAISES  / DESCARGA EXCEL  / FILTROS / AGREGAR PARTE DE BEATS
     <div className="pt-20 flex  justify-center w-screen">
-      <Tabs defaultValue="users" className="w-10/12 h-[80vh]">
+      {/* <Tabs defaultValue="users" className="w-10/12 h-[80vh]">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="users">Usuarios</TabsTrigger>
           <TabsTrigger value="transactions">Transanctions</TabsTrigger>
@@ -67,7 +68,9 @@ const Page = () => {
                     <TableHead>Username</TableHead>
                     <TableHead>Email</TableHead>
                     <TableHead className=""></TableHead>
-                    <TableHead className="w-[200px]"></TableHead>
+                    <TableHead className=""></TableHead>
+                    <TableHead className="">RESTANTE DEL PREMIUM</TableHead>
+                    <TableHead className="">Acciones</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -102,6 +105,14 @@ const Page = () => {
                               )
                             : "N/A"}{" "}
                         </TableCell>
+                        <TableCell className=""
+                        >
+                          <div className="flex-col flex" >
+
+<Button variant='destructive' className='my-1'>Eliminar</Button>
+<Button variant='' className='my-1'>Ver perfil</Button>
+                          </div>
+                        </TableCell>
                       </TableRow>
                     ))}
                 </TableBody>
@@ -109,7 +120,7 @@ const Page = () => {
             </ScrollArea>
           </div>
         </TabsContent>
-      </Tabs>
+      </Tabs> */}
     </div>
   );
 };
