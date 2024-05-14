@@ -444,7 +444,7 @@ export const BeatHomeSection = ({ beats, users, user }) => {
       <Separator className="my-5" />
       <div className="flex justify-center">
         <a href="https://www.passline.com">
-          <img src="/passline.png" className="botder-2 p-2" />
+          <img src="https://home.passline.com/assets/img/logo.svg" className="botder-2 p-2 bg-gray-400 rounded-xl" />
         </a>
       </div>
       <div
