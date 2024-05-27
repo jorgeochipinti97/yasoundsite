@@ -68,9 +68,10 @@ const Page = () => {
     getOrders();
   }, []);
   useEffect(() => {
-    user && user.username !== "Fedemed" || user && user.username !== "jorgeochipinti" && push("/");
-  }, [user]);
-
+    if (user && user.username.toLowerCase() !== "fedemed" && user.username.toLowerCase() !== "jorgeochipinti") {
+        push("/");
+    }
+}, [user]);
   const onUpdatePoints = async (e) => {
     await updatePoints(e, points_);
 
@@ -79,7 +80,7 @@ const Page = () => {
   };
   return (
     <div className="min-h-screen">
-      { user && user.username == "Fedemed" || user && user.username == "jorgeochipinti" && (
+{ user && (user.username.toLowerCase() === "fedemed" || user.username.toLowerCase() === "jorgeochipinti") && (
         <div>
           <AlertComponent {...alertProps} className="z-50" />
           <div className="pt-20 flex  justify-center w-screen">
