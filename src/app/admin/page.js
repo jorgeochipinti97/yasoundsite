@@ -68,7 +68,7 @@ const Page = () => {
     getOrders();
   }, []);
   useEffect(() => {
-    user && user.username != "Fedemed" || user && user.username !== "jorgeochipinti" && push("/");
+    user && user.username !== "Fedemed" || user && user.username !== "jorgeochipinti" && push("/");
   }, [user]);
 
   const onUpdatePoints = async (e) => {
