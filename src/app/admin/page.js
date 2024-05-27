@@ -75,7 +75,7 @@ const Page = () => {
   const onUpdatePoints = async (e) => {
     // await updatePoints(e, points_);
     const updatedUser = {
-      ...user,
+      ...e,
       points:  points_
     };
     const response = await axios.put(`api/users`, updatedUser);
