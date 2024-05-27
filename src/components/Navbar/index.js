@@ -22,12 +22,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "../ui/badge";
+import useRanking from "@/hooks/useRanking,";
 
 export const Navbar = () => {
   const { push } = useRouter();
-  const { user } = useUsers();
+  const { user, users } = useUsers();
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const pillTabs = ["Home", "Descubre", "Info"];
+  const currentUserRanking = useRanking(users, user);
 
   const tabsComponents = pillTabs.map((text, i) => {
     return (
@@ -81,7 +83,7 @@ export const Navbar = () => {
       style={{ backdropFilter: "blur(4px) ", zIndex: 1000 }}
       className="   h-[7vh]   flex items-center  max-w-screen   pt-5 absolute indexz inset-0"
     >
-      <section className="flex rounded-full" onClick={()=> push('/')}>
+      <section className="flex rounded-full" onClick={() => push("/")}>
         <img src="/logo.png" alt="" style={{ height: "70px" }} />
       </section>
 
@@ -117,21 +119,28 @@ export const Navbar = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 mr-2">
             <DropdownMenuLabel>
-              {" "}
-              <Badge
-                variant={"outline"}
-                className={"border-violet-500 text-violet-500"}
-              >
-                {" "}
-                {user && user.premium ? `PREMIUM` : `PLAN FREE`}
-              </Badge>
-              <Badge
-                variant={"outline"}
-                className={"border-pink-900 mx-2 text-pink-900"}
-              >
-                {" "}
-                {user && user.points && `${user.points} puntos`}
-              </Badge>
+              <div className="flex flex-col flex-start">
+                <div>
+                  <Badge
+                    variant={"outline"}
+                    className={"border-violet-500 text-violet-500"}
+                  >
+                    {" "}
+                    {user && user.premium ? `PREMIUM` : `PLAN FREE`}
+                  </Badge>
+                </div>
+                <div className="mt-2">
+                  <Badge
+                    variant={"outline"}
+                    className={"border-pink-900  text-pink-900"}
+                  >
+                    {" "}
+                    {user &&
+                      user.points &&
+                      `${user.points} puntos | ${currentUserRanking} puesto`}
+                  </Badge>
+                </div>
+              </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>

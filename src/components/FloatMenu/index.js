@@ -14,10 +14,15 @@ import { Badge } from "../ui/badge";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import useRanking from "@/hooks/useRanking,";
 
 export const FloatMenu = () => {
-  const { user } = useUsers();
+  const { user, users } = useUsers();
+
   const { push } = useRouter();
+
+  const currentUserRanking = useRanking(users, user);
+
   return (
     <div>
       {user ? (
@@ -43,21 +48,28 @@ export const FloatMenu = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56 mr-2">
               <DropdownMenuLabel>
-                {" "}
-                <Badge
-                  variant={"outline"}
-                  className={"border-violet-500 text-violet-500"}
-                >
-                  {" "}
-                  {user && user.premium ? `PREMIUM ` : `PLAN FREE`}
-                </Badge>
-                <Badge
-                variant={"outline"}
-                className={"border-pink-900 mx-2 text-pink-900"}
-              >
-                {" "}
-                {user && user.points && `${user.points} puntos`}
-              </Badge>
+              <div className="flex flex-col flex-start">
+                <div>
+                  <Badge
+                    variant={"outline"}
+                    className={"border-violet-500 text-violet-500"}
+                  >
+                    {" "}
+                    {user && user.premium ? `PREMIUM` : `PLAN FREE`}
+                  </Badge>
+                </div>
+                <div className="mt-2">
+                  <Badge
+                    variant={"outline"}
+                    className={"border-pink-900  text-pink-900"}
+                  >
+                    {" "}
+                    {user &&
+                      user.points &&
+                      `${user.points} puntos | ${currentUserRanking} puesto`}
+                  </Badge>
+                </div>
+              </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
