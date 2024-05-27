@@ -11,17 +11,35 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import axios from "axios";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { updatePoints } from "@/utils/utils";
+import { useAlert } from "@/hooks/useAlert";
+import { AlertComponent } from "@/components/ui/AlertComponent";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const { alertProps, showAlert } = useAlert();
   const [transactions, setTransactios] = useState([]);
   const [totalArs, setTotalArs] = useState([]);
   const [totalUsd, setTotalUsd] = useState([]);
+  const [points_, setPoints_] = useState();
+  const [isVisible, setIsVisible] = useState(false);
+  const { push } = useRouter();
   const getOrders = async () => {
     const data = await axios.get("/api/orders");
 
@@ -44,57 +62,68 @@ const Page = () => {
     setTotalArs(totalARS);
     setTotalUsd(totalUSD);
   };
-  const { users } = useUsers();
+  const { users, user } = useUsers();
 
   useEffect(() => {
     getOrders();
   }, []);
+  useEffect(() => {
+    user && user.username != "Fedemed" || user && user.username !== "jorgeochipinti" && push("/");
+  }, [user]);
+
+  const onUpdatePoints = async (e) => {
+    await updatePoints(e, points_);
+
+    alert("actualizado");
+    setPoints_(0);
+  };
   return (
-    //PAISES  / DESCARGA EXCEL  / FILTROS / AGREGAR PARTE DE BEATS
-    <div className="pt-20 flex  justify-center w-screen">
-      {/* <Tabs defaultValue="users" className="w-10/12 h-[80vh]">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="users">Usuarios</TabsTrigger>
-          <TabsTrigger value="transactions">Transanctions</TabsTrigger>
-        </TabsList>
-        <TabsContent value="transactions"></TabsContent>
-        <TabsContent value="users">
-          <div className="flex justify-center">
-            <ScrollArea className="w-screen h-[70vh]">
-              <Table className="w-full ">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="">Img</TableHead>
-                    <TableHead>Username</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead className=""></TableHead>
-                    <TableHead className=""></TableHead>
-                    <TableHead className="">RESTANTE DEL PREMIUM</TableHead>
-                    <TableHead className="">Acciones</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {users &&
-                    users.map((e) => (
-                      <TableRow>
-                        <TableCell className="font-medium">
-                          {
-                            <img
-                              src={e.profilePicture}
-                              className="w-[50px] rounded-xl"
-                            />
-                          }
-                        </TableCell>
-                        <TableCell>{e.username}</TableCell>
-                        <TableCell>{e.email}</TableCell>
-                        <TableCell className="">
-                          <Badge>{e.premium ? "PREMIUM" : "FALSE"}</Badge>
-                        </TableCell>
-                        <TableCell className="">
-{e.country}
-                        </TableCell>
-                        <TableCell className="">
-                          {e.premiumTime
+    <div className="min-h-screen">
+      { user && user.username == "Fedemed" || user && user.username == "jorgeochipinti" && (
+        <div>
+          <AlertComponent {...alertProps} className="z-50" />
+          <div className="pt-20 flex  justify-center w-screen">
+            <Tabs defaultValue="users" className="w-10/12 h-[80vh]">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="users">Usuarios</TabsTrigger>
+                <TabsTrigger value="transactions">Transanctions</TabsTrigger>
+              </TabsList>
+              <TabsContent value="transactions"></TabsContent>
+              <TabsContent value="users">
+                <div className="flex justify-center">
+                  <ScrollArea className="w-screen h-[70vh]">
+                    <Table className="w-full ">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="">Img</TableHead>
+                          <TableHead>Username</TableHead>
+                          <TableHead>Email</TableHead>
+                          <TableHead className=""></TableHead>
+                          <TableHead className=""></TableHead>
+                          <TableHead className="">Puntos</TableHead>
+                          <TableHead className="">Acciones</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {users &&
+                          users.map((e) => (
+                            <TableRow>
+                              <TableCell className="font-medium">
+                                {
+                                  <img
+                                    src={e.profilePicture}
+                                    className="w-[50px] rounded-xl"
+                                  />
+                                }
+                              </TableCell>
+                              <TableCell>{e.username}</TableCell>
+                              <TableCell>{e.email}</TableCell>
+                              <TableCell className="">
+                                <Badge>{e.premium ? "PREMIUM" : "FALSE"}</Badge>
+                              </TableCell>
+                              <TableCell className="">{e.country}</TableCell>
+                              <TableCell className="text-center">
+                                {/* {e.premiumTime
                             ? new Date(e.premiumTime).toLocaleDateString(
                                 "es-ES",
                                 {
@@ -103,24 +132,63 @@ const Page = () => {
                                   year: "numeric",
                                 }
                               )
-                            : "N/A"}{" "}
-                        </TableCell>
-                        <TableCell className=""
-                        >
-                          <div className="flex-col flex" >
+                            : "N/A"}{" "} */}
+                                {e.points}
+                              </TableCell>
+                              <TableCell className="">
+                                <div className="flex-col flex">
+                                  {/* <Button variant='outline' className='my-1 text-red-500 border-red-500 hover:'>Eliminar</Button> */}
 
-<Button variant='destructive' className='my-1'>Eliminar</Button>
-<Button variant='' className='my-1'>Ver perfil</Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </ScrollArea>
+                                  <Dialog>
+                                    <DialogTrigger asChild>
+                                      <Button
+                                        variant="outline"
+                                        className="my-1 border-2 border-black"
+                                      >
+                                        Agregar puntos
+                                      </Button>
+                                    </DialogTrigger>
+                                    <DialogContent className="sm:max-w-[425px]">
+                                      <label
+                                        htmlFor="username"
+                                        className="text-right"
+                                      >
+                                        Cantidad de puntos
+                                      </label>
+                                      <Input
+                                        id="username"
+                                        placeholder="Cantidad de puntos a sumar"
+                                        type="number"
+                                        className="col-span-3"
+                                        value={points_}
+                                        onChange={(e) =>
+                                          setPoints_(parseInt(e.target.value))
+                                        }
+                                      />
+                                      <DialogFooter>
+                                        <div className="flex justify-start w-full">
+                                          <Button
+                                            onClick={() => onUpdatePoints(e)}
+                                          >
+                                            Enviar
+                                          </Button>
+                                        </div>
+                                      </DialogFooter>
+                                    </DialogContent>
+                                  </Dialog>
+                                </div>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                      </TableBody>
+                    </Table>
+                  </ScrollArea>
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
-        </TabsContent>
-      </Tabs> */}
+        </div>
+      )}
     </div>
   );
 };

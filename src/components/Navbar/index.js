@@ -123,7 +123,14 @@ export const Navbar = () => {
                 className={"border-violet-500 text-violet-500"}
               >
                 {" "}
-                {user && user.premium ? "PREMIUM" : "PLAN FREE"}
+                {user && user.premium ? `PREMIUM` : `PLAN FREE`}
+              </Badge>
+              <Badge
+                variant={"outline"}
+                className={"border-pink-900 mx-2 text-pink-900"}
+              >
+                {" "}
+                {user && user.points && `${user.points} puntos`}
               </Badge>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />

@@ -1,4 +1,5 @@
 "use client";
+import { updatePoints } from "@/utils/utils";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -20,7 +21,7 @@ const Page = () => {
       status: status,
       provider: "mercadopago",
     });
-    console.log(response);
+    response && await updatePoints(user,3)
   };
 
   useEffect(() => {

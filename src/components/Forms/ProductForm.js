@@ -358,7 +358,7 @@ export const ProductForm = ({ product }) => {
             delay: 1,
           });
         response &&
-          showAlert(
+         showAlert (
             "Éxito",
             "Producto  actualizado con éxito",
             <svg

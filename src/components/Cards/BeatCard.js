@@ -316,7 +316,7 @@ export const BeatCard = ({
                           stroke="#ffffff"
                           stroke-width="1.5"
                         ></path>{" "}
-                      </g>
+                      </g>   
                     </svg>
                     Ver más
                   </Button>
@@ -533,11 +533,13 @@ export const BeatCard = ({
                                                           provider: "paypal",
                                                         }
                                                       );
-                                                    console.log(response);
+                                                  
                                                     response &&
                                                       push(
                                                         `/success?orderID=${orderId}`
                                                       );
+             response && await updatePoints(user,2)
+
                                                   }
                                                 } catch (error) {
                                                   console.error(

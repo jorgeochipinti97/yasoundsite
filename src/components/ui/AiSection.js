@@ -21,7 +21,7 @@ export const AiSection = () => {
   }, [inView]);
 
   return (
-    <div className=" min-h-screen max-w-screen flex items-start md:items-center flex-col justify-start md:mb-10 relative">
+    <div className=" min-h-screen max-w-screen mt-10 flex items-start md:items-center flex-col justify-start md:mb-10 relative">
       <p className="text-5xl font-semibold text-center tracking-tighter mt-10 md:mt-0 md:mb-5">
         Creá, generá y revolucioná
       </p>

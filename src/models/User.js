@@ -34,6 +34,7 @@ const userSchema = new Schema(
     },
     premium: { type: Boolean, default: false },
     premiumTime: { type: Date },
+    points: { type: Number, default: 1 },
   },
   { timestamps: true }
 );

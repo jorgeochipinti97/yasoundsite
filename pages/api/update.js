@@ -12,28 +12,14 @@ export default async function handler(req, res) {
     if (req.method === "POST") {
       // Cambiado a POST para seguir las buenas prácticas
       try {
-
-        // Obtener todos los beats
-
-        const beats = await Product.find({});
-        const userBeatsMap = new Map();
-
-        beats.forEach((beat) => {
-          const ownerId = beat.owner.toString();
-          if (!userBeatsMap.has(ownerId)) {
-            userBeatsMap.set(ownerId, []);
-          }
-          userBeatsMap.get(ownerId).push(beat._id.toString());
+        const result = await User.updateMany(
+          { points: { $lt: 1 } }, // selecciona usuarios con menos de 1 punto
+          { $set: { points: 1 } } // establece los puntos a 1
+        );
+        res.status(200).json({
+          message: "Todos los usuarios ahora tienen al menos un punto.",
+          updatedCount: result.nModified,
         });
-
-        // Actualizar cada usuario con los beats correspondientes
-        for (let [userId, beatIds] of userBeatsMap.entries()) {
-          await User.findByIdAndUpdate(userId, { $set: { products: beatIds } });
-        }
-
-        res
-          .status(200)
-          .json({ message: "Beats asociados a usuarios correctamente." });
       } catch (error) {
         console.error("Error al asociar beats a usuarios:", error);
         res.status(500).json({ message: "Error interno del servidor" });

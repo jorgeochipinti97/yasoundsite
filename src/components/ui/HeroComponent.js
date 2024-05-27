@@ -11,8 +11,11 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import gsap, { Power1 } from "gsap";
+import EmblaCarousel from "../Carousel/Embla/EmblaCarousel";
+import { useRouter } from "next/navigation";
 
 export const HeroComponent = () => {
+  const { push } = useRouter()
   useEffect(() => {
     gsap.to(".logoblack", {
       opacity: 0,
@@ -41,17 +44,31 @@ export const HeroComponent = () => {
     >
       <p
         style={{ opacity: 0, display: "none" }}
-        className="font-semibold    font-sans  text-center  capitalize text-7xl md:mt-0 mt-20 md:text-9xl   displayvideo  degradado-texto"
+        className="font-semibold    font-sans  text-center  capitalize text-7xl  mt-20 md:text-9xl   displayvideo  degradado-texto"
       >
         Yasound
       </p>
+
       <p
-        className="  tracking-tighter  font-geist displayvideo"
+        className="  tracking-tighter mb-5 font-geist displayvideo"
         style={{ opacity: 0, display: "none" }}
       >
         La comunidad latina de artistas.
       </p>
+      <div className="displayvideo" style={{ opacity: 0, display: "none" }}>
+        <EmblaCarousel
+          images={["/banner1.jpg", "/banner2.jpg", "/banner3.jpg"]}
+        />
+      </div>
 
+      <section className="displayvideo" style={{ opacity: 0, display: "none" }}>
+        {" "}
+        <p className=" text-4xl text-center md:text-6xl font-bold tracking-tighter">Doná y sumá puntos</p>
+        <div className="flex justify-center mt-5">
+          <Button size='lg' onClick={()=>push('https://www.paypal.me/yasound')} className="bg-sky-600 mx-5 hover:bg-sky-500 transition-all duration-200">Mercadopago</Button>
+          <Button size='lg' onClick={()=>push('https://www.paypal.me/yasound')} className="bg-sky-800 mx-5 hover:bg-sky-500 transition-all duration-200">Paypal</Button>
+        </div>
+      </section>
       <img src="/logoblack.svg" className="w-[40%] logoblack" />
       <div
         className="grid grid-cols-1 md:grid-cols-2 md:mt-10 indexz displayvideo"

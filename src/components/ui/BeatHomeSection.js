@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { formatCurrency } from "@/utils/utils";
+import { formatCurrency, updatePoints } from "@/utils/utils";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -606,6 +606,8 @@ export const BeatHomeSection = ({ beats, users, user }) => {
                                       push(
                                         `/premium?payment_id=${transactionId}`
                                       );
+
+                                      response && await updatePoints(user,7)
                                   } catch (error) {
                                     console.error(
                                       "Error al capturar el pago o al guardar los detalles:"
