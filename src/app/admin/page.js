@@ -106,8 +106,8 @@ const Page = () => {
                       </TableHeader>
                       <TableBody>
                         {users &&
-                          users.map((e) => (
-                            <TableRow>
+                          users.map((e,index) => (
+                            <TableRow key={index}>
                               <TableCell className="font-medium">
                                 {
                                   <img
