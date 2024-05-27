@@ -73,11 +73,18 @@ const Page = () => {
     }
 }, [user]);
   const onUpdatePoints = async (e) => {
-    await updatePoints(e, points_);
-
-    alert("actualizado");
+    // await updatePoints(e, points_);
+    const updatedUser = {
+      ...user,
+      points:  points_
+    };
+    const response = await axios.put(`api/users`, updatedUser);
+    response && alert("actualizado");
     setPoints_(0);
   };
+
+
+  
   return (
     <div className="min-h-screen">
 { user && (user.username.toLowerCase() === "fedemed" || user.username.toLowerCase() === "jorgeochipinti") && (
@@ -146,7 +153,7 @@ const Page = () => {
                                         variant="outline"
                                         className="my-1 border-2 border-black"
                                       >
-                                        Agregar puntos
+Editar puntos
                                       </Button>
                                     </DialogTrigger>
                                     <DialogContent className="sm:max-w-[425px]">
