@@ -31,7 +31,7 @@ const EmblaCarousel = ({ images, heigh }) => {
                 backgroundPosition: "center",
               }}
             >
-              <img src={e} alt="" className="rounded-xl"/>
+              <img src={e} alt="" className="rounded-xl mx-2"/>
             </div>
           ))}
         </div>
