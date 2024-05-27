@@ -12,7 +12,7 @@ import { FloatMenu } from "@/components/FloatMenu";
 
 export const metadata = {
   title: "Yasound",
-  description: "",
+  description: "Yasound es la plataforma líder para comprar y vender licencias de beats. Conecta a productores de música y artistas de todo el mundo. Encuentra y adquiere el beat perfecto o vende tus creaciones musicales con facilidad y seguridad.",
 };
 export default async function RootLayout({ children }) {
   const session = await getServerSession();

@@ -65,7 +65,7 @@ export const HeroComponent = () => {
         {" "}
         <p className=" text-4xl text-center md:text-6xl font-bold tracking-tighter">Doná y sumá puntos</p>
         <div className="flex justify-center mt-5">
-          <Button size='lg' onClick={()=>push('https://www.paypal.me/yasound')} className="bg-sky-600 mx-5 hover:bg-sky-500 transition-all duration-200">Mercadopago</Button>
+          <Button size='lg' onClick={()=>push('https://link.mercadopago.com.ar/yasound')} className="bg-sky-600 mx-5 hover:bg-sky-500 transition-all duration-200">Mercadopago</Button>
           <Button size='lg' onClick={()=>push('https://www.paypal.me/yasound')} className="bg-sky-800 mx-5 hover:bg-sky-500 transition-all duration-200">Paypal</Button>
         </div>
       </section>
