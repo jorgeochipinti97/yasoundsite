@@ -29,6 +29,7 @@ export const Navbar = () => {
   const { user, users } = useUsers();
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const pillTabs = ["Home", "Descubre", "Info"];
+
   const currentUserRanking = useRanking(users, user);
 
   const tabsComponents = pillTabs.map((text, i) => {
@@ -137,7 +138,7 @@ export const Navbar = () => {
                     {" "}
                     {user &&
                       user.points &&
-                      `${user.points} puntos | ${currentUserRanking} puesto`}
+                      `${user.points} puntos | ${currentUserRanking}° puesto`}
                   </Badge>
                 </div>
               </div>

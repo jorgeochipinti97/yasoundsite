@@ -66,7 +66,7 @@ export const FloatMenu = () => {
                     {" "}
                     {user &&
                       user.points &&
-                      `${user.points} puntos | ${currentUserRanking} puesto`}
+                      `${user.points} puntos | ${currentUserRanking}° puesto`}
                   </Badge>
                 </div>
               </div>
