@@ -134,7 +134,7 @@ export const BeatHomeSection = ({ beats, users, user }) => {
       </p>
 
       <div className=" flex justify-center">
-        <div className="w-12/12 md:w-5/12">
+        <div className="w-12/12  md:w-7/12">
           <Table className=" ">
             <TableCaption>
               Una tabla de nuestros ultimos 6 usuarios registrados.

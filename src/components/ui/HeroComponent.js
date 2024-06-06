@@ -57,7 +57,7 @@ export const HeroComponent = () => {
       </p>
       <div className="displayvideo" style={{ opacity: 0, display: "none" }}>
         <EmblaCarousel
-          images={["https://res.cloudinary.com/dwtnrs4ix/image/upload/v1716808202/thoyctwai1bnclhbjywr.jpg", "https://res.cloudinary.com/dwtnrs4ix/image/upload/v1716808203/r9rtbof84pqgpswjxesf.jpg", "https://res.cloudinary.com/dwtnrs4ix/image/upload/v1716808203/l6egujrzozome8ighilv.jpg"]}
+          images={['/banner1.JPG','/banner2.JPG','/banner3.JPG']}
         />
       </div>
 
