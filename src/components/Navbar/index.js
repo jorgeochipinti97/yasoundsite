@@ -130,17 +130,6 @@ export const Navbar = () => {
                     {user && user.premium ? `PREMIUM` : `PLAN FREE`}
                   </Badge>
                 </div>
-                <div className="mt-2">
-                  <Badge
-                    variant={"outline"}
-                    className={"border-pink-900  text-pink-900"}
-                  >
-                    {" "}
-                    {user &&
-                      user.points &&
-                      `${user.points} puntos | ${currentUserRanking}° puesto`}
-                  </Badge>
-                </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />

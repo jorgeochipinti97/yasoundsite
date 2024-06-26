@@ -8,6 +8,7 @@ import { HeroComponent } from "@/components/ui/HeroComponent";
 import { AiSection } from "@/components/ui/AiSection";
 import { BeatHomeSection } from "@/components/ui/BeatHomeSection";
 import { BottomSection } from "@/components/ui/BottomSection";
+import { Faqs } from "@/components/Faqs";
 
 export default function Home() {
   const { user, users } = useUsers();
@@ -25,9 +26,10 @@ export default function Home() {
   return (
     <>
       <HeroComponent />
-      <AiSection />
       <BeatHomeSection users={users} beats={beats_} user={user} />
+      <AiSection />
       <BottomSection />
+      <Faqs />
     </>
   );
 }

@@ -60,28 +60,7 @@ export const HeroComponent = () => {
           images={['/banner1.JPG','/banner2.JPG','/banner3.JPG']}
         />
       </div>
-
-      <section className="displayvideo" style={{ opacity: 0, display: "none" }}>
-        {" "}
-        <p className=" text-4xl text-center md:text-6xl font-bold tracking-tighter">Doná y sumá puntos</p>
-        <div className="flex justify-center mt-5">
-          <Button variant='outline' size='lg' onClick={()=>push('https://link.mercadopago.com.ar/yasound')} className="mx-2">
-            <img src="/mercado.svg"  className="w-[35px] mr-2"/>
-            Mercadopago</Button>
-          <Button variant='outline' size='lg' onClick={()=>push('https://www.paypal.me/yasound')} className="mx-2">
-            
-          <svg width={20} className="mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="-3.5 0 48 48">
-      <g>
-        <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
-          <g fill="#022B87" transform="translate(-804 -660)">
-            <path d="M838.912 663.62c-2.241-2.534-6.29-3.62-11.472-3.62h-15.035a2.15 2.15 0 00-2.128 1.801l-6.26 39.393a1.284 1.284 0 001.275 1.48h9.282l2.332-14.67-.073.46a2.143 2.143 0 012.12-1.802h4.41c8.668 0 15.452-3.492 17.434-13.593.06-.3.154-.874.154-.874.563-3.738-.004-6.275-2.04-8.576zm4.389 10.488c-2.156 9.945-9.03 15.208-19.937 15.208h-3.956L816.458 708h6.416c.927 0 1.714-.669 1.86-1.576l.075-.396 1.476-9.273.095-.512a1.877 1.877 0 011.858-1.576h1.172c7.58 0 13.516-3.056 15.25-11.89.696-3.547.362-6.52-1.359-8.669z"></path>
-          </g>
-        </g>
-      </g>
-    </svg>
-            Paypal</Button>
-        </div>
-      </section>
+      
       <img src="/logoblack.svg" className="w-[40%] logoblack" />
       <div
         className="grid grid-cols-1 md:grid-cols-2 md:mt-10 indexz displayvideo"
